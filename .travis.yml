@@ -10,3 +10,6 @@ install:
 
 script:
   - python manage.py test
+
+on:
+  branch: staging
