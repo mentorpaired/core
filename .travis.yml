@@ -1,16 +1,24 @@
 language: python
 
 python:
-  - "3.6"
-  - "3.7"
-  - "3.8"
+- '3.6'
+- '3.7'
+- '3.8'
 
 install:
-  - pip install -r requirements.txt
+- pip install -r requirements.txt
 
 script:
-  - cd backend
-  - python manage.py test
+- python manage.py test
 
-on:
-  branch: staging
+notifications:
+  slack:
+    secure: P4pAqu1yIpijZi8hZGf2MB6+1DCLjreYgTCeoUBqy0eHHemcYc39cgQQ1p6icpf4vEeopK20R1pHGtBb73qn53+wGAlgPU3b1hSJVwSJwUkryDJavmMUVciDQdIMeigL1p4v1KnFwJXN42+dtrC5zXr4DJ0cQK098Ha4kCqGHaDZ4SUvB1Qa9Zvo5cL6mAF2CpyRPcqq9ggvKfuO0UZy67lYaTJyeDtDNRZY8OdyZ0ydQmb2zY1niA2BqRS9dYsBVeLR12fIh+wQX6hg1QZM2tLfRQvNF2kZ6O1HMwqXbzUWmQZIIsXtG8QJH9yuXPdtd1borFIyOATyA5ouRIey0vMK1jK9qFjY03PcD24icIi2KV3kGUJzfJFf7KWUPDoF6aHQJ1PIHtvotXlo/ySX9voZq0amjjTJp7ox8jRg/HLE7M8KV6Serryy0GVHCavnQr7L79hi5kCoxX6Wt097g25ltFhrx1qU/sZAS/rOUOpX5H4UuCHk6x7vqdUMkxNFtGGO/c2GfauUMGTFzCyP6tby1SBty/48uwrM0kApohw2ZWKIHsTwiSMybV+w4cqkHQDtko3Flks44IKIVlRbq6yJpeNAnF5zhjxk8wkzfBd/+t+NVbiwpG+KbqNHP+Uyn+T6u1VsntuO4UEQT7D6ijj0YZ2Pdk8InrSBc31Xbb0=
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: hdvBvkm3nZqr8rp/jj9ykRnnzsWlssesjho1Ysf3oXswdQVDEei0kKBioQCoGEiSVx9cVT34Bur3NP66MF2tjNxCjXER+j8gGe+BW/tdXdbyYgTJNU5KK9aTzO0g5vvlNRnC4mg3BVoVdaRTQ8CNFUhrWOI/sb6zNRInsmVr2b8gu+T/D6EPLeXfd5ER9GNRe8VQ4omc7x4bzYUCgEoKbkyJxnP+gsbJ1E9uS1Z6LIccEyEAlzNC9RexPFgl0pKHmrEnh5yKlSIoN+QTNHHWd8CPwYzaIFervT2I8PKBJesOPG8jh8QyPOE4POPhIwKhNvcTjBELZ1UbT3ZkwsVJ09Txf60FTCw8hOJ7EVhfQA4cotpheJrTKS9OHdVbxXCgqKWOMmS7q54cV7qJobKjSyD2PfmTT25TOFnSf15EE8aoM2GyZnrpe+Mag5aZdsyhJyFKfkfwt/Bm6hXx7uk2gD3PBDt4rMcCEivsDEfZX4vI7VSiIXYAqX6mb22+59K+u/2DGaI8LaggUoUdU9U1pit0/S/7v269KPrbEYIrDKhNadIgY3RiDifzCzZTWoYQ3GAuv4Pt0h79Xf+Y+sdDRgQKGHA9CRljOM+5vYcxs7L5yr9O8L/wNi/Z7ryoH6Ztt2szxboKJB5X2LZc+XsT1CYT1aXYhBI2U1JYH7N1dac=
+  app: 
+    master: mentorpaired
+    staging: mentorpaired-staging
