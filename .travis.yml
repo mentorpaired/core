@@ -1,0 +1,22 @@
+language: python
+python:
+- '3.6'
+install:
+- pip install -r requirements.txt
+services:
+- postgresql
+before_script:
+- psql -c 'create database travis_ci_test;' -U postgres
+- python manage.py migrate --settings=backend.settings.test
+script:
+- python manage.py test --settings=backend.settings.test
+notifications:
+  slack:
+    secure: P4pAqu1yIpijZi8hZGf2MB6+1DCLjreYgTCeoUBqy0eHHemcYc39cgQQ1p6icpf4vEeopK20R1pHGtBb73qn53+wGAlgPU3b1hSJVwSJwUkryDJavmMUVciDQdIMeigL1p4v1KnFwJXN42+dtrC5zXr4DJ0cQK098Ha4kCqGHaDZ4SUvB1Qa9Zvo5cL6mAF2CpyRPcqq9ggvKfuO0UZy67lYaTJyeDtDNRZY8OdyZ0ydQmb2zY1niA2BqRS9dYsBVeLR12fIh+wQX6hg1QZM2tLfRQvNF2kZ6O1HMwqXbzUWmQZIIsXtG8QJH9yuXPdtd1borFIyOATyA5ouRIey0vMK1jK9qFjY03PcD24icIi2KV3kGUJzfJFf7KWUPDoF6aHQJ1PIHtvotXlo/ySX9voZq0amjjTJp7ox8jRg/HLE7M8KV6Serryy0GVHCavnQr7L79hi5kCoxX6Wt097g25ltFhrx1qU/sZAS/rOUOpX5H4UuCHk6x7vqdUMkxNFtGGO/c2GfauUMGTFzCyP6tby1SBty/48uwrM0kApohw2ZWKIHsTwiSMybV+w4cqkHQDtko3Flks44IKIVlRbq6yJpeNAnF5zhjxk8wkzfBd/+t+NVbiwpG+KbqNHP+Uyn+T6u1VsntuO4UEQT7D6ijj0YZ2Pdk8InrSBc31Xbb0=
+deploy:
+  provider: heroku
+  api_key:
+    secure: HE4J3jsewNqBChWGo7f1Qc/NxPO5/V7St8N/tPIOiBQzJNBgLc6KLX+c3aVhxpklPbk9B1jKK4cSrClzqWBpvPWigiun3fJSZm14aSX/Npjf+9hyi0LHM51yxmDrJS91DghLHmDMQ7QXrcuigQG8ufJmkdgOIJqh9eOE86pD6oph3Zkem71vy+tgZhzP98zHPb2wXahrU9iDjZYIFdKW9/WWKZ/3p5Y+C2i50L3qh0B88X5xypZhuD3jwXhi7+r+RukJrPiQcQ4Nv0N4eweItaOKyzOnONhpUwUdHXNgdoI+vanTDEsUQmPRaTjBbYBvU8HXuWANJ74p49zMwlpJRI2unBBnNkjpUV0ZcKNLm1ko3rVm0/ZA5SjWZMjRufnWc3re16lj7WwIucYVg2WkMg0RHX0ohA5fAOm3oyMT2jRmYGfgmVzwc5PV8ETPeGqsnZoDulG5StlhOa+i1bcqq5TV4NWCeZjfJz35DocLWmpi7/5jGztDyBJgiDzmjRMFV0dNY0ToXpXGIXgpTxq+8kEWVZKb+n4v1N3LzDZ5Js+qT2zhGVbR+TjGzfxI9i38gSbt7SN658k7GwTR4qmf4xZzSA2c0OupKWLuEjNxXLzQw0byDqC0MkvwJMQaoZD4UYaWm4LVsaa2kYL3/pC7WTrOaGu9k16kWbfxbTY2vZM=
+  app:
+    master: mentorpaired
+    staging: mentorpaired-staging
