@@ -1,19 +1,24 @@
 from .base import *
 
 # Secret Key
-SECRET_KEY = ''
+SECRET_KEY = 'Random secret key'
 
 # Debug
 DEBUG = True
 
+# https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = []
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# Replace 'USER' and 'PASSWORD' if you have username and password for your database 
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'travis_ci_test',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
