@@ -16,7 +16,7 @@ before_script:
 - python manage.py migrate --settings=backend.settings.test
 
 script:
-- python manage.py test
+- python manage.py test --settings=backend.settings.test
 
 notifications:
   slack:
