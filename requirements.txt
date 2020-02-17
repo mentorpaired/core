@@ -12,6 +12,9 @@ flake8==3.7.9
 gunicorn==20.0.4
 idna==2.8
 mccabe==0.6.1
+django-pronouns==0.3.0
+django-timezone-field==4.0
+gunicorn==20.0.4
 Pillow==7.0.0
 psycopg2==2.8.4
 pycodestyle==2.5.0
