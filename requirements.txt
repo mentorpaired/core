@@ -2,8 +2,10 @@ asgiref==3.2.3
 dj-database-url==0.5.0
 Django==3.0.3
 django-heroku==0.3.1
+django-pronouns==0.3.0
 django-timezone-field==4.0
 gunicorn==20.0.4
+Pillow==7.0.0
 psycopg2==2.8.4
 python-dotenv==0.11.0
 pytz==2019.3
