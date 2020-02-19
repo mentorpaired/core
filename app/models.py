@@ -56,12 +56,12 @@ class Spoken_Languages(models.Model):
     name = models.CharField(max_length=100, null=False)
     
     LANGUAGE_PROFICIENCY = [
-        ('NP', 'No_Proficiency'),
-        ('EP', 'Elementary_Proficiency'),
-        ('LWP', 'Limited_Working_Proficiency'),
-        ('PWP', 'Professional_Working_Proficiency'),
-        ('FWP', 'Full_Working_Proficiency'),
-        ('NBP', 'Native_Bilingual_Proficiency')
+        ('NP', 'No Proficiency'),
+        ('EP', 'Elementary Proficiency'),
+        ('LWP', 'Limited Working Proficiency'),
+        ('PWP', 'Professional Working Proficiency'),
+        ('FWP', 'Full Working Proficiency'),
+        ('NBP', 'Native Bilingual Proficiency')
     ]
     proficiency = models.CharField(
         max_length=3,
@@ -75,12 +75,12 @@ class Spoken_Languages(models.Model):
 class Request(models.Model):
     stack = models.ForeignKey(Stack, on_delete=models.CASCADE)
     description = models.TextField(max_length=500, help_text='brief overview of what you\'d like to learn, your available days, etc')
-    #mentee = models.ForeignKey(User, on_delete=models.CASCADE)
+    mentee = models.ForeignKey(User, on_delete=models.CASCADE)
     interested_mentors = models.OneToOneField('Interested_Mentor', on_delete=models.SET_NULL, null=True)
     matched_mentor = models.ForeignKey(User, related_name='Matched', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return self.description
+        return self.mentee.username
 
 class Interested_Mentor(models.Model):
     name = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -88,4 +88,4 @@ class Interested_Mentor(models.Model):
     accepted = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return self.name.username
