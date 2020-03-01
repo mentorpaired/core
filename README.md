@@ -70,4 +70,4 @@ Fork the repository and please read the [contributing guide](/CONTRIBUTING.md).
 This project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for more details.
 
 ### Acknowledgements
-Special thanks to [Kosy](https://github.com/kosyfrances) and [Delores](https://github.com/Del-sama) for being my mentors.
+Special thanks to [Kosy](https://github.com/kosyfrances) and [Delores](https://github.com/Del-sama) for guiding me through this entire app creation process and being my mentors.
