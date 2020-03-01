@@ -12,7 +12,7 @@ Core is written in Python3 and Django 3.0.3.
 * Python3. Run the 'python3 -V' command to see the version you have installed.
 * PostgreSQL (Ensure the server is running). Alternatively, if your project is a small one or you find you don't need PostgreSQL, Python includes a lightweight database called SQLite so you won't need to set up a database, however it cannot support a high level of concurrency.
 
-* It is advisable to install Django in a virtual environment and the library for doing this is called virtualenvwrapper (https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation). Install this library with:
+* It is advisable to install Django in a virtual environment and the library for doing this is called [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation). Install this library with:
 ```
 sudo pip install virtualenvwrapper
 ```
@@ -32,7 +32,7 @@ mkvirtualenv <envname>
 pip install -r requirements.txt
 ```
 
-* Create a database with PostgresQL, if you installed it earlier. If not, installation instructions can be found here (https://www.postgresql.org/download/linux/ubuntu/)
+* Create a database with PostgresQL, if you installed it earlier. If not, installation instructions can be found [here](https://www.postgresql.org/download/linux/ubuntu/)
 * Create a .env file and copy the content of `.env.example` file to it.
 * Replace
   - `DB_NAME` with your database name,
@@ -64,10 +64,10 @@ $ flake8 .
 ### Collaboration
 You need to have PostgresQL installed and set up on your machine.
 
-Fork the repository and please read the [contributing guide] (/CONTRIBUTING.md).
+Fork the repository and please read the [contributing guide](/CONTRIBUTING.md).
 
 ### License
 This project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for more details.
 
 ### Acknowledgements
-Special thanks to [Kosy] (https://github.com/kosyfrances) and [Delores] (https://github.com/Del-sama) for being my mentors.
+Special thanks to [Kosy](https://github.com/kosyfrances) and [Delores](https://github.com/Del-sama) for being my mentors.
