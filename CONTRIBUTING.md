@@ -2,7 +2,7 @@
 
 Thank you for indicating interest in contributing to MentorPaired. Following these guidelines help to communicate that you respect the time of the developers managing and working on this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and also helping you finalise your pull requests
 
-### What to do, how do I get started?
+### What do I do? How do I get started?
 
 Start at the top, follow the [README.md](/README.md) guide. Now if you've noticed a bug or have a question, [search the issue tracker](https://github.com/mentorpaired/core/issues) to see if someone else already created a ticket. If that's not been done yet, go ahead and [make one](https://github.com/mentorpaired/core/issues/new).
 
@@ -10,7 +10,7 @@ Start at the top, follow the [README.md](/README.md) guide. Now if you've notice
 
 If this is something you think you can fix, then [fork MentorPaired](https://help.github.com/en/articles/fork-a-repo) and create a branch with a descriptive name. Always checkout from the staging branch, that is the default and up-to-date branch.
 
-A good branch name would be(where issue #90 is the ticket you're working on):
+A good branch name would be (where issue #90 is the ticket you're working on):
 ```sh
 git checkout -b 90-fix-signup-page
 ```
