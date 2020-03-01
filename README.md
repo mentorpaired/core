@@ -6,9 +6,8 @@ Core is the backend of MentorPaired, an app which connects software engineering 
 ### Tech
 Core is written in Python3 and Django 3.0.3.
 
-### Installation
+### Installation For Ubuntu 18.04 Users
 
-**For Ubuntu 18.04 Users:**
  Please install and set up the following packages first, upgrade if you find the package is already installed:
 * Python3. Run the 'python3 -V' command to see the version you have installed.
 * PostgreSQL (Ensure the server is running). Alternatively, if your project is a small one or you find you don't need PostgreSQL, Python includes a lightweight database called SQLite so you won't need to set up a database, however it cannot support a high level of concurrency.
@@ -59,9 +58,16 @@ $ python manage.py test
 $ flake8 .
 ```
 
-* Installation instructions for Windows, macOS and other Linux distro users can be found here (https://www.python.org/downloads/), here (https://realpython.com/installing-python/), here (https://virtualenvwrapper.readthedocs.io/en/latest/install.html) and here (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/development_environment)
+### Python installation instructions for Windows, macOS and other Linux distro Users 
+* Refer to these guides here, and also feel free to google according to your specific needs: (https://www.python.org/downloads/), (https://realpython.com/installing-python/), (https://virtualenvwrapper.readthedocs.io/en/latest/install.html) and (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/development_environment)
 
 ### Collaboration
 You need to have PostgresQL installed and set up on your machine.
 
-Fork the repository and please read the CONTRIBUTING.md guide.
+Fork the repository and please read the [contributing guide] (/CONTRIBUTING.md).
+
+### License
+This project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for more details.
+
+### Acknowledgements
+Special thanks to [Kosy] (https://github.com/kosyfrances) and [Delores] (https://github.com/Del-sama) for being my mentors.
