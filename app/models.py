@@ -24,7 +24,7 @@ class User(models.Model):
         choices=PRONOUN_CHOICES,
         null=False
     )
-    spoken_languages = models.OneToOneField('Spoken_Languages', on_delete=models.SET_DEFAULT, default='English')
+    spoken_languages = models.OneToOneField('SpokenLanguages', on_delete=models.SET_DEFAULT, default='English')
     blog_link = models.URLField(max_length=200)
 
     ALL_TIMEZONES = sorted((item, item) for item in pytz.all_timezones)
@@ -52,7 +52,7 @@ class Stack(models.Model):
     def __str__(self):
         return self.name
 
-class Spoken_Languages(models.Model):
+class SpokenLanguages(models.Model):
     name = models.CharField(max_length=100, null=False)
     
     LANGUAGE_PROFICIENCY = [
@@ -76,13 +76,13 @@ class Request(models.Model):
     stack = models.ForeignKey(Stack, on_delete=models.CASCADE)
     description = models.TextField(max_length=500, help_text='brief overview of what you\'d like to learn, your available days, etc')
     mentee = models.ForeignKey(User, on_delete=models.CASCADE)
-    interested_mentors = models.OneToOneField('Interested_Mentor', on_delete=models.SET_NULL, null=True)
+    interested_mentors = models.OneToOneField('InterestedMentor', on_delete=models.SET_NULL, null=True)
     matched_mentor = models.ForeignKey(User, related_name='Matched', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.mentee.username
 
-class Interested_Mentor(models.Model):
+class InterestedMentor(models.Model):
     name = models.ForeignKey(User, on_delete=models.CASCADE)
     personalised_note = models.TextField(max_length=1000, blank=False, help_text='say hi to your new mentee, include important details that you think will be helpful during the mentorship')
     accepted = models.BooleanField(default=False)
