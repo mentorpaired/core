@@ -22,9 +22,11 @@ class User(models.Model):
         choices=PRONOUN_CHOICES,
         null=False
     )
-    spoken_languages = models.OneToOneField('SpokenLanguages', on_delete=models.SET_DEFAULT, default='English')
+    spoken_languages = models.ManyToManyField('SpokenLanguages', on_delete=models.SET_DEFAULT, default='English')
     blog_link = models.URLField(max_length=200)
 
+    # Pytz Timezone package http://pytz.sourceforge.net/
+    # https://stackoverflow.com/questions/47477109/how-to-store-timezones-efficiently-in-django-model
     ALL_TIMEZONES = sorted((item, item) for item in pytz.all_timezones)
 
     timezone = models.CharField(max_length=300, choices=ALL_TIMEZONES)
@@ -71,10 +73,10 @@ class SpokenLanguages(models.Model):
         return self.name
 
 class Request(models.Model):
-    stack = models.ForeignKey(Stack, on_delete=models.CASCADE)
+    stack = models.ManyToManyField(Stack, on_delete=models.CASCADE)
     description = models.TextField(max_length=500, help_text='brief overview of what you\'d like to learn, your available days, etc')
     mentee = models.ForeignKey(User, on_delete=models.CASCADE)
-    interested_mentors = models.OneToOneField('InterestedMentor', on_delete=models.SET_NULL, null=True)
+    interested_mentors = models.ManyToManyField('InterestedMentor', on_delete=models.SET_NULL, null=True)
     matched_mentor = models.ForeignKey(User, related_name='Matched', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
