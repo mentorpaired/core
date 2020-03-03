@@ -7,7 +7,7 @@ class User(models.Model):
     mentor = models.BooleanField(default=False)
     mentee = models.BooleanField(default=True)
     user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    full_name = models.CharField(blank=False, max_length=300, help_text='Include first name and last name here')
+    display_name = models.CharField(blank=False, max_length=300, help_text='Include first name and last name here')
     about = models.TextField(max_length=1000, help_text='a brief description of you')
     avatar = models.ImageField(upload_to='https://cloudinary.com/console/c-1376dab067e800c276916a154ee497/media_library/folders/%2Fmentorpaired_avatars')
     stacks = models.ForeignKey('Stack', on_delete=models.CASCADE)
@@ -31,7 +31,7 @@ class User(models.Model):
     availability = models.BooleanField(default=True, help_text='switch to false if you\'re not open to being matched')
 
     def __str__(self):
-        return self.full_name
+        return self.display_name
 
 class Stack(models.Model):
     name = models.CharField(max_length=100, null=False)
@@ -78,7 +78,7 @@ class Request(models.Model):
     matched_mentor = models.ForeignKey(User, related_name='Matched', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return self.mentee.full_name
+        return self.mentee.display_name
 
 class InterestedMentor(models.Model):
     name = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -86,4 +86,4 @@ class InterestedMentor(models.Model):
     accepted = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name.full_name
+        return self.name.display_name
