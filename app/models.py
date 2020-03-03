@@ -3,8 +3,6 @@ import uuid
 
 from django.db import models
 
-# Create your models here.
-
 class User(models.Model):
     mentor = models.BooleanField(default=False)
     mentee = models.BooleanField(default=True)
