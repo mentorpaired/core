@@ -11,7 +11,7 @@ class User(models.Model):
     display_name = models.CharField(blank=False, max_length=300, help_text='Include first name and last name here')
     about = models.TextField(max_length=1000, help_text='a brief description of you')
     avatar = CloudinaryField('image')
-    stacks = models.ForeignKey('Stack', on_delete=models.CASCADE)
+    stacks = models.ManyToManyField('Stack')
 
     PRONOUN_CHOICES = [
         ('They', 'They/Them'),
