@@ -2,6 +2,7 @@ import pytz
 import uuid
 
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 class User(models.Model):
     mentor = models.BooleanField(default=False)
@@ -9,7 +10,7 @@ class User(models.Model):
     user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     display_name = models.CharField(blank=False, max_length=300, help_text='Include first name and last name here')
     about = models.TextField(max_length=1000, help_text='a brief description of you')
-    avatar = models.ImageField(upload_to='https://cloudinary.com/console/c-1376dab067e800c276916a154ee497/media_library/folders/%2Fmentorpaired_avatars')
+    avatar = CloudinaryField('image')
     stacks = models.ForeignKey('Stack', on_delete=models.CASCADE)
 
     PRONOUN_CHOICES = [
@@ -22,7 +23,7 @@ class User(models.Model):
         choices=PRONOUN_CHOICES,
         null=False
     )
-    spoken_languages = models.ManyToManyField('SpokenLanguages', on_delete=models.SET_DEFAULT, default='English')
+    spoken_languages = models.ManyToManyField('SpokenLanguages')
     blog_link = models.URLField(max_length=200)
 
     # Pytz Timezone package http://pytz.sourceforge.net/
@@ -73,10 +74,10 @@ class SpokenLanguages(models.Model):
         return self.name
 
 class Request(models.Model):
-    stack = models.ManyToManyField(Stack, on_delete=models.CASCADE)
+    stack = models.ManyToManyField(Stack)
     description = models.TextField(max_length=500, help_text='brief overview of what you\'d like to learn, your available days, etc')
     mentee = models.ForeignKey(User, on_delete=models.CASCADE)
-    interested_mentors = models.ManyToManyField('InterestedMentor', on_delete=models.SET_NULL, null=True)
+    interested_mentors = models.ManyToManyField('InterestedMentor')
     matched_mentor = models.ForeignKey(User, related_name='Matched', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
