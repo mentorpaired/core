@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+import cloudinary
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -71,7 +72,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -124,3 +124,10 @@ STATICFILES_DIRS = (
 # Heroku setting
 django_heroku.settings(locals())
 
+# Users avatar storage
+# https://cloudinary.com/documentation/django_integration
+cloudinary.config(
+    cloud_name = os.getenv('cloud_name'),
+    api_key = os.getenv('api_key'),
+    api_secret = os.getenv('api_secret')
+)
