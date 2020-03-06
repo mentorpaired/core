@@ -4,10 +4,14 @@ import uuid
 from django.db import models
 from cloudinary.models import CloudinaryField
 
+
 class User(models.Model):
     mentor = models.BooleanField(default=False)
     mentee = models.BooleanField(default=True)
-    user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user_id = models.UUIDField(
+        primary_key=True, 
+        default=uuid.uuid4, 
+        editable=False)
     display_name = models.CharField(blank=False, max_length=300, help_text='Include first name and last name here')
     about = models.TextField(max_length=1000, help_text='a brief description of you')
     avatar = CloudinaryField('image')
@@ -32,6 +36,7 @@ class User(models.Model):
 
     timezone = models.CharField(max_length=300, choices=ALL_TIMEZONES)
     availability = models.BooleanField(default=True, help_text='switch to false if you\'re not open to being matched')
+
 
     def __str__(self):
         return self.display_name
