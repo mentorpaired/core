@@ -1,11 +1,13 @@
 asgiref==3.2.3
 certifi==2019.11.28
 chardet==3.0.4
+cloudinary==1.20.0
 coverage==5.0.3
 coveralls==1.11.1
 dj-database-url==0.5.0
 Django==3.0.3
 django-heroku==0.3.1
+django-timezone-field==4.0
 docopt==0.6.2
 entrypoints==0.3
 flake8==3.7.9
@@ -19,6 +21,7 @@ pyflakes==2.1.1
 python-dotenv==0.11.0
 pytz==2019.3
 requests==2.22.0
+six==1.14.0
 sqlparse==0.3.0
 urllib3==1.25.8
 whitenoise==5.0.1
