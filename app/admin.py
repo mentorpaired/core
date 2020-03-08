@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Stack, SpokenLanguages, Request, InterestedMentor
+from .models import User, Stack, SpokenLanguage, Request, InterestedMentor
 
 
 class UserAdmin (admin.ModelAdmin):
@@ -8,6 +8,6 @@ class UserAdmin (admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Stack)
-admin.site.register(SpokenLanguages)
+admin.site.register(SpokenLanguage)
 admin.site.register(Request)
 admin.site.register(InterestedMentor)
