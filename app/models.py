@@ -30,7 +30,7 @@ class User(models.Model):
         choices=PRONOUN_CHOICES,
         null=False
     )
-    spoken_languages = models.ManyToManyField('SpokenLanguages')
+    spoken_languages = models.ManyToManyField('SpokenLanguage')
     blog_link = models.URLField(max_length=200)
 
     # Pytz Timezone package http://pytz.sourceforge.net/
@@ -65,7 +65,7 @@ class Stack(models.Model):
         return self.name
 
 
-class SpokenLanguages(models.Model):
+class SpokenLanguage(models.Model):
     name = models.CharField(max_length=100, null=False)
 
     LANGUAGE_PROFICIENCY = [
