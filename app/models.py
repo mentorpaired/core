@@ -31,7 +31,7 @@ class User(models.Model):
         null=False
     )
     spoken_languages = models.ManyToManyField('SpokenLanguage')
-    blog_link = models.URLField(max_length=200)
+    website = models.URLField(max_length=200, blank=True)
 
     # Pytz Timezone package http://pytz.sourceforge.net/
     # https://stackoverflow.com/questions/47477109/how-to-store-timezones-efficiently-in-django-model
@@ -93,12 +93,13 @@ class Request(models.Model):
         help_text='brief overview of what you\'d like to learn, your available days, etc'
         )
     mentee = models.ForeignKey(User, on_delete=models.CASCADE)
-    interested_mentors = models.ManyToManyField('InterestedMentor')
+    interested_mentors = models.ManyToManyField('InterestedMentor', blank=True)
     matched_mentor = models.ForeignKey(
         User,
         related_name='Matched',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
         )
 
     def __str__(self):
