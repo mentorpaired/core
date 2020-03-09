@@ -8,7 +8,7 @@ Core is written in Python3 and Django 3.0.3.
 
 ### Installation
 
-### Ubuntu 18.04 Users
+#### Ubuntu 18.04 Users
 
  Please install and set up the following packages first, upgrade if you find the package is already installed:
 
