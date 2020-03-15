@@ -14,33 +14,33 @@ Core is written in Python3 and Django 3.0.3.
 
 * Python3. Run the 'python3 -V' command to see the version you have installed.
 
-* PostgreSQL (Ensure the server is running).
+* [PostgreSQL](https://www.postgresql.org/) (Ensure the server is running).
 
 * It is advisable to install Django in a virtual environment and the README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice or install this wrapper with:
 
-```
+```sh
 pip install virtualenvwrapper
 ```
 
-* Add these lines at the end of your shell startup script (```.bashrc```, ```.zshrc```, etc)
+* Add these lines at the end of your shell startup script (`.bashrc`, `.zshrc`, etc)
 
-```
+```sh
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 
-* After editing, reload the startup file(e.g., run ```source ~/.bashrc```).
+* After editing, reload the startup file(e.g., run `source ~/.bashrc`).
 
 * Create a new virtual environment:
 
-```
+```sh
 mkvirtualenv <envname>
 ```
 
 * Install requirements in the virtual environment created:
 
-```
+```sh
 pip install -r requirements.txt
 ```
 
@@ -55,29 +55,33 @@ pip install -r requirements.txt
 
 * Run database migrations with this command
 
-```
+```sh
 python3 manage.py migrate
 ```
 
 * Run server to ensure everything is working properly.
 
-```
+```sh
 python3 manage.py runserver
 ```
 
 To run tests:
 
-```
-$ python manage.py test
+```sh
+python manage.py test
 ```
 
-```
-$ flake8 .
+```sh
+flake8 .
 ```
 
 ### Python installation instructions for Windows, macOS and other Linux distro Users
 
-* Refer to these guides here, and also feel free to google according to your specific needs: (https://www.python.org/downloads/), (https://realpython.com/installing-python/), (https://virtualenvwrapper.readthedocs.io/en/latest/install.html) and (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/development_environment)
+* The following may serve as a guide:
+  * (https://www.python.org/downloads/)
+  * (https://realpython.com/installing-python/)
+  * (https://virtualenvwrapper.readthedocs.io/en/latest/install.html)
+  * (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/development_environment)
 
 ### Collaboration
 You need to have PostgresQL installed and set up on your machine.
