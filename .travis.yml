@@ -22,3 +22,5 @@ deploy:
   app:
     master: mentorpaired
     staging: mentorpaired-staging
+  run:
+    - python manage.py migrate --noinput
