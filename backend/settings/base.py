@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app',
     'timezone_field',
     'cloudinary',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,8 @@ cloudinary.config(
     api_secret = os.getenv('CLOUDINARY_API_SECRET'),
     secure = True
 )
+# Graphene Schema Location
+# https://docs.graphene-python.org/projects/django/en/latest/installation/#requirements
+GRAPHENE = {
+    'SCHEMA': 'backend.schema.schema',
+}
