@@ -17,7 +17,7 @@ class User(models.Model):
         blank=False, max_length=300,
         help_text='Include first name and last name here')
     about = models.TextField(max_length=1000, help_text='a brief description of you')
-    # avatar = CloudinaryField('image')
+    avatar = CloudinaryField('image')
     stacks = models.ManyToManyField('Stack')
 
     PRONOUN_CHOICES = [
