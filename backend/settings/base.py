@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'timezone_field',
     'cloudinary',
     'graphene_django',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
