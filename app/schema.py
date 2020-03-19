@@ -10,45 +10,50 @@ from .models import User, Stack, SpokenLanguage, Request, InterestedMentor
 
 
 class UserNode(DjangoObjectType):
-    model = User
-    fields = [
-        'mentor',
-        'mentee',
-        'user_id',
-        'display_name',
-        'about',
-        'avatar',
-        'stacks',
-        'preferred_pronouns',
-        'spoken_languages',
-        'website',
-        'timezone',
-        'availability']
-    interfaces = (graphene.relay.Node, )
+    class Meta:
+        model = User
+        fields = [
+            'mentor',
+            'mentee',
+            'user_id',
+            'display_name',
+            'about',
+            # 'avatar',
+            'stacks',
+            'preferred_pronouns',
+            'spoken_languages',
+            'website',
+            'timezone',
+            'availability']
+        interfaces = (graphene.relay.Node, )
 
 
 class StackNode(DjangoObjectType):
-    model = Stack
-    fields = ['name', 'proficiency']
-    interfaces = (graphene.relay.Node, )
+    class Meta:
+        model = Stack
+        fields = ['name', 'proficiency']
+        interfaces = (graphene.relay.Node, )
 
 
 class SpokenLanguageNode(DjangoObjectType):
-    model = SpokenLanguage
-    fields = ['name', 'proficiency']
-    interfaces = (graphene.relay.Node, )
+    class Meta:
+        model = SpokenLanguage
+        fields = ['name', 'proficiency']
+        interfaces = (graphene.relay.Node, )
 
 
 class RequestNode(DjangoObjectType):
-    model = Request
-    fields = ['stack', 'description', 'mentee', 'interested_mentors', 'matched_mentor']
-    interfaces = (graphene.relay.Node, )
+    class Meta:
+        model = Request
+        fields = ['stack', 'description', 'mentee', 'interested_mentors', 'matched_mentor']
+        interfaces = (graphene.relay.Node, )
 
 
 class InterestedMentorNode(DjangoObjectType):
-    model = InterestedMentor
-    fields = ['name', 'personalised_note', 'accepted']
-    interfaces = (graphene.relay.Node, )
+    class Meta:
+        model = InterestedMentor
+        fields = ['name', 'personalised_note', 'accepted']
+        interfaces = (graphene.relay.Node, )
 
 # Create Query
 
