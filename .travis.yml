@@ -20,7 +20,7 @@ deploy:
   api_key:
     secure: v6ttBYYN0e2nuqjAdo2jM1aCiSxFzw/EhF/U1RDYYjA1ddaljBUTneSPqI0hAYEHitJrxj3BRNqqKKCdfAO728MQjMCBR5HTRsaUHsxoj3RZu4LKN9hMqtxOTFmroG3Sx/f/n98mdQ3wpi4IqDgSKU80rQC5GgzAhgI769qAJYWbpxhqYS7Ne6RxcfeHZUhFkVKLuvolBxOxETYT/JSqK3MuXaGnaPimbMb7Tvi9vfLRH1hDWCUERT0udpo2fwM34NvlWS5V5gwLoAWD0VGv6FUmSrwmPFrx6wHNd4dE/9O8Z+u5q5p7RxPaK3addPfOk+UYhlz/ipxP8F+SGyRHVv/n3uFGzBq/tcb8mFLB/4UYY3tJ73dSiWSnIP6u2uw1wuUyPc5De+K0vGSVa1pmN2JrBiT2iMWYSwj/BXRuSwgffVwXI/r19wnedT2VxuroAM852cKA0WOy3oSJwgxAhwZc8L0xgJvrKZNAtvpS1atyOW5dIRcxNqby9b067p8hhzppQi0W11UoYeO4es409jaAmEHyOwDbwl6jFagLbji2KBYKC9k7JGJ6dTmFl/09r9EobAXj17VewVE8lW84Z2I12406HHmTWMdgZvsh5/Vf3P3UvN4W5+FdDgv1JwGLPrJy5I2DUbS0XG3ni0e6Xhg6lY6kE/UPUR777ZvzTns=
   app:
-    master: mentorpaired
-    staging: mentorpaired-staging
+    master: mentorpaired-backend
+    staging: mentorpaired-staging-backend
   run:
   - python manage.py migrate --noinput
