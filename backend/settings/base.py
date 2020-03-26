@@ -52,7 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -136,8 +137,19 @@ cloudinary.config(
     api_secret = os.getenv('CLOUDINARY_API_SECRET'),
     secure = True
 )
-# Graphene Schema Location
+# Graphene Schema Location and JSONWebTokenMiddleware
 # https://docs.graphene-python.org/projects/django/en/latest/installation/#requirements
+# https://django-graphql-jwt.domake.io/en/latest/quickstart.html#installation
+
 GRAPHENE = {
     'SCHEMA': 'backend.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
 }
+
+# Authentication Backends
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
