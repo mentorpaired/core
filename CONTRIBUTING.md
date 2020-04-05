@@ -6,9 +6,9 @@ Thank you for indicating interest in contributing to MentorPaired. Following the
 
 Follow the [README.md](/README.md) guide. If you've noticed a bug or have a question, [search the issue tracker](https://github.com/mentorpaired/core/issues) to see if someone else already created a ticket. If that has not been done yet, go ahead and [make one](https://github.com/mentorpaired/core/issues/new).
 
-### Fork & create a branch
+### Clone & create a branch
 
-If this is something you think you can fix, [fork MentorPaired](https://help.github.com/en/articles/fork-a-repo) and create a branch with a descriptive name. Always checkout from the staging branch, that is the default and up-to-date branch.
+If this is something you think you can fix, [clone MentorPaired](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository) and create a branch with a descriptive name. Always checkout from the staging branch, that is the default and up-to-date branch.
 
 A good branch name would be:
 
