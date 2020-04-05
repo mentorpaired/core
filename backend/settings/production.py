@@ -2,7 +2,7 @@ from .base import *
 import dj_database_url
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['mentorpaired.herokuapp.com', 'mentorpaired-staging.herokuapp.com']
+ALLOWED_HOSTS = ['mentorpaired-backend.herokuapp.com', 'mentorpaired-staging-backend.herokuapp.com']
 
 DEBUG = os.getenv('DEBUG')
 
