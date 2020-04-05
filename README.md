@@ -86,7 +86,7 @@ flake8 .
 ### Collaboration
 You need to have PostgresQL installed and set up on your machine.
 
-Fork the repository and please read the [contributing guide](/CONTRIBUTING.md).
+Clone the repository and please read the [contributing guide](/CONTRIBUTING.md).
 
 ### License
 This project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for more details.
