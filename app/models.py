@@ -92,7 +92,11 @@ class Request(models.Model):
         help_text='brief overview of what you\'d like to learn, your available days, etc'
         )
     mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='your_name')
-    interested_mentors = models.ManyToManyField('InterestedMentor', blank=True, related_name='prospective_mentor')
+    interested_mentors = models.ManyToManyField(
+        'InterestedMentor',
+        blank=True,
+        related_name='prospective_mentor'
+        )
     matched_mentor = models.ForeignKey(
         User,
         related_name='matched',
