@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'timezone_field',
     'cloudinary',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
