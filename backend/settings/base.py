@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app',
     'timezone_field',
     'cloudinary',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
