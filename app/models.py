@@ -24,7 +24,7 @@ class User(models.Model):
         ('She', 'She/Her'),
         ('He', 'He/Him')
     ]
-    preferred_pronouns = models.CharField(
+    pronouns = models.CharField(
         max_length=5,
         choices=PRONOUN_CHOICES,
         null=False
