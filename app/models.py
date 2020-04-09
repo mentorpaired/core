@@ -1,24 +1,23 @@
 import pytz
 import uuid
-
 from django.db import models
 from cloudinary.models import CloudinaryField
 
 
 class User(models.Model):
-    mentor = models.BooleanField(default=False)
-    mentee = models.BooleanField(default=True)
     user_id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
         editable=False
         )
+    mentor = models.BooleanField(default=False)
+    mentee = models.BooleanField(default=True)
     display_name = models.CharField(
         blank=False, max_length=300,
         help_text='Include first name and last name here')
     about = models.TextField(max_length=1000, help_text='a brief description of you')
     avatar = CloudinaryField('image')
-    stacks = models.ManyToManyField('Stack')
+    stacks = models.ManyToManyField('Stack', related_name='stacks')
 
     PRONOUN_CHOICES = [
         ('They', 'They/Them'),
@@ -30,7 +29,7 @@ class User(models.Model):
         choices=PRONOUN_CHOICES,
         null=False
     )
-    spoken_languages = models.ManyToManyField('SpokenLanguage')
+    spoken_languages = models.ManyToManyField('SpokenLanguage', related_name='speaks')
     website = models.URLField(max_length=200, blank=True)
 
     # Pytz Timezone package http://pytz.sourceforge.net/
@@ -87,16 +86,16 @@ class SpokenLanguage(models.Model):
 
 
 class Request(models.Model):
-    stack = models.ManyToManyField(Stack)
+    stack = models.ManyToManyField(Stack, related_name='tech_stacks')
     description = models.TextField(
         max_length=500,
         help_text='brief overview of what you\'d like to learn, your available days, etc'
         )
-    mentee = models.ForeignKey(User, on_delete=models.CASCADE)
-    interested_mentors = models.ManyToManyField('InterestedMentor', blank=True)
+    mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='your_name')
+    interested_mentors = models.ManyToManyField('InterestedMentor', blank=True, related_name='prospective_mentor')
     matched_mentor = models.ForeignKey(
         User,
-        related_name='Matched',
+        related_name='matched',
         on_delete=models.SET_NULL,
         null=True,
         blank=True
