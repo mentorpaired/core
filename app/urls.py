@@ -1,5 +1,12 @@
-# from django.urls import path
+from django.urls import path, include
+from app import views
+from rest_framework.routers import DefaultRouter
 
-# from . import views
+# Using a router to register the viewsets
+router = DefaultRouter()
+router.register(r'users', views.UserViewSet)
 
-urlpatterns = []
+# API URLs are determined automatically by the router
+urlpatterns = [
+    path('', include(router.urls)),
+]
