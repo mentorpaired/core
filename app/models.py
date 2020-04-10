@@ -29,7 +29,7 @@ class User(models.Model):
         choices=PRONOUN_CHOICES,
         null=False
     )
-    spoken_languages = models.ManyToManyField('SpokenLanguage', related_name='speaks')
+    spoken_languages = models.ManyToManyField('SpokenLanguage', related_name='languages')
     website = models.URLField(max_length=200, blank=True)
 
     # Pytz Timezone package http://pytz.sourceforge.net/
