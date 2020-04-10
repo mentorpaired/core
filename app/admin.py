@@ -2,11 +2,12 @@ from django.contrib import admin
 from .models import User, Stack, SpokenLanguage, Request, InterestedMentor
 
 
-class UserAdmin (admin.ModelAdmin):
-    readonly_fields = ('user_id',)
+# class UserAdmin (admin.ModelAdmin):
+#     readonly_fields = ('user_id',)
 
 
-admin.site.register(User, UserAdmin)
+# Add user admin function to registered user if need be
+admin.site.register(User)
 admin.site.register(Stack)
 admin.site.register(SpokenLanguage)
 admin.site.register(Request)
