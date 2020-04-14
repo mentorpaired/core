@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from app.models import Stack, SpokenLanguage, User, InterestedMentor, Request
-from app.serializers import StackSerializer, SpokenLanguageSerializer, UserSerializer, InterestedMentorSerializer, RequestSerializer
+from .models import Stack, SpokenLanguage, User, InterestedMentor, Request
+from .serializers import StackSerializer, SpokenLanguageSerializer, UserSerializer, InterestedMentorSerializer, RequestSerializer
 
 
 class StackViewSet(viewsets.ModelViewSet):
