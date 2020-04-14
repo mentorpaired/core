@@ -1,22 +1,22 @@
 from app.models import Stack, SpokenLanguage, User, InterestedMentor, Request
 from rest_framework import serializers
 
-
-class StackSerializer(serializers.PrimaryKeyRelatedField, serializers.ModelSerializer):
+class StackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stack
         fields = ['name', 'proficiency']
+    
 
+class SpokenLanguageSerializer(serializers.ModelSerializer):
 
-class SpokenLanguageSerializer(serializers.PrimaryKeyRelatedField, serializers.ModelSerializer):
     class Meta:
         model = SpokenLanguage
         fields = ['name', 'proficiency']
 
 
 class UserSerializer(serializers.ModelSerializer):
-    stacks = StackSerializer(many=True, queryset=Stack.objects.all())
-    spoken_languages = SpokenLanguageSerializer(many=True, queryset=SpokenLanguage.objects.all())
+    stacks = StackSerializer(many=True)
+    spoken_languages = SpokenLanguageSerializer(many=True)
 
     class Meta:
         model = User
@@ -33,6 +33,16 @@ class UserSerializer(serializers.ModelSerializer):
             'timezone',
             'availability'
         ]
+    
+    def create(self, validated_data):
+        stacks_data = validated_data.pop('stacks')
+        languages_data = validated_data.pop('spoken_languages')
+        user = User.objects.create(**validated_data)
+        for stack_data in stacks_data:
+            Stack.objects.create(user=user, **stack_data)
+        for language_data in languages_data:
+            SpokenLanguage.objects.create(user=user, **language_data)
+        return user
 
 
 class InterestedMentorSerializer(serializers.ModelSerializer):
