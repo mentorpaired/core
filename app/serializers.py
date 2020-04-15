@@ -1,7 +1,8 @@
 from app.models import Stack, SpokenLanguage, User, InterestedMentor, Request
 from rest_framework import serializers
 
-class StackSerializer(serializers.ModelSerializer):
+
+class StackSerializer(serializers.ModelSerializer): 
     class Meta:
         model = Stack
         fields = ['name', 'proficiency']
