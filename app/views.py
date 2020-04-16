@@ -1,43 +1,22 @@
-from rest_framework import viewsets
-from .models import Stack, SpokenLanguage, User, InterestedMentor, Request
-from .serializers import StackSerializer, SpokenLanguageSerializer, UserSerializer, InterestedMentorSerializer, RequestSerializer
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
+from rest_framework.viewsets import GenericViewSet
 
+from .models import Stack, SpokenLanguage, User
+from .serializers import StackSerializer, SpokenLanguageSerializer, UserSerializer
 
-class StackViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing stacks.
-    """
-    queryset = Stack.objects.all()
+class StackViewSet(GenericViewSet, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin):
+    
     serializer_class = StackSerializer
+    queryset = Stack.objects.all()
 
 
-class SpokenLanguageViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing the language(s) a user speaks.
-    """
-    queryset = SpokenLanguage.objects.all()
+class SpokenLanguageViewSet(GenericViewSet, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin):
+
     serializer_class = SpokenLanguageSerializer
+    queryset = SpokenLanguage.objects.all()
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing the users.
-    """
-    queryset = User.objects.all()
+class UserViewSet(GenericViewSet, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin):
+
     serializer_class = UserSerializer
-
-
-class InterestedMentorViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing the interested mentors.
-    """
-    queryset = InterestedMentor.objects.all()
-    serializer_class = InterestedMentorSerializer
-
-
-class RequestViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing mentee's requests.
-    """
-    queryset = Request.objects.all()
-    serializer_class = RequestSerializer
+    queryset = User.objects.all()
