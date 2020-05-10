@@ -75,6 +75,72 @@ python manage.py test
 flake8 .
 ```
 
+### Windows 10 Users
+ Please install and set up the following packages first, upgrade if you find the package is already installed:
+
+* Download and install [Python3](https://www.python.org/downloads/) and ensure to 'Add path' while installing. Run the 'python3 -V' command to see the version you have installed.
+
+* Download and install [pip](https://pip.pypa.io/en/latest/installing/) and follow the installing with get-pip.py instructions.
+
+* [PostgreSQL](https://www.postgresql.org/download/windows/) (Ensure the server is running).
+
+* It is advisable to install Django in a virtual environment and the README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice but for windows install this wrapper with:
+
+```sh
+py -m pip install virtualenvwrapper-win
+```
+
+* Create a new virtual environment:
+
+```sh
+mkvirtualenv <envname>
+```
+
+```sh
+Workon <envname>
+```
+
+* Install requirements in the virtual environment created:
+
+```sh
+py -m pip install Django
+```
+
+```sh
+pip install -r requirements.txt
+```
+
+* Create a database with PostgresQL, if you installed it earlier. If not, installation instructions can be found [here](https://www.postgresql.org/download/windows/)
+
+* Create a .env file and copy the content of `.env.example` file to it.
+* Replace
+  - `DB_NAME` with your database name,
+  - `DB_USER` with your database username,
+  - `DB_PASSWORD` with your database password,
+  - `SECRET_KEY` with the value gotten when you run this script in the terminal `python3 scripts/secret_key.py`.
+
+* Run database migrations with this command
+
+```sh
+python manage.py migrate
+```
+
+* Run server to ensure everything is working properly.
+
+```sh
+python manage.py runserver
+```
+
+To run tests:
+
+```sh
+python manage.py test
+```
+
+```sh
+flake8 .
+```
+
 ### Python installation instructions for Windows, macOS and other Linux distro Users
 
 * The following may serve as a guide:
