@@ -78,7 +78,7 @@ flake8 .
 ### Windows 10 Users
  Please install and set up the following packages first, upgrade if you find the package is already installed:
 
-*Download [Python3](https://www.python.org/downloads/). It is advisable to install the python package as an administrator and ensure to 'Add path' while installing. Run the 'python3 -V' command to see the version you have installed.
+* Download [Python3](https://www.python.org/downloads/). It is advisable to install the python package as an administrator and ensure to 'Add path' while installing. Run the 'python3 -V' command to see the version you have installed.
 
 * Download [pip](https://pip.pypa.io/en/latest/installing/) and follow the instructions in the link as an installation guide.
 
