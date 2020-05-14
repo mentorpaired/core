@@ -78,11 +78,11 @@ flake8 .
 ### Windows 10 Users
  Please install and set up the following packages first, upgrade if you find the package is already installed:
 
-* Download and install [Python3](https://www.python.org/downloads/) and ensure to 'Add path' while installing. Run the 'python3 -V' command to see the version you have installed.
+*Download [Python3](https://www.python.org/downloads/). It is advisable to install the python package as an administrator and ensure to 'Add path' while installing. Run the 'python3 -V' command to see the version you have installed.
 
-* Download and install [pip](https://pip.pypa.io/en/latest/installing/) and follow the installing with get-pip.py instructions.
+* Download [pip](https://pip.pypa.io/en/latest/installing/) and follow the instructions in the link as an installation guide.
 
-* [PostgreSQL](https://www.postgresql.org/download/windows/) (Ensure the server is running).
+* [PostgreSQL](https://www.postgresql.org/download/windows/) (Ensure the server is running). 
 
 * It is advisable to install Django in a virtual environment and the README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice but for windows install this wrapper with:
 
