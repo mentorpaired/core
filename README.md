@@ -14,8 +14,6 @@ Core is written in Python3 and Django 3.0.3.
 
 * Python3. Run the 'python3 -V' command to see the version you have installed.
 
-* Git
-
 * [PostgreSQL](https://www.postgresql.org/) (Make sure to note Database name, Database Username and Password. Ensure the server is running).
 
 * It is advisable to install Django in a virtual environment. The README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice or install this wrapper with:
@@ -91,8 +89,6 @@ flake8 .
 
 * Download [pip](https://pip.pypa.io/en/latest/installing/) and follow the instructions in the link as an installation guide.
 
-* Download and install [Git](https://git-scm.com/download/win). Clone the project to a fresh directory/folder from the `staging` branch. 
-
 * [PostgreSQL](https://www.postgresql.org/download/windows/) (Ensure the server is running). 
 
 * It is advisable to install Django in a virtual environment. The README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice but for Windows, install this wrapper with:
@@ -101,7 +97,7 @@ flake8 .
   py -m pip install virtualenvwrapper-win
   ```
 
-* Then, create a new virtual environment:
+* Create a new virtual environment:
 
   ```sh
   mkvirtualenv <envname>
@@ -122,9 +118,9 @@ flake8 .
   pip install -r requirements.txt
   ```
 
-* Create a database with PostgresQL, if you installed it earlier. If not, installation instructions can be found [here](https://www.postgresql.org/download/windows/). Make sure to note Database name, Database Username and Password.
+* Create a database with PostgresQL, if you installed it earlier. If not, installation instructions can be found [here](https://www.postgresql.org/download/windows/). Make sure to note database name, database username and password.
 
-* Create a .env file and copy the content of `.env.example` file to it. Place this file in the folder named `core`.
+* Create a .env file and copy the content of `.env.example` file to it. Place this file in the root directory of the core project
 
 * Replace 
   - `DB_NAME` with your database name,
@@ -162,12 +158,21 @@ flake8 .
   * (https://virtualenvwrapper.readthedocs.io/en/latest/install.html)
   * (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/development_environment)
 
-### Collaboration
-You need to have PostgresQL installed and set up on your machine.
+#### Collaboration
+* You need to have PostgresQL installed and set up on your machine.
 
-Clone the repository from the `staging` branch and please read the [contributing guide](/CONTRIBUTING.md).
+* Clone the repository from the `staging` branch and please read the [contributing guide](/CONTRIBUTING.md).
 
-You may also need to have `Heroku`, `Ruby` and `Travis CI` installed and signed in. 
+* You may also need to have [Heroku](https://devcenter.heroku.com/articles/heroku-cli) and [Travis CI](https://github.com/travis-ci/travis.rb#installation) installed. 
+
+* Run `Travis` and `Heroku` login commands in your terminal after installation
+  ```sh
+  travis login
+  ```
+  ```sh
+  heroku login
+  ```
+
 Contact [Kosy](https://github.com/kosyfrances), [Delores](https://github.com/Del-sama) or [Nkoli](https://github.com/Nkoli) for more details.
 
 ### License
