@@ -150,8 +150,8 @@ class Request(models.Model):
         default='OPEN'
     )
 
-    mentor = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
-                               blank=True, related_name='mentor')
+    def __str__(self):
+        return self.requester.display_name
 
 
 class RequestInterest(models.Model):
