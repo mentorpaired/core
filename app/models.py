@@ -108,7 +108,6 @@ class LanguageProficiency(models.Model):
         choices=PROFICIENCY,
         null=False,
         unique=True
-
     )
 
     def __str__(self):
@@ -151,15 +150,8 @@ class Request(models.Model):
         default='OPEN'
     )
 
-    mentor = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
-                               blank=True, related_name='mentor')
-
-    STATUSES = [
-        ('OPEN', 'open'),
-        ('HAS_INTERESTS', 'has_interests'),
-        ('COMPLETED', 'completed'),
-        ('CLOSED', 'closed')
-    ]
+    def __str__(self):
+        return self.mentee.display_name
 
 
 class RequestInterest(models.Model):
