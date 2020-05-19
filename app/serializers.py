@@ -1,9 +1,7 @@
 from rest_framework import serializers
 
-from app.models import (
-    Skill, SpokenLanguage, User, Role, Pronoun,
-    LanguageProficiency, SkillProficiency
-)
+from app.models import (LanguageProficiency, Pronoun, Role, Skill,
+                        SkillProficiency, SpokenLanguage, User)
 
 
 class RoleSerializer(serializers.ModelSerializer):

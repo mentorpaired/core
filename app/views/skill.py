@@ -1,7 +1,7 @@
 from rest_framework import generics
 
 from ..models import Skill, SkillProficiency
-from ..serializers import SkillSerializer, SkillProficiencySerializer
+from ..serializers import SkillProficiencySerializer, SkillSerializer
 
 
 class SkillProficiencyList(generics.ListAPIView):

@@ -1,7 +1,8 @@
 from rest_framework import generics
 
 from ..models import LanguageProficiency, SpokenLanguage
-from ..serializers import LanguageProficiencySerializer, SpokenLanguageSerializer
+from ..serializers import (LanguageProficiencySerializer,
+                           SpokenLanguageSerializer)
 
 
 class LanguageProficiencyList(generics.ListAPIView):
