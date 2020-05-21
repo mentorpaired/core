@@ -68,7 +68,6 @@ class Role(models.Model):
                             choices=ROLES,
                             default='MENTEE')
 
-    
     def __str__(self):
         return self.role
 
