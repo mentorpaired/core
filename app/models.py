@@ -21,6 +21,9 @@ class Pronoun(models.Model):
         choices=PRONOUNS
     )
 
+    def __str__(self):
+        return self.pronoun
+
 
 class User(models.Model):
     user_id = models.UUIDField(
@@ -64,6 +67,9 @@ class Role(models.Model):
     role = models.CharField(max_length=20,
                             choices=ROLES,
                             default='MENTEE')
+
+    def __str__(self):
+        return self.role
 
 
 class SkillProficiency(models.Model):
@@ -137,7 +143,7 @@ class Request(models.Model):
     mentor = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
                                blank=True, related_name='mentor')
 
-    STATUSES = [
+    STATUS = [
         ('OPEN', 'open'),
         ('HAS_INTERESTS', 'has_interests'),
         ('COMPLETED', 'completed'),
@@ -146,7 +152,7 @@ class Request(models.Model):
 
     status = models.CharField(
         max_length=20,
-        choices=STATUSES,
+        choices=STATUS,
         default='OPEN'
     )
 
@@ -164,7 +170,7 @@ class RequestInterest(models.Model):
         help_text='Introduce yourself to the request creator'
     )
 
-    STATUSES = [
+    STATUS = [
         ('OPEN', 'open'),
         ('ACCEPTED', 'accepted'),
         ('REJECTED', 'rejected'),
@@ -173,6 +179,6 @@ class RequestInterest(models.Model):
 
     status = models.CharField(
         max_length=20,
-        choices=STATUSES,
+        choices=STATUS,
         default='OPEN'
     )
