@@ -1,22 +1,11 @@
 from django.urls import path
 
-from .views.skill import (
-    SkillProficiencyList,
-    SkillProficiencyDetail,
-    SkillList,
-    SkillDetail
-)
-from .views.language import (
-    LanguageProficiencyList,
-    LanguageProficiencyDetail,
-    LanguageList,
-    LanguageDetail
-)
-
-from .views.user import (
-    UserList,
-    UserDetail
-)
+from .views.language import (LanguageDetail, LanguageList,
+                             LanguageProficiencyDetail,
+                             LanguageProficiencyList)
+from .views.skill import (SkillDetail, SkillList, SkillProficiencyDetail,
+                          SkillProficiencyList)
+from .views.user import UserDetail, UserList
 
 urlpatterns = [
     path(
