@@ -131,7 +131,7 @@ class SpokenLanguage(models.Model):
 
 
 class Request(models.Model):
-    skill = models.ForeignKey(Skill, on_delete=models.CASCADE),
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
     description = models.TextField(
         max_length=500,
         help_text='brief overview of what you\'d \
