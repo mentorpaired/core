@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from app.models import (LanguageProficiency, Pronoun, Role, Skill,
-                        SkillProficiency, SpokenLanguage, User)
+                        SkillProficiency, SpokenLanguage, User, Request)
 
 
 class RoleSerializer(serializers.ModelSerializer):
@@ -82,5 +82,33 @@ class UserSerializer(serializers.ModelSerializer):
         instance.pronoun = validated_data.get('pronoun', instance.pronoun)
         instance.timezone = validated_data.get('timezone', instance.timezone)
         instance.availability = validated_data.get('availability', instance.availability)
+        instance.save()
+        return instance
+
+class RequestSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Request
+        fields = [
+            'skills',
+            'description',
+            'mentee',
+            'mentor',
+            'status',      
+        ]
+
+    def update(self, instance, validated_data):
+
+        skills = validated_data.get('skills') 
+        if skills:
+            instance.skills.add(*skills)
+
+        description = validated_data.get('description')
+        if description:
+            instance.description.add(*description)
+        
+        instance.mentee = validated_data.get('mentee', instance.mentee)
+        instance.mentor = validated_data.get('mentor', instance.mentor)
+        instance.status = validated_data.get('status', instance.status)
         instance.save()
         return instance
