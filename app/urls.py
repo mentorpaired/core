@@ -1,4 +1,5 @@
 from django.urls import path
+from rest_framework.authtoken.views import obtain_auth_token
 
 from .views.language import (LanguageDetail, LanguageList,
                              LanguageProficiencyDetail,
@@ -8,6 +9,9 @@ from .views.skill import (SkillDetail, SkillList, SkillProficiencyDetail,
 from .views.user import UserDetail, UserList
 
 urlpatterns = [
+    path(
+        'api-token-auth/', obtain_auth_token, name='api_token_auth'
+        ),
     path(
         'skillproficiency/',
         SkillProficiencyList.as_view(),
