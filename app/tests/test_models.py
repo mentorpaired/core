@@ -24,3 +24,4 @@ class TestCreateModels(BaseTestCase):
         self.assertEqual(User.objects.count(), 1)
         self.assertTrue(hasattr(self.user, 'skills'), True)
         self.assertTrue(self.user.skills, self.skill.id)
+        
