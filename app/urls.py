@@ -1,4 +1,5 @@
 from django.urls import path
+from rest_framework_simplejwt import views as jwt_views
 
 from .views.language import (LanguageDetail, LanguageList,
                              LanguageProficiencyDetail,
@@ -8,6 +9,12 @@ from .views.skill import (SkillDetail, SkillList, SkillProficiencyDetail,
 from .views.user import UserDetail, UserList
 
 urlpatterns = [
+    path(
+        'api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'
+    ),
+    path(
+        'api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'
+    ),
     path(
         'skillproficiency/',
         SkillProficiencyList.as_view(),
