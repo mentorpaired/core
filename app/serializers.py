@@ -90,7 +90,7 @@ class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
         fields = [
-            'skills',
+            'skill',
             'description',
             'mentee',
             'mentor',
@@ -99,9 +99,9 @@ class RequestSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
 
-        skills = validated_data.get('skills') 
-        if skills:
-            instance.skills.add(*skills)
+        skill = validated_data.get('skill') 
+        if skill:
+            instance.skill.add(*skill)
 
         description = validated_data.get('description')
         if description:
