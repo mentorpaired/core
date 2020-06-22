@@ -23,10 +23,9 @@ class AuthenticationTestCase(BaseTestCase):
 
         def test_valid_user_can_refresh_access_token(self):
             response = self.client.get('/api/token/refresh/', {
-                'refresh': response.data['refresh']
+                'refresh': self.response.data['refresh']
             })
             self.assertEqual(response.status_code, 200)
-
 
     def test_noexistent_superuser_cannot_create_new_token(self):
         response = self.client.post('/api/token/', {

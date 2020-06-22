@@ -1,7 +1,7 @@
 from ..models import User
 from ..serializers import UserSerializer
 from .base import BaseTestCase
-from rest_framework.permissions import IsAuthenticated
+
 
 class TestUserViews(BaseTestCase):
 
