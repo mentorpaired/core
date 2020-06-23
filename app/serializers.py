@@ -85,6 +85,7 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
 class RequestSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -94,21 +95,20 @@ class RequestSerializer(serializers.ModelSerializer):
             'description',
             'mentee',
             'mentor',
-            'status',      
+            'status'
         ]
 
     def update(self, instance, validated_data):
-
-        skill = validated_data.get('skill') 
+        skill = validated_data.get('skill')
         if skill:
             instance.skill.add(*skill)
 
         description = validated_data.get('description')
         if description:
             instance.description.add(*description)
-        
-        instance.mentee = validated_data.get('mentee', instance.mentee)
+
         instance.mentor = validated_data.get('mentor', instance.mentor)
+        instance.mentee = validated_data.get('mentee', instance.mentee)
         instance.status = validated_data.get('status', instance.status)
         instance.save()
         return instance
