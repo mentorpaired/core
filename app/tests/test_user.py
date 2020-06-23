@@ -1,5 +1,6 @@
 from ..models import User
 from ..serializers import UserSerializer
+
 from .base import BaseTestCase
 
 

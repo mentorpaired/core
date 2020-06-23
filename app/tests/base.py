@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User as Users
+
 from rest_framework.test import APIClient, APITestCase
+
 from ..models import (
     LanguageProficiency, Pronoun,
     Role, Skill, SkillProficiency,
