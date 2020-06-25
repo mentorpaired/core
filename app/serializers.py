@@ -91,6 +91,7 @@ class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
         fields = [
+            'request_id'
             'skill',
             'description',
             'mentee',
