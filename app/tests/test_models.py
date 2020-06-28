@@ -1,4 +1,5 @@
 from ..models import Pronoun, Role, Skill, SpokenLanguage, User
+
 from .base import BaseTestCase
 
 
