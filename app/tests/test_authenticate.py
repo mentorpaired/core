@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User as Users
+from django.contrib.auth.models import User as DjangoUser
 
 from .base import BaseTestCase
 
@@ -6,12 +6,12 @@ from .base import BaseTestCase
 class TestAuthenticationCase(BaseTestCase):
 
     def test_successful_superuser_creation(self):
-        self.second_superuser = Users.objects.create_superuser(
+        self.second_superuser = DjangoUser.objects.create_superuser(
             username='testusertwo',
             email='testusertwo@test.com',
             password='testusertwopassword'
         )
-        self.assertEqual(Users.objects.count(), 2)
+        self.assertEqual(DjangoUser.objects.count(), 2)
 
     def test_successful_login_and_token_generation(self):
         self.response = self.client.post('/api/token/', {
