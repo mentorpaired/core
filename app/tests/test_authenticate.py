@@ -1,25 +1,15 @@
-from django.contrib.auth.models import User as DjangoUser
-
 from .base import BaseTestCase
 
 
 class TestAuthenticationCase(BaseTestCase):
 
-    def test_successful_superuser_creation(self):
-        self.second_superuser = DjangoUser.objects.create_superuser(
-            username='testusertwo',
-            email='testusertwo@test.com',
-            password='testusertwopassword'
-        )
-        self.assertEqual(DjangoUser.objects.count(), 2)
-
     def test_successful_login_and_token_generation(self):
-        self.response = self.client.post('/api/token/', {
+        response = self.client.post('/api/token/', {
             'username': 'test',
             'password': 'testpassword'
         })
-        self.assertEqual(self.response.status_code, 200)
-        self.assertIn('access', self.response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('access', response.data)
 
         def test_valid_user_can_refresh_access_token(self):
             response = self.client.get('/api/token/refresh/', {
