@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User as Users
+from django.contrib.auth.models import User as DjangoUser
 
 from rest_framework.test import APIClient, APITestCase
 
@@ -13,7 +13,7 @@ class BaseTestCase(APITestCase):
 
     def setUp(self):
         self.client = APIClient()
-        self.s_user = Users.objects.create_superuser(
+        self.s_user = DjangoUser.objects.create_superuser(
             username='test',
             email='test@test.com',
             password='testpassword'
