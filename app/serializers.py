@@ -2,6 +2,8 @@ from rest_framework import serializers
 
 from app.models import (LanguageProficiency, Pronoun, Role, Skill,
                         SkillProficiency, SpokenLanguage, User, Request)
+from app.models import (GithubAuth, LanguageProficiency, Pronoun, Role, Skill,
+                        SkillProficiency, SpokenLanguage, User)
 
 
 class RoleSerializer(serializers.ModelSerializer):
@@ -108,3 +110,9 @@ class RequestSerializer(serializers.ModelSerializer):
         instance.description = validated_data.get('description', instance.description)
         instance.save()
         return instance
+
+
+class GithubAuthSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GithubAuth
+        fields = ['github_user_id', 'oauth_token', 'domain_name', 'user_profile']
