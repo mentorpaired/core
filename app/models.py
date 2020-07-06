@@ -30,7 +30,7 @@ class User(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False
-        )
+    )
     role = models.ManyToManyField('Role', related_name='roles')
     display_name = models.CharField(
         blank=False, max_length=300,
@@ -52,10 +52,17 @@ class User(models.Model):
     availability = models.BooleanField(
         default=True,
         help_text='switch to false if you\'re not open to being matched'
-        )
+    )
 
     def __str__(self):
         return self.display_name
+
+
+class GithubAuth(models.Model):
+    github_user_id = models.CharField(max_length=20)
+    oauth_token = models.CharField(max_length=100)
+    domain_name = models.CharField(max_length=20)
+    user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
 class Role(models.Model):
