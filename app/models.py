@@ -59,9 +59,9 @@ class User(models.Model):
 
 
 class GithubAuth(models.Model):
-    github_user_id = models.CharField(max_length=20)
-    oauth_token = models.CharField(max_length=100)
-    domain_name = models.CharField(max_length=20)
+    github_code = models.CharField(max_length=4096, null=False)
+    github_client_id = models.CharField(max_length=4096, null=False)
+    github_client_secret = models.CharField(max_length=4096, null=False)
     user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
