@@ -115,4 +115,4 @@ class RequestSerializer(serializers.ModelSerializer):
 class GithubAuthSerializer(serializers.ModelSerializer):
     class Meta:
         model = GithubAuth
-        fields = ['github_code', 'github_client_id', 'github_client_secret', 'user_profile']
+        fields = ['github_user_id', 'github_access_token']
