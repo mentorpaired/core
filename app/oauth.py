@@ -31,7 +31,9 @@ def generate_github_access_token(github_client_id, github_client_secret, github_
 
 def convert_to_auth_token(client_id, client_secret, backend, token):
     """
-    using the previously generated access_token, use the django-rest-framework-social-oauth2 endpoint `/convert-token/` to authenticate the user and return a django auth token
+    using the previously generated access_token, use the
+    django-rest-framework-social-oauth2 endpoint `/convert-token/` to
+    authenticate the user and return a django auth token
     """
     data = {
         'grant_type': 'convert_token',
