@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'cloudinary',
     'rest_framework',
-    'social.apps.django_app.default',
-    'social_django'
+    'oauth2_provider',
+    'social_django',
+    'rest_framework_social_oauth2',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -142,9 +145,13 @@ cloudinary.config(
     secure=True
 )
 
+# Rest Framework social auth settings and config
+# # https://pypi.org/project/django-rest-framework-social-oauth2/
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ],
 }
 
@@ -159,7 +166,7 @@ SIMPLE_JWT = {
 # https://pypi.org/project/django-cors-headers/
 CORS_ORIGIN_ALLOW_ALL = True
 
-# Django social authentication configuration
+# Django & Rest Framework social authentication configuration
 # https://python-social-auth.readthedocs.io/en/latest/configuration/django.html
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.github.GithubOAuth2',
