@@ -175,6 +175,10 @@ AUTHENTICATION_BACKENDS = [
 
 # https://python-social-auth.readthedocs.io/en/latest/backends/github.html
 SOCIAL_AUTH_GITHUB_KEY = os.getenv('SOCIAL_AUTH_GITHUB_KEY')
-SOCIAL_AUTH_GITHUB_SECRET = os.getenv("SOCIAL_AUTH_GITHUB_SECRET")
+SOCIAL_AUTH_GITHUB_SECRET = os.getenv('SOCIAL_AUTH_GITHUB_SECRET')
 SOCIAL_AUTH_GITHUB_SCOPE = ['email']
 GITHUB_CALLBACK = 'http://localhost:3000/login'
+
+# Django oauth toolkit id and secret
+DJANGO_OAUTH_APP_CLIENT_ID = os.getenv('DJANGO_OAUTH_APP_CLIENT_ID')
+DJANGO_OAUTH_APP_CLIENT_SECRET = os.getenv('DJANGO_OAUTH_APP_CLIENT_SECRET')
