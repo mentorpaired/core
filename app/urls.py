@@ -12,8 +12,13 @@ from django.urls import path
 from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView)
 
-from .views.github_auth import GithubAuthenticationView
-
+from .views.github_auth import GithubAuthView
+from .views.language import (LanguageDetail, LanguageList,
+                             LanguageProficiencyDetail,
+                             LanguageProficiencyList)
+from .views.skill import (SkillDetail, SkillList, SkillProficiencyDetail,
+                          SkillProficiencyList)
+from .views.user import UserDetail, UserList
 
 urlpatterns = [
     path(
@@ -23,7 +28,7 @@ urlpatterns = [
         'api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'
     ),
     path(
-        'github-oauth/$', GithubAuthenticationView.as_view(), name='github_authenticate'
+        'github_oauth/', GithubAuthView.as_view(), name='github_oauth'
     ),
     path(
         'skillproficiency/',
