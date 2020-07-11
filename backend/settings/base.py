@@ -48,6 +48,13 @@ INSTALLED_APPS = [
     'rest_framework_social_oauth2',
 ]
 
+# Django & Rest Framework social authentication configuration
+# https://python-social-auth.readthedocs.io/en/latest/configuration/django.html
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -166,12 +173,6 @@ SIMPLE_JWT = {
 # https://pypi.org/project/django-cors-headers/
 CORS_ORIGIN_ALLOW_ALL = True
 
-# Django & Rest Framework social authentication configuration
-# https://python-social-auth.readthedocs.io/en/latest/configuration/django.html
-AUTHENTICATION_BACKENDS = [
-    'social_core.backends.github.GithubOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-]
 
 # https://python-social-auth.readthedocs.io/en/latest/backends/github.html
 SOCIAL_AUTH_GITHUB_KEY = os.getenv('SOCIAL_AUTH_GITHUB_KEY')
