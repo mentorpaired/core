@@ -21,7 +21,7 @@ CLIENT_ID = os.getenv('DJANGO_OAUTH_APP_CLIENT_ID')
 CLIENT_SECRET = os.getenv('DJANGO_OAUTH_APP_CLIENT_SECRET')
 
 
-class GithubAuthenticationView(APIView):
+class GithubAuthView(APIView):
 
     def post(self, request):
         github_token = generate_github_access_token(
