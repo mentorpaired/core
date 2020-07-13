@@ -27,7 +27,7 @@ class RequestDetail(APIView):
 
     def get_object(self, pk):
         try:
-            return Request.objects.get(request_id=pk)
+            return Request.objects.get(id=pk)
         except Request.DoesNotExist:
             raise Http404
 
@@ -37,8 +37,9 @@ class RequestDetail(APIView):
         return Response(serializer.data)
 
     def put(self, request, pk):
-        request = self.get_object(pk)
-        serializer = RequestSerializer(request, data=request.data, partial=True)
+        request_obj = self.get_object(pk)
+        serializer = RequestSerializer(request_obj, data=request.data, partial=True)
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
