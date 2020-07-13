@@ -53,17 +53,17 @@ urlpatterns = [
         'users/',
         UserList.as_view(),
         name='user_list'
-    ),
+        ),
     path(
         'users/<uuid:pk>/',
         UserDetail.as_view(),
         name='user_detail'
-    ),
+        ),
     path(
         'requests/',
         RequestList.as_view(),
         name='request_list'
-    ),
+        ),
     path(
         'requests/<int:pk>/',
         RequestDetail.as_view(),
