@@ -40,7 +40,7 @@ class User(models.Model):
         max_length=1000,
         help_text='a brief description of you'
     )
-    avatar = CloudinaryField('image')
+    avatar = CloudinaryField('image', null=True, blank=True)
     skills = models.ManyToManyField('Skill', related_name='skills')
     pronoun = models.ForeignKey(Pronoun, on_delete=models.CASCADE,
                                 null=True, blank=True)
