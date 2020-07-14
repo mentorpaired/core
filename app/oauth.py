@@ -25,7 +25,6 @@ def generate_github_access_token(github_client_id, github_client_secret, github_
                       github_response.content.decode('utf-8'))
     if token is None:
         raise PermissionError(github_response)
-    print(token.group(1))
     return token.group(1)
 
 
