@@ -10,8 +10,8 @@ from ..serializers import RequestSerializer
 class RequestList(APIView):
 
     def get(self, request):
-        requests = Request.objects.all()
-        serializer = RequestSerializer(requests, many=True)
+        request = Request.objects.all()
+        serializer = RequestSerializer(request, many=True)
         return Response(serializer.data)
 
     def post(self, request):

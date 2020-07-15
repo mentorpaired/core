@@ -104,5 +104,7 @@ class RequestSerializer(serializers.ModelSerializer):
         instance.description = validated_data.get('description', instance.description)
         instance.mentor = validated_data.get('mentor', instance.mentor)
         instance.status = validated_data.get('status', instance.status)
+        instance.mentor = validated_data.get('mentor', instance.mentor)
+        instance.description = validated_data.get('description', instance.description)
         instance.save()
         return instance
