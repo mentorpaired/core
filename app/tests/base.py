@@ -1,13 +1,36 @@
+from django.contrib.auth.models import User as DjangoUser
 from rest_framework.test import APIClient, APITestCase
 
-from ..models import (LanguageProficiency, Pronoun, Role, Skill,
-                      SkillProficiency, SpokenLanguage, User)
+from ..models import (
+    LanguageProficiency, Pronoun,
+    Role, Skill, SkillProficiency,
+    SpokenLanguage, User
+)
 
 
 class BaseTestCase(APITestCase):
 
     def setUp(self):
+
         self.client = APIClient()
+
+        self.user = DjangoUser.objects.create_superuser(
+            username='test',
+            email='test@test.com',
+            password='testpassword'
+        )
+
+        self.assertEqual(self.user.is_active, 1, 'Active User')
+
+        self.user_login = self.client.post('/api/token/', {
+            'username': 'test',
+            'password': 'testpassword',
+        }, format='json')
+
+        self.assertEqual(self.user_login.status_code, 200)
+
+        self.token = self.user_login.data['access']
+
         self.role = Role.objects.create(
             role="Test"
         )
