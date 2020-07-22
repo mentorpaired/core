@@ -1,13 +1,3 @@
-from .views.user import UserDetail, UserList
-from .views.skill import (SkillDetail, SkillList, SkillProficiencyDetail,
-                          SkillProficiencyList)
-from .views.language import (LanguageDetail, LanguageList,
-                             LanguageProficiencyDetail,
-                             LanguageProficiencyList)
-from .views.skill import (SkillDetail, SkillList, SkillProficiencyDetail,
-                          SkillProficiencyList)
-from .views.user import UserDetail, UserList
-from .views.request import RequestDetail, RequestList
 from django.urls import path
 from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView)
@@ -16,6 +6,7 @@ from .views.github_auth import GithubAuthView
 from .views.language import (LanguageDetail, LanguageList,
                              LanguageProficiencyDetail,
                              LanguageProficiencyList)
+from .views.request import RequestDetail, RequestList
 from .views.skill import (SkillDetail, SkillList, SkillProficiencyDetail,
                           SkillProficiencyList)
 from .views.user import UserDetail, UserList
