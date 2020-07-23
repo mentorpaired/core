@@ -1,3 +1,4 @@
+aniso8601==7.0.0
 asgiref==3.2.3
 autopep8==1.5.3
 certifi==2019.11.28
@@ -10,7 +11,11 @@ cryptography==2.9.2
 defusedxml==0.7.0rc1
 dj-database-url==0.5.0
 Django==3.0.7
+django-braces==1.14.0
+django-cors-headers==3.4.0
 django-heroku==0.3.1
+django-oauth-toolkit==1.3.2
+django-rest-framework-social-oauth2==1.1.0
 django-timezone-field==4.0
 djangorestframework==3.11.0
 djangorestframework-jwt==1.11.0
@@ -23,6 +28,7 @@ idna==2.8
 mccabe==0.6.1
 oauthlib==3.1.0
 Pillow==7.0.0
+promise==2.3
 psycopg2==2.8.4
 pycodestyle==2.6.0
 pycparser==2.20
