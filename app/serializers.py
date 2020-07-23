@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
-from app.models import (LanguageProficiency, Pronoun, Role, Skill,
-                        SkillProficiency, SpokenLanguage, User, Request)
-from app.models import (GithubAuth, LanguageProficiency, Pronoun, Role, Skill,
+from app.models import (GithubAuth, LanguageProficiency, Pronoun, Request, Role, Skill,
                         SkillProficiency, SpokenLanguage, User)
 
 
