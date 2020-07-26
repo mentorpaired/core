@@ -48,12 +48,6 @@ INSTALLED_APPS = [
     'rest_framework_social_oauth2',
 ]
 
-# Django & Rest Framework social authentication configuration
-# https://python-social-auth.readthedocs.io/en/latest/configuration/django.html
-AUTHENTICATION_BACKENDS = [
-    'social_core.backends.github.GithubOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -157,7 +151,6 @@ cloudinary.config(
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ],
 }
@@ -169,16 +162,24 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
+# Django & Rest Framework social authentication configuration
+# https://python-social-auth.readthedocs.io/en/latest/configuration/django.html
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
 # Django cors headers to allow requests from React frontend
 # https://pypi.org/project/django-cors-headers/
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = 'http://localhost:3000',
 
 
 # https://python-social-auth.readthedocs.io/en/latest/backends/github.html
 SOCIAL_AUTH_GITHUB_KEY = os.getenv('SOCIAL_AUTH_GITHUB_KEY')
 SOCIAL_AUTH_GITHUB_SECRET = os.getenv('SOCIAL_AUTH_GITHUB_SECRET')
 SOCIAL_AUTH_GITHUB_SCOPE = ['email']
-GITHUB_CALLBACK = 'http://localhost:3000/login'
+
 
 # Django oauth toolkit id and secret
 DJANGO_OAUTH_APP_CLIENT_ID = os.getenv('DJANGO_OAUTH_APP_CLIENT_ID')
