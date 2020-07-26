@@ -1,14 +1,13 @@
 import os
+import requests
 
 from dotenv import load_dotenv
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..oauth import (convert_to_auth_token, generate_github_access_token,
-                     get_user_from_token)
+from ..oauth import generate_github_access_token
 from ..serializers import GithubAuthSerializer
-
 
 load_dotenv()
 
@@ -24,24 +23,28 @@ CLIENT_SECRET = os.getenv('DJANGO_OAUTH_APP_CLIENT_SECRET')
 class GithubAuthView(APIView):
 
     def post(self, request):
+        print('=====>', request.data)
         github_token = generate_github_access_token(
             github_client_id=SOCIAL_AUTH_GITHUB_KEY,
             github_client_secret=SOCIAL_AUTH_GITHUB_SECRET,
             github_code=request.data['code']
         )
 
-        django_auth_token = convert_to_auth_token(
-            client_id=CLIENT_ID,
-            client_secret=CLIENT_SECRET,
-            backend='github',
-            token=github_token
-        )
-        github_user = get_user_from_token(django_auth_token)
-
         return Response(
             {
-                'token': django_auth_token,
-                'user': GithubAuthSerializer(github_user).data
+                'token': github_token,
+                # 'user': GithubAuthSerializer(github_user).data
             },
             status=status.HTTP_201_CREATED
         )
+
+
+class GithubUser(APIView):
+    def get(self, request):
+        # github_token = request.query_params['token']
+        user_data = requests.get(
+            'https://api.github.com/user',
+            headers={'Authorization': 'token ' + github_token,
+                     'content-type': 'application/json'})
+
+        return user_data
