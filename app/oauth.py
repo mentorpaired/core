@@ -2,7 +2,6 @@ import json
 import re
 
 import requests
-from oauth2_provider.models import AccessToken
 
 from .models import GithubAuth
 
@@ -20,35 +19,21 @@ def generate_github_access_token(github_client_id, github_client_secret, github_
         }),
         headers={'content-type': 'application/json'}
     )
-
+    assert github_response.status_code == 200, \
+        f'ERROR: {github_response.status_code}, {github_response.text}'
     token = re.search(r'access_token=([a-zA-Z0-9]+)',
                       github_response.content.decode('utf-8'))
-    if token is None:
+    if not token:
         raise PermissionError(github_response)
     return token.group(1)
 
 
-def convert_to_auth_token(client_id, client_secret, backend, token):
-    """
-    using the previously generated access_token, use the
-    django-rest-framework-social-oauth2 endpoint `/convert-token/` to
-    authenticate the user and return a django auth token
-    """
-    data = {
-        'grant_type': 'convert_token',
-        'client_id': client_id,
-        'client_secret': client_secret,
-        'backend': backend,
-        'token': token,
-    }
-    response = requests.post('http://127.0.0.1:8000/auth/convert-token/', data=data)
-    return response.json()
+# def get_user_data_from_token(token):
+#     """
+#     using the previously generated access_token, retrieve the user data
+#     """
+#     response = requests.get(
+#         'https://api.github.com/user',
+#         headers={'Authorization': 'token ' + token, 'content-type': 'application/json'})
 
-
-def get_user_from_token(django_auth_token):
-    """
-    Retrieve user from access token
-    """
-    return GithubAuth.objects.get(
-        github_user_id=AccessToken.objects.get(token=django_auth_token['access_token']).user_id
-    )
+#     return response.json()
