@@ -40,7 +40,7 @@ class User(models.Model):
         max_length=1000,
         help_text='a brief description of you'
     )
-    avatar = CloudinaryField('image', null=True, blank=True)
+    avatar = CloudinaryField('image')
     skills = models.ManyToManyField('Skill', related_name='skills')
     pronoun = models.ForeignKey(Pronoun, on_delete=models.CASCADE,
                                 null=True, blank=True)
@@ -60,8 +60,8 @@ class User(models.Model):
 
 class GithubAuth(models.Model):
     github_user_id = models.CharField(max_length=200)
-    github_access_token = models.CharField(max_length=4096)
-    user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
+    access_token = models.CharField(max_length=4096)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
 class Role(models.Model):
