@@ -1,8 +1,9 @@
+from django.conf.urls import url
 from django.urls import path
 from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView)
 
-from .views.github_auth import GithubAuthView
+from .views.github_auth import GithubAuthView, GithubUser
 from .views.language import (LanguageDetail, LanguageList,
                              LanguageProficiencyDetail,
                              LanguageProficiencyList)
@@ -20,6 +21,9 @@ urlpatterns = [
     ),
     path(
         'github_oauth/', GithubAuthView.as_view(), name='github_oauth'
+    ),
+    path(
+        'github_user/<str:token>/', GithubUser.as_view(), name='github_user'
     ),
     path(
         'skillproficiency/',
