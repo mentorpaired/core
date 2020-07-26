@@ -3,7 +3,7 @@ import re
 
 import requests
 
-from .models import GithubAuth
+# from .models import GithubAuth
 
 
 def generate_github_access_token(github_client_id, github_client_secret, github_code):

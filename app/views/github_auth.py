@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ..oauth import generate_github_access_token
-from ..serializers import GithubAuthSerializer
+# from ..serializers import GithubAuthSerializer
 
 load_dotenv()
 
@@ -41,7 +41,7 @@ class GithubAuthView(APIView):
 
 class GithubUser(APIView):
     def get(self, request):
-        # github_token = request.query_params['token']
+        github_token = request.query_params['token']
         user_data = requests.get(
             'https://api.github.com/user',
             headers={'Authorization': 'token ' + github_token,
