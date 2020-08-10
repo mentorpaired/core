@@ -1,11 +1,8 @@
-from django.contrib.auth.models import User as DjangoUser
+from django.contrib.auth.models import User as DefaultUser
 from rest_framework.test import APIClient, APITestCase
 
-from ..models import (
-    LanguageProficiency, Pronoun,
-    Role, Skill, SkillProficiency,
-    SpokenLanguage, User
-)
+from ..models import (LanguageProficiency, Pronoun, Role, Skill,
+                      SkillProficiency, SpokenLanguage, User)
 
 
 class BaseTestCase(APITestCase):
@@ -14,7 +11,7 @@ class BaseTestCase(APITestCase):
 
         self.client = APIClient()
 
-        self.user = DjangoUser.objects.create_superuser(
+        self.user = DefaultUser.objects.create_superuser(
             username='test',
             email='test@test.com',
             password='testpassword'
@@ -58,18 +55,18 @@ class BaseTestCase(APITestCase):
             name="Test Spoken Language",
             proficiency=self.languageproficiency
         )
-        self.user = User.objects.create(
+        self.profile = User.objects.create(
             display_name="Test User",
             about="Lorem Ipsum text",
-            avatar="test.png",
+            avatar="https://dummyavatars.githubcontent.com/u/1",
             pronoun=self.pronoun,
             website="www.test.com",
             timezone="Testcontinent/testcountry"
         )
-        self.user.role.add(self.role.id)
-        self.user.skills.add(self.skill.id)
-        self.user.spoken_languages.add(self.spoken_language.id)
-        self.user.save()
+        self.profile.role.add(self.role.id)
+        self.profile.skills.add(self.skill.id)
+        self.profile.spoken_languages.add(self.spoken_language.id)
+        self.profile.save()
 
     def tearDown(self):
         Role.objects.all().delete()

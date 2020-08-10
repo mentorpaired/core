@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User as DefaultUser
 
 from app.models import (LanguageProficiency, Pronoun, Role, Skill,
                         SkillProficiency, SpokenLanguage, User, Request)
@@ -84,6 +85,12 @@ class UserSerializer(serializers.ModelSerializer):
         instance.availability = validated_data.get('availability', instance.availability)
         instance.save()
         return instance
+
+
+class DefaultUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DefaultUser
+        fields = ['id', 'username', 'email']
 
 
 class RequestSerializer(serializers.ModelSerializer):

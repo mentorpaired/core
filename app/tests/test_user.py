@@ -16,8 +16,8 @@ class TestUserViews(BaseTestCase):
 
     def test_retrieve_valid_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.token)
-        response = self.client.get(f'/users/{self.user.pk}/')
-        user = User.objects.get(pk=self.user.user_id)
+        response = self.client.get(f'/users/{self.profile.pk}/')
+        user = User.objects.get(pk=self.profile.user_id)
         serializer = UserSerializer(user)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, 200)
@@ -33,7 +33,7 @@ class TestUserViews(BaseTestCase):
             'role': [self.role.id, ],
             'display_name': 'test user',
             'about': 'test bio',
-            'avatar': 'testimage.png',
+            'avatar': 'https://dummyavatars.githubcontent.com/u/2',
             'pronoun': self.pronoun.id,
             'skills': [self.skill.id, ],
             'spoken_languages': [self.spoken_language.id, ],
@@ -44,7 +44,7 @@ class TestUserViews(BaseTestCase):
 
     def test_update_fields_in_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.token)
-        response = self.client.put(f'/users/{self.user.user_id}/', {
+        response = self.client.put(f'/users/{self.profile.user_id}/', {
             'role': [self.role2.id],
             'display_name': 'test user2',
             'skills': [self.skill2.id],
@@ -58,5 +58,5 @@ class TestUserViews(BaseTestCase):
 
     def test_delete_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.token)
-        response = self.client.delete(f'/users/{self.user.user_id}/')
+        response = self.client.delete(f'/users/{self.profile.user_id}/')
         self.assertEqual(response.status_code, 204)

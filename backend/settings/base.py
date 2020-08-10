@@ -11,13 +11,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import django_heroku
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
-
 from datetime import timedelta
 
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -42,11 +38,19 @@ INSTALLED_APPS = [
     'app',
     'cloudinary',
     'rest_framework',
+    # Django cors headers required apps
+    'corsheaders',
+    # python social auth required apps
+    'social_django',
+    # DRF social oauth2 required apps
+    'oauth2_provider',
+    'rest_framework_social_oauth2',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -68,6 +72,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -128,18 +134,12 @@ STATICFILES_DIRS = (
 # Heroku setting
 django_heroku.settings(locals())
 
-# Users avatar storage
-# https://cloudinary.com/documentation/django_integration
-cloudinary.config(
-    cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME'),
-    api_key = os.getenv('CLOUDINARY_API_KEY'),
-    api_secret = os.getenv('CLOUDINARY_API_SECRET'),
-    secure = True
-)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ],
 }
 
@@ -149,3 +149,35 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 }
+
+# Django CORS headers configuration
+# https://pypi.org/project/django-cors-headers/
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:3000',
+]
+CORS_ALLOW_CREDENTIALS = True
+
+# Django social auth configuration
+# https://python-social-auth.readthedocs.io/en/latest/configuration/django.html
+# https://python-social-auth.readthedocs.io/en/latest/backends/
+# https://github.com/RealmTeam/django-rest-framework-social-oauth2
+AUTHENTICATION_BACKENDS = (
+    # Github OAuth2
+    'social_core.backends.github.GithubOAuth2',
+
+    # django-rest-framework-social-oauth2
+    'rest_framework_social_oauth2.backends.DjangoOAuth2',
+
+    # Django
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GITHUB_KEY = os.getenv('SOCIAL_AUTH_GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = os.getenv('SOCIAL_AUTH_GITHUB_SECRET')
+SOCIAL_AUTH_GITHUB_SCOPE = ['user']
+
+# DJANGO OAUTH TOOLKIT ID and SECRET used for Github authentication
+# https://github.com/RealmTeam/django-rest-framework-social-oauth2
+# https://django-oauth-toolkit.readthedocs.io/en/latest/tutorial/tutorial_01.html
+CLIENT_ID = os.getenv('CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')

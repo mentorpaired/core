@@ -1,7 +1,6 @@
 import pytz
 import uuid
 from django.db import models
-from cloudinary.models import CloudinaryField
 
 
 def timezone():
@@ -30,7 +29,7 @@ class User(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False
-        )
+    )
     role = models.ManyToManyField('Role', related_name='roles')
     display_name = models.CharField(
         blank=False, max_length=300,
@@ -40,7 +39,8 @@ class User(models.Model):
         max_length=1000,
         help_text='a brief description of you'
     )
-    avatar = CloudinaryField('image', null=True, blank=True)
+    avatar = models.URLField(
+        default="https://avatars.githubusercontent.com/u/<userid>", null=True, blank=True)
     skills = models.ManyToManyField('Skill', related_name='skills')
     pronoun = models.ForeignKey(Pronoun, on_delete=models.CASCADE,
                                 null=True, blank=True)
@@ -52,7 +52,7 @@ class User(models.Model):
     availability = models.BooleanField(
         default=True,
         help_text='switch to false if you\'re not open to being matched'
-        )
+    )
 
     def __str__(self):
         return self.display_name
