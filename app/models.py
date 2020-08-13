@@ -162,9 +162,8 @@ class Request(models.Model):
 
 class RequestInterest(models.Model):
     request = models.ForeignKey(Request, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name='mentor'),
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
     description = models.TextField(
         max_length=500,
         help_text='Introduce yourself to the request creator'
@@ -182,3 +181,6 @@ class RequestInterest(models.Model):
         choices=STATUS,
         default='OPEN'
     )
+
+    def __str__(self):
+        return f'Interest from {self.user.display_name}'

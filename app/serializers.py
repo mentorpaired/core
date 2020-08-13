@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User as DefaultUser
 
 from app.models import (LanguageProficiency, Pronoun, Role, Skill,
-                        SkillProficiency, SpokenLanguage, User, Request)
+                        SkillProficiency, SpokenLanguage, User, Request, RequestInterest)
 
 
 class RoleSerializer(serializers.ModelSerializer):
@@ -113,5 +113,34 @@ class RequestSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get('status', instance.status)
         instance.mentor = validated_data.get('mentor', instance.mentor)
         instance.description = validated_data.get('description', instance.description)
+
+
+class RequestInterestSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = RequestInterest
+        fields = [
+            'request',
+            'user',
+            'description',
+            'status',
+        ]
+
+    def update(self, instance, validated_data):
+
+        request = validated_data.get('request')
+        if request:
+            instance.request.add(*request) 
+
+        user = validated_data.get('user')
+        if user:
+            instance.user.add(*user)
+
+        description = validated_data.get('description')
+        if description:
+            instance.description.add(*description)
+
+        instance.status = validated_data.get('status', instance.status)
+
         instance.save()
         return instance
