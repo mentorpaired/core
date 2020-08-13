@@ -129,3 +129,7 @@ dmypy.json
 .pyre/
 
 *.DS_Store
+.vscode/settings.json
+app/migrations/0002_requestinterest_user.py
+app/migrations/0003_auto_20200813_0152.py
+app/migrations/0004_auto_20200813_0152.py
