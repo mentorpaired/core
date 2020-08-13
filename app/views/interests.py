@@ -24,7 +24,7 @@ class InterestList(APIView):
 
 
 class InterestDetail(APIView):
-    
+
     def get_object(self, pk):
         try:
             return RequestInterest.objects.get(request_id=pk)

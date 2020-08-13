@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from app.models import (LanguageProficiency, Pronoun, Role, Skill,
-                        SkillProficiency, SpokenLanguage, User, Request, RequestInterest)
+                        SkillProficiency, SpokenLanguage, User, RequestInterest)
 
 
 class RoleSerializer(serializers.ModelSerializer):
@@ -85,8 +85,9 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
 class RequestInterestSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = RequestInterest
         fields = [
@@ -99,8 +100,9 @@ class RequestInterestSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
 
         request = validated_data.get('request')
+
         if request:
-            instance.request.add(*request) 
+            instance.request.add(*request)
 
         user = validated_data.get('user')
         if user:
@@ -111,6 +113,6 @@ class RequestInterestSerializer(serializers.ModelSerializer):
             instance.description.add(*description)
 
         instance.status = validated_data.get('status', instance.status)
-        
+
         instance.save()
         return instance

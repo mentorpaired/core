@@ -163,7 +163,7 @@ class Request(models.Model):
 class RequestInterest(models.Model):
     request = models.ForeignKey(Request, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+
     description = models.TextField(
         max_length=500,
         help_text='Introduce yourself to the request creator'
