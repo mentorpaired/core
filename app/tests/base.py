@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User as DefaultUser
 from rest_framework.test import APIClient, APITestCase
 
-from ..models import (LanguageProficiency, Pronoun, Role, Skill,
+from ..models import (LanguageProficiency, Pronoun, Request, Role, Skill,
                       SkillProficiency, SpokenLanguage, User)
 
 
@@ -67,6 +67,26 @@ class BaseTestCase(APITestCase):
         self.profile.skills.add(self.skill.id)
         self.profile.spoken_languages.add(self.spoken_language.id)
         self.profile.save()
+
+        self.request_mentee = User.objects.create(
+            display_name="Second user",
+            about="Random bio of secondnd user",
+            avatar="test_two.png",
+            pronoun=self.pronoun,
+            website="www.secondtestsite.com",
+            timezone="Secondcontinent/secondcountry"
+        )
+        self.request_mentee.role.add(self.role2.id)
+        self.request_mentee.skills.add(self.skill2.id)
+        self.request_mentee.spoken_languages.add(self.spoken_language.id)
+        self.request_mentee.save()
+
+        self.request = Request.objects.create(
+            skill=self.skill2,
+            description="Short text about a request for mentorship",
+            mentee=self.request_mentee,
+            status="OPEN"
+        )
 
     def tearDown(self):
         Role.objects.all().delete()

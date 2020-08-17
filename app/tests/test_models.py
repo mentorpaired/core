@@ -1,5 +1,4 @@
-from ..models import Pronoun, Role, Skill, SpokenLanguage, User
-
+from ..models import Pronoun, Request, Role, Skill, SpokenLanguage, User
 from .base import BaseTestCase
 
 
@@ -22,6 +21,11 @@ class TestCreateModels(BaseTestCase):
         self.assertEqual(self.pronoun.pronoun, "Test")
 
     def test_user_is_created(self):
-        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(User.objects.count(), 2)
         self.assertTrue(hasattr(self.profile, 'skills'), True)
         self.assertTrue(self.profile.skills, self.skill.id)
+
+    def test_request_is_created(self):
+        self.assertEqual(Request.objects.count(), 1)
+        self.assertTrue(hasattr(self.request, 'mentee'), True)
+        self.assertTrue(self.request.skill, self.skill2)

@@ -2,12 +2,14 @@ from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from ..models import Request
 from ..serializers import RequestSerializer
 
 
 class RequestList(APIView):
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request):
         request = Request.objects.all()
@@ -24,6 +26,7 @@ class RequestList(APIView):
 
 
 class RequestDetail(APIView):
+    permission_classes = (IsAuthenticated,)
 
     def get_object(self, pk):
         try:
