@@ -78,7 +78,7 @@ class BaseTestCase(APITestCase):
         )
         self.request_mentee.role.add(self.role2.id)
         self.request_mentee.skills.add(self.skill2.id)
-        self.user.spoken_languages.add(self.spoken_language.id)
+        self.request_mentee.spoken_languages.add(self.spoken_language.id)
         self.request_mentee.save()
 
         self.request = Request.objects.create(
