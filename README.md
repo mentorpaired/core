@@ -1,28 +1,30 @@
 [![Build Status](https://travis-ci.org/mentorpaired/core.svg?branch=staging)](https://travis-ci.org/mentorpaired/core) [![Coverage Status](https://coveralls.io/repos/github/mentorpaired/core/badge.svg?branch=staging)](https://coveralls.io/github/mentorpaired/core?branch=staging)
 
 # CORE
+
 Core is the backend of MentorPaired, an app which connects software engineering mentors to mentees who seek to learn any programming language.
 
 #### Tech
+
 Core is written in Python3 and Django 3.0.3.
 
 ## Installation
 
 #### Ubuntu 18.04 Users
 
- Please install and set up the following packages first. Upgrade if you find the package is already installed:
+Please install and set up the following packages first. Upgrade if you find the package is already installed:
 
-* Python3. Run the 'python3 -V' command to see the version you have installed.
+- Python3. Run the 'python3 -V' command to see the version you have installed.
 
-* [PostgreSQL](https://www.postgresql.org/) (Make sure to note Database name, Database Username and Password. Ensure the server is running).
+- [PostgreSQL](https://www.postgresql.org/) (Make sure to note Database name, Database Username and Password. Ensure the server is running).
 
-* It is advisable to install Django in a virtual environment. The README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice or install this wrapper with:
+- It is advisable to install Django in a virtual environment. The README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice or install this wrapper with:
 
 ```sh
 pip install virtualenvwrapper
 ```
 
-* Add these lines at the end of your shell startup script (`.bashrc`, `.zshrc`, etc)
+- Add these lines at the end of your shell startup script (`.bashrc`, `.zshrc`, etc)
 
 ```sh
 export WORKON_HOME=$HOME/.virtualenvs
@@ -30,40 +32,41 @@ export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 
-* After editing, reload the startup file (e.g., run `source ~/.bashrc`).
+- After editing, reload the startup file (e.g., run `source ~/.bashrc`).
 
-* Create a new virtual environment:
+- Create a new virtual environment:
 
 ```sh
 mkvirtualenv <envname>
 ```
 
-* Install requirements in the virtual environment created:
+- Install requirements in the virtual environment created:
 
 ```sh
 pip install -r requirements.txt
 ```
 
-* Create a database with PostgresQL if you installed it earlier. If not, installation instructions can be found [here](https://www.postgresql.org/download/linux/ubuntu/)
+- Create a database with PostgresQL if you installed it earlier. If not, installation instructions can be found [here](https://www.postgresql.org/download/linux/ubuntu/)
 
-* Create a .env file and copy the content of `.env.example` file to it. 
+- Create a .env file and copy the content of `.env.example` file to it.
 
-* Replace
+- Replace
   - `DB_NAME` with your database name,
   - `DB_USER` with your database username,
   - `DB_PASSWORD` with your database password,
-  - `SECRET_KEY` with the value gotten when you run this script/command in the terminal 
+  - `SECRET_KEY` with the value gotten when you run this script/command in the terminal
+
 ```sh
 python3 scripts/secret_key.py
 ```
 
-* Run database migrations with this command
+- Run database migrations with this command
 
 ```sh
 python3 manage.py migrate
 ```
 
-* Run server to ensure everything is working properly.
+- Run server to ensure everything is working properly.
 
 ```sh
 python3 manage.py runserver
@@ -80,35 +83,38 @@ flake8 .
 ```
 
 ### Windows 10 Users
- Please install and set up the following packages first. Upgrade if you find the package is already installed:
 
-* Download [Python3](https://www.python.org/downloads/). It is advisable to install the python package as an administrator. Click on the 'Add path' checkbox before moving on to the next step of the installation process. Run this command in your terminal to see the version you have installed.
+Please install and set up the following packages first. Upgrade if you find the package is already installed:
+
+- Download [Python3](https://www.python.org/downloads/). It is advisable to install the python package as an administrator. Click on the 'Add path' checkbox before moving on to the next step of the installation process. Run this command in your terminal to see the version you have installed.
+
   ```sh
   python3 -V
   ```
 
-* Download [pip](https://pip.pypa.io/en/latest/installing/) and follow the instructions in the link as an installation guide.
+- Download [pip](https://pip.pypa.io/en/latest/installing/) and follow the instructions in the link as an installation guide.
 
-* [PostgreSQL](https://www.postgresql.org/download/windows/) (Ensure the server is running). 
+- [PostgreSQL](https://www.postgresql.org/download/windows/) (Ensure the server is running).
 
-* It is advisable to install Django in a virtual environment. The README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice but for Windows, install this wrapper with:
+- It is advisable to install Django in a virtual environment. The README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice but for Windows, install this wrapper with:
 
   ```sh
   py -m pip install virtualenvwrapper-win
   ```
 
-* Create a new virtual environment:
+- Create a new virtual environment:
 
   ```sh
   mkvirtualenv <envname>
   ```
 
-* Activate the virtual environment with: 
+- Activate the virtual environment with:
+
   ```sh
   workon <envname>
   ```
 
-* Install requirements in the virtual environment created:
+- Install requirements in the virtual environment created:
 
   ```sh
   py -m pip install Django
@@ -118,23 +124,24 @@ flake8 .
   pip install -r requirements.txt
   ```
 
-* Create a database with PostgresQL, if you installed it earlier. If not, installation instructions can be found [here](https://www.postgresql.org/download/windows/). Make sure to note database name, database username and password.
+- Create a database with PostgresQL, if you installed it earlier. If not, installation instructions can be found [here](https://www.postgresql.org/download/windows/). Make sure to note database name, database username and password.
 
-* Create a .env file and copy the content of `.env.example` file to it. Place this file in the root directory of the core project
+- Create a .env file and copy the content of `.env.example` file to it. Place this file in the root directory of the core project
 
-* Replace 
+- Replace
+
   - `DB_NAME` with your database name,
   - `DB_USER` with your database username,
   - `DB_PASSWORD` with your database password,
   - `SECRET_KEY` with the value gotten when you run this script in the terminal `python3 scripts/secret_key.py`.
 
-* Run database migrations with this command
+- Run database migrations with this command
 
 ```sh
 python manage.py migrate
 ```
 
-* Run server to ensure everything is working properly.
+- Run server to ensure everything is working properly.
 
 ```sh
 python manage.py runserver
@@ -152,20 +159,21 @@ flake8 .
 
 ### Python installation instructions for Windows, macOS and other Linux distro Users
 
-* The following may serve as a guide:
-  * (https://www.python.org/downloads/)
-  * (https://realpython.com/installing-python/)
-  * (https://virtualenvwrapper.readthedocs.io/en/latest/install.html)
-  * (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/development_environment)
+- The following may serve as a guide:
+  - (https://www.python.org/downloads/)
+  - (https://realpython.com/installing-python/)
+  - (https://virtualenvwrapper.readthedocs.io/en/latest/install.html)
+  - (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/development_environment)
 
 #### Collaboration
-* You need to have PostgresQL installed and set up on your machine.
 
-* Clone the repository from the `staging` branch and please read the [contributing guide](/CONTRIBUTING.md).
+- You need to have PostgresQL installed and set up on your machine.
 
-* You may also need to have [Heroku](https://devcenter.heroku.com/articles/heroku-cli) and [Travis CI](https://github.com/travis-ci/travis.rb#installation) installed. 
+- Clone the repository from the `staging` branch and please read the [contributing guide](/CONTRIBUTING.md).
 
-* Run `Travis` and `Heroku` login commands in your terminal after installation
+- You may also need to have [Heroku](https://devcenter.heroku.com/articles/heroku-cli) and [Travis CI](https://github.com/travis-ci/travis.rb#installation) installed.
+
+- Run `Travis` and `Heroku` login commands in your terminal after installation
   ```sh
   travis login
   ```
@@ -175,8 +183,25 @@ flake8 .
 
 Contact [Kosy](https://github.com/kosyfrances), [Delores](https://github.com/Del-sama) or [Nkoli](https://github.com/Nkoli) for more details.
 
+### Using the API endpoint
+
+- Create a superuser account
+
+  ```sh
+  python manage.py createsuperuser
+  ```
+
+- Send a POST request as a JSON object with the username and password values to this [URL](http://localhost:8000/api/token/)
+
+- Enter your access token value which was generated as part of the response in the request authorization tab in the following format:
+  ```sh
+  Authorization: Bearer <Access_Token_Value>
+  ```
+
 ### License
+
 This project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for more details.
 
 ### Acknowledgements
-Special thanks to [Kosy](https://github.com/kosyfrances) and [Delores](https://github.com/Del-sama) for guiding me through this entire app creation process and being my mentors.
+
+Special thanks to [Kosy](https://github.com/kosyfrances), [Delores](https://github.com/Del-sama) and [Tunde](https://github.com/toystars) for guiding us through the entire app creation process, reviewing our code and unblocking us when we are stuck with an issue, and especially for taking the time out of their busy lives to provide free mentorship to us.
