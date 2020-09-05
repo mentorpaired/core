@@ -16,7 +16,7 @@ Please install these packages and set up your environment in the order listed be
 
 - Python3. Run the 'python3 -V' command to see the version you have installed.
 
-- It is advisable to install Django and the other packages required for development in a virtual environment so this needs to be installed and set up. The README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice or install this wrapper with:
+- Create a virtual environment in order to install packages. The README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice or install this wrapper with:
 
 ```sh
 pip install virtualenvwrapper
