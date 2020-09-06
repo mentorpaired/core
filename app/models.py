@@ -162,7 +162,7 @@ class Request(models.Model):
 
 class RequestInterest(models.Model):
     request = models.ForeignKey(Request, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    mentor = models.ForeignKey(User, on_delete=models.CASCADE)
 
     description = models.TextField(
         max_length=500,
@@ -183,4 +183,4 @@ class RequestInterest(models.Model):
     )
 
     def __str__(self):
-        return f'Interest from {self.user.display_name}'
+        return f'Interest from {self.mentor.display_name}'
