@@ -12,13 +12,11 @@ Core is written in Python3 and Django 3.0.3.
 
 #### Ubuntu 18.04 Users
 
-Please install and set up the following packages first. Upgrade if you find the package is already installed:
+Please install these packages and set up your environment in the order listed below. Run an upgrade or update if you find that the package is already installed:
 
 - Python3. Run the 'python3 -V' command to see the version you have installed.
 
-- [PostgreSQL](https://www.postgresql.org/) (Make sure to note Database name, Database Username and Password. Ensure the server is running).
-
-- It is advisable to install Django in a virtual environment. The README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice or install this wrapper with:
+- Create a virtual environment in order to install packages. The README uses [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation) to create this environment. You could use any virtualenv package of your choice or install this wrapper with:
 
 ```sh
 pip install virtualenvwrapper
@@ -37,7 +35,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 - Create a new virtual environment:
 
 ```sh
-mkvirtualenv <envname>
+mkvirtualenv <your_preferred_envname>
 ```
 
 - Install requirements in the virtual environment created:
@@ -46,9 +44,11 @@ mkvirtualenv <envname>
 pip install -r requirements.txt
 ```
 
-- Create a database with PostgresQL if you installed it earlier. If not, installation instructions can be found [here](https://www.postgresql.org/download/linux/ubuntu/)
+- Install [PostgreSQL](https://www.postgresql.org/).
 
-- Create a .env file and copy the content of `.env.example` file to it.
+- Create a database with PostgresQL, the installation instructions for Ubuntu can be found [here](https://www.postgresql.org/download/linux/ubuntu/). Make sure to note Database name, Database Username and Password and also ensure that the server is running
+
+- Create a .env file in the root directory of the project and copy the content of `.env.example` file to it. Other values not listed below but present in the .env.example file should also be replaced with your own values in your .env file.
 
 - Replace
   - `DB_NAME` with your database name,
