@@ -157,7 +157,7 @@ class Request(models.Model):
     )
 
     def __str__(self):
-        return self.mentee.display_name
+        return f'Request from {self.mentee.display_name}' 
 
 
 class RequestInterest(models.Model):

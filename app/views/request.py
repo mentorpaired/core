@@ -35,20 +35,45 @@ class RequestDetail(APIView):
             raise Http404
 
     def get(self, request, pk):
-        request = self.get_object(pk)
-        serializer = RequestSerializer(request)
+        requests = self.get_object(pk)
+        serializer = RequestSerializer(requests)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        request_obj = self.get_object(pk)
-        serializer = RequestSerializer(request_obj, data=request.data, partial=True)
+    def put(self, request, pk, format=None):
+        requests = self.get_object(pk)
+        serializer = RequestSerializer(requests, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def patch(self, request, pk):
+        requests = self.get_object(pk)
+        serializer = RequestSerializer(requests, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
-        request = self.get_object(pk)
-        request.delete()
+        requests = self.get_object(pk)
+        requests.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class RequestInterestList(APIView):
+    def get(self, request):
+        request_interests = RequestInterest.objects.all()
+        serializer = RequestInterestSerializer(interests, many=True)
+        return Response(serializer.data)
+
+    def get_object(self, pk):
+        try:
+            return Request.objects.get(id=pk)
+        except Request.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        requests = self.get_object(pk)
+        serializer = RequestSerializer(requests)
+        return Response(serializer.data)

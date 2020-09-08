@@ -14,6 +14,7 @@ from .views.user import UserDetail, UserList
 from .views.request import RequestDetail, RequestList
 from .views.github_oauth import github_authenticate
 from .views.interests import InterestList, InterestDetail
+from .views.request import RequestList, RequestDetail, RequestInterestList
 
 urlpatterns = [
     path(
@@ -95,5 +96,20 @@ urlpatterns = [
         'interests/<int:pk>/',
         InterestDetail.as_view(),
         name='interest_detail'
+    ),
+    path(
+        'requests/',
+        RequestList.as_view(),
+        name='request_list'
+    ),
+    path(
+        'requests/<int:pk>/',
+        RequestDetail.as_view(),
+        name='request_detail'
+    ),
+    path(
+        'requests/<int:pk>/interests',
+        RequestInterestList.as_view(),
+        name='request_interest_list'
     ),
 ]
