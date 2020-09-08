@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from app.models import (LanguageProficiency, Pronoun, Role, Skill,
-                        SkillProficiency, SpokenLanguage, User, RequestInterest)
+                        SkillProficiency, SpokenLanguage, User, RequestInterest, Request)
 
 
 class RoleSerializer(serializers.ModelSerializer):
@@ -92,25 +92,46 @@ class RequestInterestSerializer(serializers.ModelSerializer):
         model = RequestInterest
         fields = [
             'request',
-            'user',
+            'mentor',
             'description',
             'status',
         ]
 
     def update(self, instance, validated_data):
 
-        request = validated_data.get('request')
+        instance.request = validated_data.get('request', instance.request)
 
-        if request:
-            instance.request.add(*request)
+        instance.mentor = validated_data.get('mentor', instance.mentor)
 
-        user = validated_data.get('user')
-        if user:
-            instance.user.add(*user)
+        instance.description = validated_data.get('description', instance.description)
 
-        description = validated_data.get('description')
-        if description:
-            instance.description.add(*description)
+        instance.status = validated_data.get('status', instance.status)
+
+        instance.save()
+        return instance
+
+
+class RequestSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Request
+        fields = [
+            'skill',
+            'description',
+            'mentee',
+            'mentor',
+            'status',
+        ]
+
+    def update(self, instance, validated_data):
+
+        instance.skill = validated_data.get('skill', instance.skill)
+
+        instance.description = validated_data.get('description', instance.description)
+
+        instance.mentee = validated_data.get('mentor', instance.mentee)
+
+        instance.mentor = validated_data.get('mentor', instance.mentor)
 
         instance.status = validated_data.get('status', instance.status)
 
