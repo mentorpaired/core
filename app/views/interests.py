@@ -23,17 +23,17 @@ class InterestList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class InterestDetail(APIView):
+class RequestInterestList(APIView):
 
     def get_object(self, pk):
         try:
-            return RequestInterest.objects.get(request_id=pk)
+            return RequestInterest.objects.filter(request_id__exact=pk)
         except RequestInterest.DoesNotExist:
             raise Http404
 
     def get(self, request, pk):
         interest = self.get_object(pk)
-        serializer = RequestInterestSerializer(interest)
+        serializer = RequestInterestSerializer(interest, many=True)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):

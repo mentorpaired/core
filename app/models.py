@@ -159,6 +159,18 @@ class Request(models.Model):
     def __str__(self):
         return f'Request from {self.mentee.display_name}' 
 
+    @property
+    def skills(self):
+        return Request.skill.name
+
+    @property
+    def mentees(self):
+        return Request.mentee.display_name
+
+    @property
+    def mentors(self):
+        return Request.mentor.display_name
+
 
 class RequestInterest(models.Model):
     request = models.ForeignKey(Request, on_delete=models.CASCADE)

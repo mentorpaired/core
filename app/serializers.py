@@ -145,22 +145,22 @@ class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
         fields = [
-            'skill',
+            'skills',
             'description',
-            'mentee',
-            'mentor',
+            'mentees',
+            'mentors',
             'status',
         ]
 
     def update(self, instance, validated_data):
 
-        instance.skill = validated_data.get('skill', instance.skill)
+        instance.skill = validated_data.get('skills', instance.skill)
 
         instance.description = validated_data.get('description', instance.description)
 
-        instance.mentee = validated_data.get('mentor', instance.mentee)
+        instance.mentee = validated_data.get('mentees', instance.mentee)
 
-        instance.mentor = validated_data.get('mentor', instance.mentor)
+        instance.mentor = validated_data.get('mentors', instance.mentor)
 
         instance.status = validated_data.get('status', instance.status)
 
