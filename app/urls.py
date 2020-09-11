@@ -77,11 +77,6 @@ urlpatterns = [
         github_authenticate
     ),
     path(
-        'requests/',
-        RequestList.as_view(),
-        name='request_list'
-    ),
-    path(
         'requests/<int:pk>/',
         RequestDetail.as_view(),
         name='request_detail'
