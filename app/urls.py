@@ -11,7 +11,6 @@ from .views.language import (LanguageDetail, LanguageList,
 from .views.skill import (SkillDetail, SkillList, SkillProficiencyDetail,
                           SkillProficiencyList)
 from .views.user import UserDetail, UserList
-from .views.request import RequestList
 from .views.github_oauth import github_authenticate
 from .views.interests import InterestList, RequestInterestList
 from .views.request import RequestDetail
