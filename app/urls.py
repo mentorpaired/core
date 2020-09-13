@@ -96,5 +96,4 @@ urlpatterns = [
         RequestInterestList.as_view(),
         name='request_interest_list'
     ),
-    
 ]
