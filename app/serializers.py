@@ -124,22 +124,22 @@ class RequestSerializer(serializers.ModelSerializer):
         model = Request
         fields = [
             'id',
-            'skills',
+            'skill',
             'description',
-            'mentees',
-            'mentors',
+            'mentee',
+            'mentor',
             'status',
         ]
 
     def update(self, instance, validated_data):
 
-        instance.skill = validated_data.get('skills', instance.skill)
+        instance.skill = validated_data.get('skill', instance.skill)
 
         instance.description = validated_data.get('description', instance.description)
 
-        instance.mentee = validated_data.get('mentees', instance.mentee)
+        instance.mentee = validated_data.get('mentee', instance.mentee)
 
-        instance.mentor = validated_data.get('mentors', instance.mentor)
+        instance.mentor = validated_data.get('mentor', instance.mentor)
 
         instance.status = validated_data.get('status', instance.status)
 

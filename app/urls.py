@@ -13,7 +13,7 @@ from .views.skill import (SkillDetail, SkillList, SkillProficiencyDetail,
 from .views.user import UserDetail, UserList
 from .views.github_oauth import github_authenticate
 from .views.interests import InterestList, RequestInterestList
-from .views.request import RequestDetail
+from .views.request import RequestDetail, RequestList
 
 urlpatterns = [
     path(
@@ -77,6 +77,11 @@ urlpatterns = [
         github_authenticate
     ),
     path(
+        'requests/',
+        RequestList.as_view(),
+        name='request_list'
+    ),
+    path(
         'requests/<int:pk>/',
         RequestDetail.as_view(),
         name='request_detail'
@@ -91,9 +96,5 @@ urlpatterns = [
         RequestInterestList.as_view(),
         name='request_interest_list'
     ),
-    path(
-        'requests/<int:pk>/',
-        RequestDetail.as_view(),
-        name='request_list'
-    )
+    
 ]
