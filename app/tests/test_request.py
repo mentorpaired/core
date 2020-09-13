@@ -29,10 +29,9 @@ class TestRequestViews(BaseTestCase):
     def test_can_create_new_request(self):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.token)
         response = self.client.post('/requests/', {
-            'id': [8],
             'skill': [self.skill.id, ],
             'description': 'Random description',
-            'mentee': [self.request_mentee.pk],
+            'mentee': [self.request_mentee.pk, ],
             'status': "OPEN"
         })
         self.assertEqual(response.status_code, 201)
@@ -41,7 +40,6 @@ class TestRequestViews(BaseTestCase):
     def test_cannot_create_invalid_request(self):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.token)
         response = self.client.post('/requests/', {
-            'id': [8],
             'skill': '',
             'description': 'Another random description',
             'mentee': '',
