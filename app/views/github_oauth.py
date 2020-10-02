@@ -58,7 +58,7 @@ def github_authenticate(request):
     return Response(
 
         {'token': django_auth_token,
-         'jwt_token': res,
+         'jwt': res,
          'github_user_info': github_user,
          'user': DefaultUserSerializer(user).data
          },

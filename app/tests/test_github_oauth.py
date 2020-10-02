@@ -48,7 +48,7 @@ class TestGithubOauth(unittest.TestCase):
 
         assert json.loads(response.content) == {
             'token': 'auth_token',
-            'jwt_token': {'refresh': 'randomrefreshtoken', 'access': 'randomaccesstoken'},
+            'jwt': {'refresh': 'randomrefreshtoken', 'access': 'randomaccesstoken'},
             'github_user_info': '{"user_id": "id1", "avatar": "avatar.jpg"}',
             'user': {'id': 1, 'username': 'test', 'email': 'test@test.com'}
         }
