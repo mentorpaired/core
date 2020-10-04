@@ -11,6 +11,7 @@ Core is written in Python3 and Django 3.0.3.
 ## Installation
 
 #### Using docker-compose
+
 Run `docker-compose up` within the project directory to get the app started with Postgres included
 Additionally, you can also run `docker-compose run --rm core_app bash` to get a shell with the app configured. There you can run install or test commands as shown below
 
@@ -132,7 +133,7 @@ Please install and set up the following packages first. Upgrade if you find the 
 
 - Create a database with PostgresQL, if you installed it earlier. If not, installation instructions can be found [here](https://www.postgresql.org/download/windows/). Make sure to note database name, database username and password.
 
-- Create a .env file and copy the content of `.env.example` file to it. Place this file in the root directory of the core project
+- Create a .env file and copy the content of `.env.example` file to it. Place this file in the root directory of the core project.
 
 - Replace
 
@@ -163,6 +164,51 @@ python manage.py test
 flake8 .
 ```
 
+### Using the API endpoint
+
+- Create a superuser account
+
+  ```sh
+  python manage.py createsuperuser
+  ```
+
+- Send a POST request as a JSON object with the username and password values to this [URL](http://localhost:8000/api/token/)
+
+- Enter your access token value which was generated as part of the response in the request authorization tab in the following format:
+  ```sh
+  Authorization: Bearer <Access_Token_Value>
+  ```
+
+### OAuth setup instructions
+
+- Your local development environment needs to be set up correctly before you can use the oauth login flow through Postman or the React frontend.
+
+  - Log in to your Django admin with your superuser credentials.
+
+    ```
+    http://localhost:8000/admin
+    ```
+
+  - Select `Applications` in the Django Oauth Toolkit section.
+  - Click on `Add Application`.
+  - Do not modify the client id and client secret values, these values will be used to populate your .env file.
+  - For `User` field, select your superuser.
+  - For `Redirect uris`, input `http://localhost:3000/login` as its value.
+  - Select any client type.
+  - Select `Authorization code` as the authorization grant type.
+  - Type in any names of your choice as your app name.
+  - `Skip authorization` should be left unchecked.
+  - Save the app.
+
+- Navigate to your Github personal settings section to create a Github OAuth app.
+
+  - Click on `Developer settings`, select `OAuth Apps`.
+  - Click `New OAuth App` and create a new app.
+  - For `Homepage URL` and `Authorization callback URL`, use the values `http://localhost:3000` and `http://localhost:3000/login` respectively.
+  - Click the `register application` button to save the app.
+
+- Update your .env file with the values in the oauth apps you created.
+
 ### Python installation instructions for Windows, macOS and other Linux distro Users
 
 - The following may serve as a guide:
@@ -188,21 +234,6 @@ flake8 .
   ```
 
 Contact [Kosy](https://github.com/kosyfrances), [Delores](https://github.com/Del-sama) or [Nkoli](https://github.com/Nkoli) for more details.
-
-### Using the API endpoint
-
-- Create a superuser account
-
-  ```sh
-  python manage.py createsuperuser
-  ```
-
-- Send a POST request as a JSON object with the username and password values to this [URL](http://localhost:8000/api/token/)
-
-- Enter your access token value which was generated as part of the response in the request authorization tab in the following format:
-  ```sh
-  Authorization: Bearer <Access_Token_Value>
-  ```
 
 ### License
 
