@@ -176,6 +176,10 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_GITHUB_KEY = os.getenv('SOCIAL_AUTH_GITHUB_KEY')
 SOCIAL_AUTH_GITHUB_SECRET = os.getenv('SOCIAL_AUTH_GITHUB_SECRET')
 SOCIAL_AUTH_GITHUB_SCOPE = ['user']
+SOCIAL_AUTH_GITHUB_EXTRA_DATA = [
+    ('name', 'name'),
+    ('avatar_url', 'avatar_url')
+]
 
 # DJANGO OAUTH TOOLKIT ID and SECRET used for Github authentication
 # https://github.com/RealmTeam/django-rest-framework-social-oauth2
