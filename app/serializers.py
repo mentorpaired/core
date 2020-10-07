@@ -3,12 +3,13 @@ from rest_framework import serializers
 from app.models import (
     LanguageProficiency,
     Pronoun,
+    Request,
+    RequestInterest,
     Role,
     Skill,
     SkillProficiency,
     SpokenLanguage,
     User,
-    Request,
 )
 
 
@@ -103,5 +104,24 @@ class RequestSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get("status", instance.status)
         instance.mentor = validated_data.get("mentor", instance.mentor)
         instance.description = validated_data.get("description", instance.description)
+        instance.save()
+        return instance
+
+
+class RequestInterestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RequestInterest
+        fields = [
+            "request",
+            "mentor",
+            "description",
+            "status",
+        ]
+
+    def update(self, instance, validated_data):
+        instance.request = validated_data.get("request", instance.request)
+        instance.mentor = validated_data.get("mentor", instance.mentor)
+        instance.description = validated_data.get("description", instance.description)
+        instance.status = validated_data.get("status", instance.status)
         instance.save()
         return instance

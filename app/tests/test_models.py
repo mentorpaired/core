@@ -1,9 +1,16 @@
-from ..models import Pronoun, Request, Role, Skill, SpokenLanguage, User
+from ..models import (
+    Pronoun,
+    Request,
+    RequestInterest,
+    Role,
+    Skill,
+    SpokenLanguage,
+    User,
+)
 from .base import BaseTestCase
 
 
 class TestCreateModels(BaseTestCase):
-
     def test_role_is_created(self):
         self.assertEqual(Role.objects.count(), 2)
         self.assertEqual(self.role2.role, "Test2")
@@ -21,11 +28,16 @@ class TestCreateModels(BaseTestCase):
         self.assertEqual(self.pronoun.pronoun, "Test")
 
     def test_user_is_created(self):
-        self.assertEqual(User.objects.count(), 3)
-        self.assertTrue(hasattr(self.profile, 'skills'), True)
+        self.assertEqual(User.objects.count(), 4)
+        self.assertTrue(hasattr(self.profile, "skills"), True)
         self.assertTrue(self.profile.skills, self.skill.id)
 
     def test_request_is_created(self):
         self.assertEqual(Request.objects.count(), 1)
-        self.assertTrue(hasattr(self.request, 'mentee'), True)
+        self.assertTrue(hasattr(self.request, "mentee"), True)
         self.assertTrue(self.request.skill, self.skill2)
+
+    def test_request_interest_is_created(self):
+        self.assertEqual(RequestInterest.objects.count(), 1)
+        self.assertTrue(hasattr(self.request_interest, "mentor"), True)
+        self.assertTrue(self.request_interest.status, "OPEN")
