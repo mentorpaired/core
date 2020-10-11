@@ -2,17 +2,17 @@ import json
 import unittest
 from unittest.mock import patch
 
-from django.contrib.auth.models import User
 from rest_framework.test import APIClient
+
+from ..models import User
 
 
 class TestGithubOauth(unittest.TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.django_user = User.objects.create_user(
-            id=1,
-            username='test',
-            email='test@test.com'
+        self.user = User.objects.create_user(
+            user_id=1,
+            username='test'
         )
 
     @patch('app.views.github_oauth.get_user_from_token')
@@ -31,11 +31,17 @@ class TestGithubOauth(unittest.TestCase):
 
         generate_access_token.return_value = 'token'
 
-        github_user = {'user_id': 'id1', 'avatar': 'avatar.jpg'}
-        retrieve_github_user.return_value = json.dumps(github_user)
+        github_user = {
+            'user_id': 'id1',
+            'avatar_url': 'https://dummyavatar.com/v0',
+            'email': 'test@test.com',
+            'location': 'CEST'
+        }
+
+        retrieve_github_user.return_value = github_user
 
         convert_to_auth_token.return_value = 'auth_token'
-        get_user_from_token.return_value = self.django_user
+        get_user_from_token.return_value = self.user
 
         mock_data = {
             'client_id': 'somerandomstring',
@@ -46,12 +52,29 @@ class TestGithubOauth(unittest.TestCase):
         response = self.client.post('/github_auth/', data=mock_data)
         assert response.status_code == 201
 
-        assert json.loads(response.content) == {
-            'token': 'auth_token',
-            'jwt': {'refresh': 'randomrefreshtoken', 'access': 'randomaccesstoken'},
-            'github_user_info': '{"user_id": "id1", "avatar": "avatar.jpg"}',
-            'user': {'id': 1, 'username': 'test', 'email': 'test@test.com'}
+        expected_response = {
+            "token": "auth_token",
+            "jwt": {"refresh": "randomrefreshtoken", "access": "randomaccesstoken"},
+            "github_user_info": {
+                "user_id": "id1",
+                "avatar_url": "https://dummyavatar.com/v0",
+                "email": "test@test.com",
+                "location": "CEST"
+            },
+            'user': {
+                'user_id': '1',
+                'username': 'test',
+                'role': [],
+                'about': '',
+                'avatar': 'https://dummyavatar.com/v0',
+                'skills': [],
+                'pronoun': None,
+                'spoken_languages': [],
+                'timezone': 'CEST',
+                'availability': True
+            }
         }
+        assert json.loads(response.content) == json.loads(json.dumps(expected_response))
 
         get_refresh_access_token.assert_called()
         generate_access_token.assert_called()

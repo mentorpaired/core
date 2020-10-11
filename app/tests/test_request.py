@@ -23,7 +23,7 @@ class TestRequestViews(BaseTestCase):
 
     def test_retrieve_invalid_single_request(self):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.token)
-        response = self.client.get(f'/requests/20/')
+        response = self.client.get('/requests/20/')
         self.assertEqual(response.status_code, 404)
 
     def test_can_create_new_request(self):

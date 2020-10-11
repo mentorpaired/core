@@ -1,5 +1,7 @@
 import pytz
 import uuid
+
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -24,17 +26,13 @@ class Pronoun(models.Model):
         return self.pronoun
 
 
-class User(models.Model):
+class User(AbstractUser):
     user_id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
         editable=False
     )
     role = models.ManyToManyField('Role', related_name='roles')
-    display_name = models.CharField(
-        blank=False, max_length=300,
-        help_text='Include first name and last name here'
-    )
     about = models.TextField(
         max_length=1000,
         help_text='a brief description of you'
@@ -54,7 +52,7 @@ class User(models.Model):
     )
 
     def __str__(self):
-        return self.display_name
+        return self.username
 
 
 class Role(models.Model):
@@ -156,7 +154,7 @@ class Request(models.Model):
     )
 
     def __str__(self):
-        return self.mentee.display_name
+        return self.mentee.username
 
 
 class RequestInterest(models.Model):

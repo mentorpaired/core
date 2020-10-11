@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User as DefaultUser
 from rest_framework.test import APIClient, APITestCase
 
 from ..models import (LanguageProficiency, Pronoun, Request, Role, Skill,
@@ -11,22 +10,22 @@ class BaseTestCase(APITestCase):
 
         self.client = APIClient()
 
-        self.user = DefaultUser.objects.create_superuser(
+        self.admin = User.objects.create_superuser(
             username='test',
             email='test@test.com',
             password='testpassword'
         )
 
-        self.assertEqual(self.user.is_active, 1, 'Active User')
+        self.assertEqual(self.admin.is_active, 1, 'Active User')
 
-        self.user_login = self.client.post('/api/token/', {
+        self.admin_login = self.client.post('/api/token/', {
             'username': 'test',
             'password': 'testpassword',
         }, format='json')
 
-        self.assertEqual(self.user_login.status_code, 200)
+        self.assertEqual(self.admin_login.status_code, 200)
 
-        self.token = self.user_login.data['access']
+        self.token = self.admin_login.data['access']
 
         self.role = Role.objects.create(
             role="Test"
@@ -56,7 +55,7 @@ class BaseTestCase(APITestCase):
             proficiency=self.languageproficiency
         )
         self.profile = User.objects.create(
-            display_name="Test User",
+            username="testuser",
             about="Lorem Ipsum text",
             avatar="https://dummyavatars.githubcontent.com/u/1",
             pronoun=self.pronoun,
@@ -69,9 +68,9 @@ class BaseTestCase(APITestCase):
         self.profile.save()
 
         self.request_mentee = User.objects.create(
-            display_name="Second user",
-            about="Random bio of secondnd user",
-            avatar="test_two.png",
+            username="Second user",
+            about="Random bio of second user",
+            avatar="https://dummyavatars.githubcontent.com/u/0",
             pronoun=self.pronoun,
             website="www.secondtestsite.com",
             timezone="Secondcontinent/secondcountry"

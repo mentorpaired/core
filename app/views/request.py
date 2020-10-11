@@ -42,7 +42,6 @@ class RequestDetail(APIView):
     def put(self, request, pk):
         request_obj = self.get_object(pk)
         serializer = RequestSerializer(request_obj, data=request.data, partial=True)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)

@@ -1,11 +1,12 @@
 import json
 import os
 import re
-
 import requests
-from django.contrib.auth.models import User as DefaultUser
+
 from dotenv import load_dotenv
 from oauth2_provider.models import AccessToken
+
+from .models import User
 
 load_dotenv()
 
@@ -77,5 +78,5 @@ def get_user_from_token(django_auth_token):
     :django_auth_token: Oauthtoolkit access token
     :return the user object
     """
-    return DefaultUser.objects.get(
-        id=AccessToken.objects.get(token=django_auth_token['access_token']).user_id)
+    return User.objects.get(
+        user_id=AccessToken.objects.get(token=django_auth_token['access_token']).user_id)

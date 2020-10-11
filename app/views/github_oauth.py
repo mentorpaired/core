@@ -9,7 +9,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from ..oauth import (convert_to_auth_token, generate_github_access_token,
                      get_user_from_token, retrieve_github_user_info)
-from ..serializers import DefaultUserSerializer
+
+from ..serializers import UserSerializer
 
 load_dotenv()
 
@@ -53,6 +54,10 @@ def github_authenticate(request):
 
     user = get_user_from_token(django_auth_token)
 
+    user.avatar = github_user.get('avatar_url')
+    user.timezone = github_user.get('location')
+    user.save()
+
     res = get_refresh_access_token(user)
 
     return Response(
@@ -60,7 +65,7 @@ def github_authenticate(request):
         {'token': django_auth_token,
          'jwt': res,
          'github_user_info': github_user,
-         'user': DefaultUserSerializer(user).data
+         'user': UserSerializer(user).data
          },
         status=status.HTTP_201_CREATED
     )
