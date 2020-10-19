@@ -1,3 +1,6 @@
+"""
+Serializers
+"""
 from rest_framework import serializers
 
 from app.models import (
@@ -14,43 +17,71 @@ from app.models import (
 
 
 class RoleSerializer(serializers.ModelSerializer):
+    """ Role serializer """
+
     class Meta:
+        """ serializer metadata """
+
         model = Role
         fields = ["role"]
 
 
 class SkillProficiencySerializer(serializers.ModelSerializer):
+    """ SkillProficiency serializer """
+
     class Meta:
+        """ serializer metadata """
+
         model = SkillProficiency
         fields = ["id", "level"]
 
 
 class SkillSerializer(serializers.ModelSerializer):
+    """ Skill serializer """
+
     class Meta:
+        """ serializer metadata """
+
         model = Skill
         fields = ["id", "name", "proficiency"]
 
 
 class LanguageProficiencySerializer(serializers.ModelSerializer):
+    """ LanguageProficiency serializer """
+
     class Meta:
+        """ serializer metadata """
+
         model = LanguageProficiency
         fields = ["id", "level"]
 
 
 class SpokenLanguageSerializer(serializers.ModelSerializer):
+    """ SpokenLanguage serializer """
+
     class Meta:
+        """ serializer metadata """
+
         model = SpokenLanguage
         fields = ["id", "name", "proficiency"]
 
 
 class PronounSerializer(serializers.ModelSerializer):
+    """ Pronoun serializer """
+
     class Meta:
+        """ serializer metadata """
+
         model = Pronoun
         fields = ["pronoun"]
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """ User serializer """
+
     class Meta:
+        """ serializer metadata """
+
         model = User
         fields = [
             "user_id",
@@ -67,7 +98,7 @@ class UserSerializer(serializers.ModelSerializer):
         ]
 
     def update(self, instance, validated_data):
-
+        """ Update User instance"""
         role = validated_data.get("role")
         if role:
             instance.role.add(*role)
@@ -93,7 +124,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class RequestSerializer(serializers.ModelSerializer):
+    """ Request serializer """
+
     class Meta:
+        """ serializer metadata """
+
         model = Request
         fields = ["id", "skill", "description", "mentee", "mentor", "status"]
 

@@ -1,3 +1,6 @@
+"""
+Base tests
+"""
 from rest_framework.test import APIClient, APITestCase
 
 from ..models import (
@@ -15,7 +18,10 @@ from ..models import (
 
 class BaseTestCase(APITestCase):
     def setUp(self):
-
+        """
+        docstring here
+            :param self:
+        """
         self.client = APIClient()
 
         self.admin = User.objects.create_superuser(
