@@ -10,8 +10,8 @@ before_script:
 - python manage.py migrate --settings=backend.settings.test
 script:
 - coverage run --source=app manage.py test --settings=backend.settings.test
-- pylint .
-- mypy .
+- pylint app
+- mypy app
 after_success: coveralls
 notifications:
   slack:
