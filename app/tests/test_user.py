@@ -31,7 +31,7 @@ class TestUserViews(BaseTestCase):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.token)
         response = self.client.post('/users/', {
             'role': [self.role.id, ],
-            'display_name': 'test user',
+            'username': 'testuserone',
             'about': 'test bio',
             'avatar': 'https://dummyavatars.githubcontent.com/u/2',
             'pronoun': self.pronoun.id,
@@ -40,18 +40,18 @@ class TestUserViews(BaseTestCase):
             'timezone': 'Africa/Lagos'
         })
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(User.objects.count(), 3)
+        self.assertEqual(User.objects.count(), 4)
 
     def test_update_fields_in_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.token)
         response = self.client.put(f'/users/{self.profile.user_id}/', {
             'role': [self.role2.id],
-            'display_name': 'test user2',
+            'username': 'testusertwo',
             'skills': [self.skill2.id],
             'timezone': 'Africa/Cairo'
         })
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data['display_name'], 'test user2')
+        self.assertEqual(response.data['username'], 'testusertwo')
         self.assertEqual(response.data['role'], [self.role.id, self.role2.id])
         self.assertEqual(response.data['skills'], [self.skill.id, self.skill2.id]),
         self.assertEqual(response.data['timezone'], 'Africa/Cairo')

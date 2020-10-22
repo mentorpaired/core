@@ -21,7 +21,7 @@ class TestCreateModels(BaseTestCase):
         self.assertEqual(self.pronoun.pronoun, "Test")
 
     def test_user_is_created(self):
-        self.assertEqual(User.objects.count(), 2)
+        self.assertEqual(User.objects.count(), 3)
         self.assertTrue(hasattr(self.profile, 'skills'), True)
         self.assertTrue(self.profile.skills, self.skill.id)
 

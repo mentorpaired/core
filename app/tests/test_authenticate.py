@@ -17,7 +17,7 @@ class TestAuthenticationCase(BaseTestCase):
             })
             self.assertEqual(response.status_code, 200)
 
-    def test_noexistent_superuser_cannot_create_new_token(self):
+    def test_nonexistent_superuser_cannot_create_new_token(self):
         response = self.client.post('/api/token/', {
             'username': 'random',
             'password': 'testing'

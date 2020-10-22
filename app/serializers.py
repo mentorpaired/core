@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User as DefaultUser
 
 from app.models import (LanguageProficiency, Pronoun, Role, Skill,
                         SkillProficiency, SpokenLanguage, User, Request)
@@ -53,8 +52,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'user_id',
+            'username',
             'role',
-            'display_name',
             'about',
             'avatar',
             'skills',
@@ -78,19 +77,13 @@ class UserSerializer(serializers.ModelSerializer):
         if spoken_languages:
             instance.spoken_languages.add(*spoken_languages)
 
-        instance.display_name = validated_data.get('display_name', instance.display_name)
+        instance.username = validated_data.get('username', instance.username)
         instance.about = validated_data.get('about', instance.about)
         instance.pronoun = validated_data.get('pronoun', instance.pronoun)
         instance.timezone = validated_data.get('timezone', instance.timezone)
         instance.availability = validated_data.get('availability', instance.availability)
         instance.save()
         return instance
-
-
-class DefaultUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DefaultUser
-        fields = ['id', 'username', 'email']
 
 
 class RequestSerializer(serializers.ModelSerializer):
@@ -109,7 +102,7 @@ class RequestSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.skill = validated_data.get('skill', instance.skill)
         instance.description = validated_data.get('description', instance.description)
-        instance.mentor = validated_data.get('mentor', instance.mentor)
+        instance.mentee = validated_data.get('mentee', instance.mentee)
         instance.status = validated_data.get('status', instance.status)
         instance.mentor = validated_data.get('mentor', instance.mentor)
         instance.description = validated_data.get('description', instance.description)
