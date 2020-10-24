@@ -37,7 +37,7 @@ class User(AbstractUser):
 
     timezone = models.CharField(max_length=300, choices=timezone())
     availability = models.BooleanField(
-        default=True, help_text="switch to false if you're not open to being matched"
+        default=True, help_text="switch to false if you are not open to being matched"
     )
 
     def __str__(self):
@@ -99,8 +99,7 @@ class Request(models.Model):
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
     description = models.TextField(
         max_length=500,
-        help_text="brief overview of what you'd \
-                  like to learn, your available days, etc",
+        help_text="brief overview of what you would like to learn, your available days, etc",
     )
     mentee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="mentee")
 
