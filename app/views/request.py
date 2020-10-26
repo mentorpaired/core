@@ -17,6 +17,7 @@ class RequestList(APIView):
     Requests
         :param APIView:
     """
+
     permission_classes = (IsAuthenticated,)
 
     def get(self, request: Request) -> Response:
@@ -32,7 +33,7 @@ class RequestList(APIView):
     def post(self, request: Request) -> Response:
         """
         Create request
-            :param request:  Request object
+            :param request: Request object
             :return: New request or error
         """
         serializer = RequestSerializer(data=request.data)
@@ -56,6 +57,7 @@ class RequestDetail(APIView):
             return Request.objects.get(id=pk)
         except Request.DoesNotExist as err:
             raise Http404 from err
+
     # pylint: disable=invalid-name
     def get(self, request: Request, pk: str) -> Response:
         """
