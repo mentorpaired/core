@@ -45,8 +45,14 @@ class RequestList(APIView):
 
 
 class RequestDetail(APIView):
+    """
+    Request details
+        :param APIView:
+    """
+
     permission_classes = (IsAuthenticated,)
 
+    # pylint: disable=invalid-name
     def get_object(self, pk: str) -> Request:
         """
         Get single request
@@ -58,7 +64,6 @@ class RequestDetail(APIView):
         except Request.DoesNotExist as err:
             raise Http404 from err
 
-    # pylint: disable=invalid-name
     def get(self, request: Request, pk: str) -> Response:
         """
         Get single request
