@@ -52,7 +52,7 @@ class User(AbstractUser):
 
     def __str__(self):
         """ object string representation """
-        return self.username
+        return str(self.username)
 
 
 class Role(models.Model):
@@ -146,7 +146,7 @@ class Request(models.Model):
 
     def __str__(self) -> str:
         """ object string representation """
-        return self.mentee.username
+        return str(self.mentee.username)
 
 
 class RequestInterest(models.Model):
