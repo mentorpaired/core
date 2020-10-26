@@ -44,8 +44,14 @@ class UserList(APIView):
 
 
 class UserDetail(APIView):
+    """
+    Single user detail
+        :param APIView:
+    """
+
     permission_classes = (IsAuthenticated,)
 
+    # pylint: disable=invalid-name
     def get_object(self, pk: str) -> User:
         """
         Get single user
@@ -54,8 +60,8 @@ class UserDetail(APIView):
         """
         try:
             return User.objects.get(user_id=pk)
-        except User.DoesNotExist:
-            raise Http404
+        except User.DoesNotExist as err:
+            raise Http404 from err
 
     def get(self, request: User, pk: str) -> Response:
         """
