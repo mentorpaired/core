@@ -4,6 +4,7 @@ from ..models import (
     LanguageProficiency,
     Pronoun,
     Request,
+    RequestInterest,
     Role,
     Skill,
     SkillProficiency,
@@ -85,9 +86,31 @@ class BaseTestCase(APITestCase):
             status="OPEN",
         )
 
+        self.request_mentor = User.objects.create(
+            username="Third user",
+            about="Random bio of third user",
+            avatar="https://dummyavatars.githubcontent.com/u/0",
+            pronoun=self.pronoun,
+            website="www.thirdtestsite.com",
+            timezone="Thirdcontinent/thirdcountry",
+        )
+        self.request_mentor.role.add(self.role2.id)
+        self.request_mentor.skills.add(self.skill2.id)
+        self.request_mentor.spoken_languages.add(self.spoken_language.id)
+        self.request_mentor.save()
+
+        self.request_interest = RequestInterest.objects.create(
+            request=self.request,
+            mentor=self.profile,
+            description="Short description about mentor's interest",
+            status="OPEN",
+        )
+
     def tearDown(self):
         Role.objects.all().delete()
         Pronoun.objects.all().delete()
         Skill.objects.all().delete()
         SpokenLanguage.objects.all().delete()
         User.objects.all().delete()
+        Request.objects.all().delete()
+        RequestInterest.objects.all().delete()

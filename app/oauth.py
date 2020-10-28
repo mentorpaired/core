@@ -10,7 +10,7 @@ from .models import User
 
 load_dotenv()
 
-BACKEND_URL = os.getenv('BACKEND_URL')
+BACKEND_URL = os.getenv("BACKEND_URL")
 
 
 def generate_github_access_token(github_client_id, github_client_secret, github_code):
@@ -22,17 +22,22 @@ def generate_github_access_token(github_client_id, github_client_secret, github_
     :return: json data on user's api
     """
     github_response = requests.post(
-        'https://github.com/login/oauth/access_token/',
-        data=json.dumps({
-            'client_id': github_client_id,
-            'client_secret': github_client_secret,
-            'code': github_code
-        }),
-        headers={'content-type': 'application/json'}
+        "https://github.com/login/oauth/access_token/",
+        data=json.dumps(
+            {
+                "client_id": github_client_id,
+                "client_secret": github_client_secret,
+                "code": github_code,
+            }
+        ),
+        headers={"content-type": "application/json"},
     )
-    assert github_response.status_code == 200, \
-        f'ERROR: {github_response.status_code}, {github_response.text}'
-    token = re.search(r"access_token=([a-zA-Z0-9]+)", github_response.content.decode('utf-8'))
+    assert (
+        github_response.status_code == 200
+    ), f"ERROR: {github_response.status_code}, {github_response.text}"
+    token = re.search(
+        r"access_token=([a-zA-Z0-9]+)", github_response.content.decode("utf-8")
+    )
     if not token:
         raise PermissionError(github_response)
     return token.group(1)
@@ -44,9 +49,9 @@ def retrieve_github_user_info(token):
     :token: access token generated from github
     """
     response = requests.get(
-        'https://api.github.com/user',
-        data={'token': token},
-        headers={'Authorization': f'token {token}', 'content-type': 'application/json'}
+        "https://api.github.com/user",
+        data={"token": token},
+        headers={"Authorization": f"token {token}", "content-type": "application/json"},
     )
     return response.json()
 
@@ -62,13 +67,13 @@ def convert_to_auth_token(client_id, client_secret, backend, token):
     :return: django auth token
     """
     params = {
-        'grant_type': 'convert_token',
-        'client_id': client_id,
-        'client_secret': client_secret,
-        'backend': backend,
-        'token': token,
+        "grant_type": "convert_token",
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "backend": backend,
+        "token": token,
     }
-    response = requests.post(f'{BACKEND_URL}/auth/convert-token/', params=params)
+    response = requests.post(f"{BACKEND_URL}/auth/convert-token/", params=params)
     return response.json()
 
 
@@ -79,4 +84,5 @@ def get_user_from_token(django_auth_token):
     :return the user object
     """
     return User.objects.get(
-        user_id=AccessToken.objects.get(token=django_auth_token['access_token']).user_id)
+        user_id=AccessToken.objects.get(token=django_auth_token["access_token"]).user_id
+    )
