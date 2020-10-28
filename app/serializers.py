@@ -144,7 +144,11 @@ class RequestSerializer(serializers.ModelSerializer):
 
 
 class RequestInterestSerializer(serializers.ModelSerializer):
+    """ Request Interest serializer """
+
     class Meta:
+        """ serializer metadata """
+
         model = RequestInterest
         fields = [
             "request",
