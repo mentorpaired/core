@@ -15,7 +15,7 @@ from ..serializers import RequestSerializer
 class RequestList(APIView):
     """
     Requests
-        :param APIView:
+        :param APIView: Wrapper for class-based views
     """
 
     permission_classes = (IsAuthenticated,)
@@ -23,7 +23,7 @@ class RequestList(APIView):
     def get(self, request: Request) -> Response:
         """
         Get all requests
-            :param request:  Request object
+            :param request: Request object
             :return: All requests
         """
         request = Request.objects.all()
@@ -47,7 +47,7 @@ class RequestList(APIView):
 class RequestDetail(APIView):
     """
     Request details
-        :param APIView:
+        :param APIView: Wrapper for class-based views
     """
 
     permission_classes = (IsAuthenticated,)
@@ -66,7 +66,7 @@ class RequestDetail(APIView):
     def get(self, request: Request, primary_key: str) -> Response:
         """
         Get single request
-            :param request:  Request object
+            :param request: Request object
             :param primary_key: request primary key
             :return: single request object
         """
@@ -77,7 +77,7 @@ class RequestDetail(APIView):
     def put(self, request: Request, primary_key: str) -> Response:
         """
         Update single request
-            :param request:  Request object
+            :param request: Request object
             :param primary_key: request primary key
             :return: single request object
         """
@@ -91,7 +91,7 @@ class RequestDetail(APIView):
     def delete(self, request: Request, primary_key: str) -> Response:
         """
         Delete single request
-            :param request:  Request object
+            :param request: Request object
             :param primary_key: request primary key
             :return: single request object
         """
