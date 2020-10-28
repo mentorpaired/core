@@ -52,50 +52,49 @@ class RequestDetail(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    # pylint: disable=invalid-name
-    def get_object(self, pk: str) -> Request:
+    def get_object(self, primary_key: str) -> Request:
         """
         Get single request
-            :param pk: request primary key
+            :param primary_key: request primary key
             :return: request
         """
         try:
-            return Request.objects.get(id=pk)
+            return Request.objects.get(id=primary_key)
         except Request.DoesNotExist as err:
             raise Http404 from err
 
-    def get(self, request: Request, pk: str) -> Response:
+    def get(self, request: Request, primary_key: str) -> Response:
         """
         Get single request
             :param request:  Request object
-            :param pk: request primary key
+            :param primary_key: request primary key
             :return: single request object
         """
-        request = self.get_object(pk)
+        request = self.get_object(primary_key)
         serializer = RequestSerializer(request)
         return Response(serializer.data)
 
-    def put(self, request: Request, pk: str) -> Response:
+    def put(self, request: Request, primary_key: str) -> Response:
         """
         Update single request
             :param request:  Request object
-            :param pk: request primary key
+            :param primary_key: request primary key
             :return: single request object
         """
-        request_obj = self.get_object(pk)
+        request_obj = self.get_object(primary_key)
         serializer = RequestSerializer(request_obj, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request: Request, pk: str) -> Response:
+    def delete(self, request: Request, primary_key: str) -> Response:
         """
         Delete single request
             :param request:  Request object
-            :param pk: request primary key
+            :param primary_key: request primary key
             :return: single request object
         """
-        request = self.get_object(pk)
+        request = self.get_object(primary_key)
         request.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
