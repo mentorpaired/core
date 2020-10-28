@@ -9,7 +9,12 @@ from ..serializers import LanguageProficiencySerializer, SpokenLanguageSerialize
 
 # pylint: disable=too-many-ancestors
 class LanguageProficiencyViewSet(viewsets.ModelViewSet):
-    """ Language viewset """
+    """
+    Language viewset
+        :param: LanguageProficiency object
+        :return: Gets all language proficiencies, creates a new proficiency,
+        retrieves, updates or deletes an existing proficiency.
+    """
 
     queryset = LanguageProficiency.objects.all()
     serializer_class = LanguageProficiencySerializer
@@ -17,7 +22,12 @@ class LanguageProficiencyViewSet(viewsets.ModelViewSet):
 
 # pylint: disable=too-many-ancestors
 class LanguageViewSet(viewsets.ModelViewSet):
-    """ Spoken languages viewset """
+    """
+    Spoken languages viewset
+        :param: Spoken language object
+        :return: Get all languages, creates a new language,
+        retrieves, updates or deletes an existing language.
+    """
 
     queryset = SpokenLanguage.objects.all()
     serializer_class = SpokenLanguageSerializer
