@@ -5,24 +5,28 @@ from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from ..models import User
 from ..serializers import UserSerializer
 
 
+# pylint: disable=unused-argument
 class UserList(APIView):
     """
     Users
-        :param APIView:
+        :param APIView: Wrapper for class-based views
+
+        * Requires social media signup and JWT Authentication
+        * Only admins should be able to create new users or get all existing users
     """
 
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAdminUser,)
 
     def get(self, request: User) -> Response:
         """
         Get all users
-            :param user: User object
+            :param request: User object
             :return: All users
         """
         users = User.objects.all()
@@ -32,7 +36,7 @@ class UserList(APIView):
     def post(self, request: User) -> Response:
         """
         Create user
-            :param user: User object
+            :param request: User object
             :return: New user or error
         """
         serializer = UserSerializer(data=request.data)
@@ -43,10 +47,14 @@ class UserList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# pylint: disable=unused-argument
 class UserDetail(APIView):
     """
     Single user detail
-        :param APIView:
+        :param APIView: Wrapper for class-based views
+
+        * Requires social media signup and JWT authentication
+        * Only authenticated users can retrieve, update or delete their profiles.
     """
 
     permission_classes = (IsAuthenticated,)
@@ -65,7 +73,7 @@ class UserDetail(APIView):
     def get(self, request: User, primary_key: str) -> Response:
         """
         Get single user
-            :param user: User object
+            :param request: User object
             :param primary_key: user primary key
             :return: single user object
         """
@@ -76,7 +84,7 @@ class UserDetail(APIView):
     def put(self, request: User, primary_key: str) -> Response:
         """
         Update single user
-            :param user: User object
+            :param request: User object
             :param primary_key: user primary key
             :return: single user object
         """
@@ -90,7 +98,7 @@ class UserDetail(APIView):
     def delete(self, request: User, primary_key: str) -> Response:
         """
         Delete single user
-            :param user: User object
+            :param request: User object
             :param primary_key: user primary key
             :return: single user object
         """
