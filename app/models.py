@@ -50,7 +50,7 @@ class User(AbstractUser):
         default=True, help_text="switch to false if you are not open to being matched"
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         """ object string representation """
         return str(self.username)
 
