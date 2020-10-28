@@ -50,7 +50,7 @@ def generate_github_access_token(
 
 
 def retrieve_github_user_info(token: str) -> str:
-    """ "
+    """
     using the access token returned by github, retrieve the user's info from the github api
         :param token: access token generated from github
         :return: user's info
