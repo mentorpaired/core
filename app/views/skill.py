@@ -1,35 +1,23 @@
 """
 Skill view
 """
-from rest_framework import generics
+from rest_framework import viewsets
 
 from ..models import Skill, SkillProficiency
 from ..serializers import SkillProficiencySerializer, SkillSerializer
 
 
-class SkillProficiencyList(generics.ListAPIView):
-    """ Skill proficiencies view """
+# pylint: disable=too-many-ancestors
+class SkillProficiencyViewSet(viewsets.ModelViewSet):
+    """ Skill proficiencies viewset """
 
     queryset = SkillProficiency.objects.all()
     serializer_class = SkillProficiencySerializer
 
 
-class SkillProficiencyDetail(generics.RetrieveAPIView):
-    """ Skill proficiency view """
-
-    queryset = SkillProficiency.objects.all()
-    serializer_class = SkillProficiencySerializer
-
-
-class SkillList(generics.ListCreateAPIView):
-    """ Skills view """
-
-    queryset = Skill.objects.all()
-    serializer_class = SkillSerializer
-
-
-class SkillDetail(generics.RetrieveUpdateDestroyAPIView):
-    """ Skill view """
+# pylint: disable=too-many-ancestors
+class SkillViewSet(viewsets.ModelViewSet):
+    """ Skills viewset """
 
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer

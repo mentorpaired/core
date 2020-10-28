@@ -1,32 +1,23 @@
 """
 Language View
 """
-from rest_framework import generics
+from rest_framework import viewsets
 
 from ..models import LanguageProficiency, SpokenLanguage
-from ..serializers import (LanguageProficiencySerializer,
-                           SpokenLanguageSerializer)
+from ..serializers import LanguageProficiencySerializer, SpokenLanguageSerializer
 
 
-class LanguageProficiencyList(generics.ListAPIView):
-    """ Language proficiencies view """
+# pylint: disable=too-many-ancestors
+class LanguageProficiencyViewSet(viewsets.ModelViewSet):
+    """ Language viewset """
+
     queryset = LanguageProficiency.objects.all()
     serializer_class = LanguageProficiencySerializer
 
 
-class LanguageProficiencyDetail(generics.RetrieveAPIView):
-    """ Language proficiency view """
-    queryset = LanguageProficiency.objects.all()
-    serializer_class = LanguageProficiencySerializer
+# pylint: disable=too-many-ancestors
+class LanguageViewSet(viewsets.ModelViewSet):
+    """ Spoken languages viewset """
 
-
-class LanguageList(generics.ListCreateAPIView):
-    """ Spoken languages view """
-    queryset = SpokenLanguage.objects.all()
-    serializer_class = SpokenLanguageSerializer
-
-
-class LanguageDetail(generics.RetrieveUpdateDestroyAPIView):
-    """ Spoken language view """
     queryset = SpokenLanguage.objects.all()
     serializer_class = SpokenLanguageSerializer
