@@ -20,3 +20,9 @@ def types(ctx):
 def serve(ctx):
     """ start server """
     ctx.run("python manage.py runserver")
+
+
+# @task
+# def merge(ctx):
+#     """ rebase against staging branch and merge if no conflicts occur """
+#     ctx.run("git pull --rebase origin staging")
