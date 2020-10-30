@@ -58,25 +58,25 @@ class MentorRequestInterest(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get_object(self, primary_key: str) -> Response:
+    def get_object(self, request_id: str) -> Response:
         """
         Extract request's primary key
-            :param primary_key: Request primary key
+            :param request_id: Request object primary key
             :return: primary key value for single Request
         """
         try:
-            return RequestInterest.objects.filter(request_id__exact=primary_key)
+            return RequestInterest.objects.filter(request_id__exact=request_id)
         except RequestInterest.DoesNotExist as err:
             raise Http404 from err
 
-    def get(self, request: RequestInterest, primary_key: str) -> Response:
+    def get(self, request: RequestInterest, request_id: str) -> Response:
         """
         Get all interests from a specific request
             :param request: Request Interest object
-            :param primary_key: request primary key
+            :param request_id: request's primary key
             :return: all interests from specific request object
         """
-        interests = self.get_object(primary_key)
+        interests = self.get_object(request_id)
         serializer = RequestInterestSerializer(interests, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -93,5 +93,6 @@ class RequestInterestDetail(generics.RetrieveUpdateDestroyAPIView):
     """
 
     permission_classes = (IsAuthenticated,)
+    lookup_field = "interest_id"
     queryset = RequestInterest.objects.all()
     serializer_class = RequestInterestSerializer

@@ -59,49 +59,49 @@ class UserDetail(APIView):
 
     permission_classes = (IsAuthenticated,)
 
-    def get_object(self, primary_key: str) -> User:
+    def get_object(self, user_id: str) -> User:
         """
         Get single user
-            :param primary_key: user primary key
+            :param user_id: user primary key
             :return: user
         """
         try:
-            return User.objects.get(user_id=primary_key)
+            return User.objects.get(user_id=user_id)
         except User.DoesNotExist as err:
             raise Http404 from err
 
-    def get(self, request: User, primary_key: str) -> Response:
+    def get(self, request: User, user_id: str) -> Response:
         """
         Get single user
             :param request: User object
-            :param primary_key: user primary key
+            :param user_id: user primary key
             :return: single user object
         """
-        user = self.get_object(primary_key)
+        user = self.get_object(user_id)
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
-    def put(self, request: User, primary_key: str) -> Response:
+    def put(self, request: User, user_id: str) -> Response:
         """
         Update single user
             :param request: User object
-            :param primary_key: user primary key
+            :param user_id: user primary key
             :return: single user object
         """
-        user = self.get_object(primary_key)
+        user = self.get_object(user_id)
         serializer = UserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request: User, primary_key: str) -> Response:
+    def delete(self, request: User, user_id: str) -> Response:
         """
         Delete single user
             :param request: User object
-            :param primary_key: user primary key
+            :param user_id: user primary key
             :return: single user object
         """
-        user = self.get_object(primary_key)
+        user = self.get_object(user_id)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -124,6 +124,7 @@ class SpokenLanguage(models.Model):
 class Request(models.Model):
     """ Request model """
 
+    request_id = models.AutoField(primary_key=True, editable=False)
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
     description = models.TextField(
         max_length=500,
@@ -152,6 +153,7 @@ class Request(models.Model):
 class RequestInterest(models.Model):
     """ RequestInterest model """
 
+    interest_id = models.AutoField(primary_key=True, editable=False)
     request = models.ForeignKey(Request, on_delete=models.CASCADE)
     mentor = models.ForeignKey(User, on_delete=models.CASCADE, default="")
 
