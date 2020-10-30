@@ -15,14 +15,14 @@ class TestRequestInterestViews(BaseTestCase):
     def test_retrieve_valid_single_interest(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.get(f"/interests/{self.request_interest.pk}/")
-        interest = RequestInterest.objects.get(pk=self.request_interest.id)
+        interest = RequestInterest.objects.get(pk=self.request_interest.interest_id)
         serializer = RequestInterestSerializer(interest)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, serializer.data)
 
     def test_retrieve_all_interests_linked_to_single_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.get(f"/requests/{self.request.pk}/interests/")
+        response = self.client.get(f"/requests/{self.request.request_id}/interests/")
         self.assertEqual(response.status_code, 200)
 
     def test_retrieve_invalid_single_interest(self):
@@ -60,7 +60,7 @@ class TestRequestInterestViews(BaseTestCase):
     def test_can_update_field_in_interest(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.patch(
-            f"/interests/{self.request_interest.id}/",
+            f"/interests/{self.request_interest.request_id}/",
             {
                 "description": "Changed description",
             },
@@ -71,5 +71,5 @@ class TestRequestInterestViews(BaseTestCase):
 
     def test_can_delete_interest(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.delete(f"/interests/{self.request_interest.id}/")
+        response = self.client.delete(f"/interests/{self.request_interest.pk}/")
         self.assertEqual(response.status_code, 204)
