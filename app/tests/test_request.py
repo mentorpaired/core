@@ -15,7 +15,7 @@ class TestRequestViews(BaseTestCase):
     def test_retrieve_valid_single_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.get(f"/requests/{self.request.pk}/")
-        request = Request.objects.get(pk=self.request.id)
+        request = Request.objects.get(pk=self.request.request_id)
         serializer = RequestSerializer(request)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, serializer.data)
@@ -59,7 +59,7 @@ class TestRequestViews(BaseTestCase):
     def test_can_update_field_in_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.put(
-            f"/requests/{self.request.id}/",
+            f"/requests/{self.request.request_id}/",
             {
                 "skill": self.skill.id,
             },
@@ -70,5 +70,5 @@ class TestRequestViews(BaseTestCase):
 
     def test_can_delete_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.delete(f"/requests/{self.request.pk}/")
+        response = self.client.delete(f"/requests/{self.request.request_id}/")
         self.assertEqual(response.status_code, 204)

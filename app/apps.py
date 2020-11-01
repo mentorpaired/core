@@ -1,5 +1,12 @@
+"""
+Apps
+"""
 from django.apps import AppConfig
 
 
-class AppConfig(AppConfig):
+class CoreAppConfig(AppConfig):
+    """
+    Configure application
+        :param AppConfig:
+    """
     name = 'app'

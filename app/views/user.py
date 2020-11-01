@@ -1,22 +1,44 @@
+"""
+User view
+"""
 from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from ..models import User
 from ..serializers import UserSerializer
 
 
+# pylint: disable=unused-argument
 class UserList(APIView):
-    permission_classes = (IsAuthenticated,)
+    """
+    Users
+        :param APIView: Wrapper for class-based views
 
-    def get(self, request):
+        * Requires social media signup and JWT Authentication
+        * Only admins should be able to create new users or get all existing users
+    """
+
+    permission_classes = (IsAdminUser,)
+
+    def get(self, request: User) -> Response:
+        """
+        Get all users
+            :param request: User object
+            :return: All users
+        """
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
-    def post(self, request):
+    def post(self, request: User) -> Response:
+        """
+        Create user
+            :param request: User object
+            :return: New user or error
+        """
         serializer = UserSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -25,29 +47,61 @@ class UserList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# pylint: disable=unused-argument
 class UserDetail(APIView):
+    """
+    Single user detail
+        :param APIView: Wrapper for class-based views
+
+        * Requires social media signup and JWT authentication
+        * Only authenticated users can retrieve, update or delete their profiles.
+    """
+
     permission_classes = (IsAuthenticated,)
 
-    def get_object(self, pk):
+    def get_object(self, user_id: str) -> User:
+        """
+        Get single user
+            :param user_id: user primary key
+            :return: user
+        """
         try:
-            return User.objects.get(user_id=pk)
-        except User.DoesNotExist:
-            raise Http404
+            return User.objects.get(user_id=user_id)
+        except User.DoesNotExist as err:
+            raise Http404 from err
 
-    def get(self, request, pk):
-        user = self.get_object(pk)
+    def get(self, request: User, user_id: str) -> Response:
+        """
+        Get single user
+            :param request: User object
+            :param user_id: user primary key
+            :return: single user object
+        """
+        user = self.get_object(user_id)
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        user = self.get_object(pk)
+    def put(self, request: User, user_id: str) -> Response:
+        """
+        Update single user
+            :param request: User object
+            :param user_id: user primary key
+            :return: single user object
+        """
+        user = self.get_object(user_id)
         serializer = UserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
-        user = self.get_object(pk)
+    def delete(self, request: User, user_id: str) -> Response:
+        """
+        Delete single user
+            :param request: User object
+            :param user_id: user primary key
+            :return: single user object
+        """
+        user = self.get_object(user_id)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

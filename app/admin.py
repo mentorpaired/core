@@ -1,3 +1,6 @@
+"""
+Admin
+"""
 from django.contrib import admin
 
 from .models import User, Skill, SpokenLanguage, Request, RequestInterest
