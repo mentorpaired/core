@@ -28,26 +28,26 @@ class RequestList(APIView):
 class RequestDetail(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def get_object(self, pk):
+    def get_object(self, request_id):
         try:
-            return Request.objects.get(id=pk)
+            return Request.objects.get(request_id=request_id)
         except Request.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk):
-        request = self.get_object(pk)
+    def get(self, request, request_id):
+        request = self.get_object(request_id)
         serializer = RequestSerializer(request)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        request_obj = self.get_object(pk)
+    def put(self, request, request_id):
+        request_obj = self.get_object(request_id)
         serializer = RequestSerializer(request_obj, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
-        request = self.get_object(pk)
+    def delete(self, request, request_id):
+        request = self.get_object(request_id)
         request.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

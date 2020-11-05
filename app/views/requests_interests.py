@@ -27,19 +27,20 @@ class RequestInterestList(APIView):
 class MentorRequestInterest(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def get_object(self, pk):
+    def get_object(self, request_id):
         try:
-            return RequestInterest.objects.filter(request_id__exact=pk)
+            return RequestInterest.objects.filter(request_id__exact=request_id)
         except RequestInterest.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk):
-        interests = self.get_object(pk)
+    def get(self, request, request_id):
+        interests = self.get_object(request_id)
         serializer = RequestInterestSerializer(interests, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class RequestInterestDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
+    lookup_field = "interest_id"
     queryset = RequestInterest.objects.all()
     serializer_class = RequestInterestSerializer
