@@ -95,7 +95,7 @@ class UserSerializer(serializers.ModelSerializer):
 class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
-        fields = ["id", "skill", "description", "mentee", "mentor", "status"]
+        fields = ["request_id", "skill", "description", "mentee", "mentor", "status"]
 
     def update(self, instance, validated_data):
         instance.skill = validated_data.get("skill", instance.skill)
@@ -112,6 +112,7 @@ class RequestInterestSerializer(serializers.ModelSerializer):
     class Meta:
         model = RequestInterest
         fields = [
+            "interest_id",
             "request",
             "mentor",
             "description",
