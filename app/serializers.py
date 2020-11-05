@@ -66,6 +66,16 @@ class UserSerializer(serializers.ModelSerializer):
             "availability",
         ]
 
+    def validate(self, data):
+        """
+        Ensure that user inputs their email before their data is saved in the database.
+        """
+
+        email = data.get("email")
+        if not email:
+            raise serializers.ValidationError("Email is required for sign up.")
+        return data
+
     def update(self, instance, validated_data):
 
         role = validated_data.get("role")
