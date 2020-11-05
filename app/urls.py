@@ -71,15 +71,15 @@ urlpatterns = [
     path("users/<uuid:pk>/", UserDetail.as_view(), name="user_detail"),
     path("github_auth/", github_authenticate),
     path("requests/", RequestList.as_view(), name="request_list"),
-    path("requests/<int:pk>/", RequestDetail.as_view(), name="request_detail"),
+    path("requests/<int:id_>/", RequestDetail.as_view(), name="request_detail"),
     path("interests/", RequestInterestList.as_view(), name="request_interest_list"),
     path(
-        "interests/<int:pk>/",
+        "interests/<int:id_>/",
         RequestInterestDetail.as_view(),
         name="request_interest_detail",
     ),
     path(
-        "requests/<int:pk>/interests/",
+        "requests/<int:id_>/interests/",
         MentorRequestInterest.as_view(),
         name="mentor_interest_detail",
     ),

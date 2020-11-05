@@ -14,15 +14,15 @@ class TestRequestInterestViews(BaseTestCase):
 
     def test_retrieve_valid_single_interest(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.get(f"/interests/{self.request_interest.pk}/")
-        interest = RequestInterest.objects.get(pk=self.request_interest.id)
+        response = self.client.get(f"/interests/{self.request_interest.id}/")
+        interest = RequestInterest.objects.get(id=self.request_interest.id)
         serializer = RequestInterestSerializer(interest)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, serializer.data)
 
     def test_retrieve_all_interests_linked_to_single_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.get(f"/requests/{self.request.pk}/interests/")
+        response = self.client.get(f"/requests/{self.request.id}/interests/")
         self.assertEqual(response.status_code, 200)
 
     def test_retrieve_invalid_single_interest(self):
@@ -35,7 +35,7 @@ class TestRequestInterestViews(BaseTestCase):
         response = self.client.post(
             "/interests/",
             {
-                "request": self.request.pk,
+                "request": self.request.id,
                 "description": "Random description",
                 "mentor": self.request_mentor.pk,
                 "status": "OPEN",
@@ -59,11 +59,9 @@ class TestRequestInterestViews(BaseTestCase):
 
     def test_can_update_field_in_interest(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.patch(
+        response = self.client.put(
             f"/interests/{self.request_interest.id}/",
-            {
-                "description": "Changed description",
-            },
+            {"description": "Changed description"},
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["mentor"], self.profile.pk)
