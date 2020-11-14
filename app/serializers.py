@@ -50,6 +50,9 @@ class PronounSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    def validate_email(self, data):
+        pass
+
     class Meta:
         model = User
         fields = [
