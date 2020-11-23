@@ -32,9 +32,6 @@ def generate_github_access_token(github_client_id, github_client_secret, github_
         ),
         headers={"content-type": "application/json"},
     )
-    assert (
-        github_response.status_code == 200
-    ), f"ERROR: {github_response.status_code}, {github_response.text}"
     token = re.search(
         r"access_token=([a-zA-Z0-9]+)", github_response.content.decode("utf-8")
     )
