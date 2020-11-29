@@ -55,11 +55,11 @@ jobs:
         run: |
           python manage.py test
 
-      # - name: Coveralls
-      #   env:
-      #     COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-      #   run: |
-      #     coveralls
+      - name: Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: |
+          coveralls
 
       # - name: Slack Notification
       #   uses: rtCamp/action-slack-notify@v2
