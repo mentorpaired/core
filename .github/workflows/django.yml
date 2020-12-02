@@ -74,12 +74,3 @@ jobs:
           fields: |
             [{ "title": "Repository", "value": "${env.GITHUB_REPOSITORY}", "short": true },
             { "title": "Branch", "value": "${env.GITHUB_REF}", "short": true }]
-
-      # - name: Deploy to Heroku
-      #   env:
-      #     HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
-      #     HEROKU_STAGING_APP_NAME: ${{ secrets.HEROKU_STAGING_APP_NAME }}
-      #   if: github.ref == 'refs/heads/staging' && job.status == 'success'
-      #   run: |
-      #     git remote add heroku https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_STAGING_APP_NAME.git
-      #     git push heroku HEAD:staging -f
