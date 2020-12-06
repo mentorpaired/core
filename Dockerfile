@@ -15,3 +15,5 @@ COPY ./requirements.txt /mentorpaired_core/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 COPY . /mentorpaired_core/
+
+ENTRYPOINT ["/mentorpaired_core/entrypoint.sh"]
