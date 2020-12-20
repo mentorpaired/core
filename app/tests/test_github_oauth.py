@@ -4,18 +4,11 @@ from unittest.mock import patch
 
 from rest_framework.test import APIClient
 
-from ..models import User
-
 
 class TestGithubOauth(unittest.TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = User.objects.create_user(
-            user_id=1, username="test", email="test@test.com"
-        )
 
-    @patch("app.views.github_oauth.get_user_from_token")
-    @patch("app.views.github_oauth.convert_to_auth_token")
     @patch("app.views.github_oauth.retrieve_github_user_info")
     @patch("app.views.github_oauth.generate_github_access_token")
     @patch("app.views.github_oauth.get_refresh_access_token")
@@ -24,8 +17,6 @@ class TestGithubOauth(unittest.TestCase):
         get_refresh_access_token,
         generate_access_token,
         retrieve_github_user,
-        convert_to_auth_token,
-        get_user_from_token,
     ):
 
         get_refresh_access_token.return_value = {
@@ -37,6 +28,7 @@ class TestGithubOauth(unittest.TestCase):
 
         github_user = {
             "user_id": "id1",
+            "name": "test",
             "avatar_url": "https://dummyavatar.com/v0",
             "email": "test@test.com",
             "location": "CEST",
@@ -44,29 +36,31 @@ class TestGithubOauth(unittest.TestCase):
 
         retrieve_github_user.return_value = github_user
 
-        convert_to_auth_token.return_value = "auth_token"
-        get_user_from_token.return_value = self.user
-
         mock_data = {
             "client_id": "somerandomstring",
             "client_secret": "anotherlongerrandomstring",
             "code": "arandomstring01",
         }
 
-        response = self.client.post("/github_auth/", data=mock_data)
-        assert response.status_code == 201
+        byte_response = self.client.post("/github_auth/", data=mock_data)
+        assert byte_response.status_code == 201
+
+        content = json.loads(byte_response.content)
+
+        user = content.get("user")
+        assert user is not None, "user not created"
 
         expected_response = {
-            "token": "auth_token",
             "jwt": {"refresh": "randomrefreshtoken", "access": "randomaccesstoken"},
             "github_user_info": {
                 "user_id": "id1",
+                "name": "test",
                 "avatar_url": "https://dummyavatar.com/v0",
                 "email": "test@test.com",
                 "location": "CEST",
             },
             "user": {
-                "user_id": "1",
+                "user_id": user.get("user_id"),
                 "username": "test",
                 "email": "test@test.com",
                 "role": [],
@@ -79,10 +73,8 @@ class TestGithubOauth(unittest.TestCase):
                 "availability": True,
             },
         }
-        assert json.loads(response.content) == json.loads(json.dumps(expected_response))
+        assert content == expected_response
 
         get_refresh_access_token.assert_called()
         generate_access_token.assert_called()
         retrieve_github_user.assert_called()
-        convert_to_auth_token.assert_called()
-        get_user_from_token.assert_called()

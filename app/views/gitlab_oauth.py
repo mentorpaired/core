@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from ..github_oauth import generate_github_access_token, retrieve_github_user_info
+from ..gitlab_oauth import generate_gitlab_access_token, retrieve_gitlab_user_info
 from ..models import User
 from ..serializers import UserSerializer
 
@@ -18,18 +18,20 @@ def get_refresh_access_token(user_object):
 
 
 @api_view(["POST"])
-def github_authenticate(request):
-    github_token = generate_github_access_token(
-        github_code=request.data["code"],
+def gitlab_authenticate(request):
+
+    gitlab_token = generate_gitlab_access_token(
+        code=request.data["code"],
+        grant_type="authorization_code",
+        redirect_uri="http://localhost:3000/login",
     )
 
-    github_user = retrieve_github_user_info(token=github_token)
+    gitlab_user = retrieve_gitlab_user_info(access_token=gitlab_token)
 
     user, created = User.objects.get_or_create(
-        username=github_user.get("name"),
-        avatar=github_user.get("avatar_url"),
-        email=github_user.get("email"),
-        timezone=github_user.get("location"),
+        username=gitlab_user.get("name"),
+        avatar=gitlab_user.get("avatar_url"),
+        email=gitlab_user.get("email"),
     )
 
     if user is None and created is False:
@@ -40,7 +42,7 @@ def github_authenticate(request):
     return Response(
         {
             "jwt": res,
-            "github_user_info": github_user,
+            "gitlab_user_info": gitlab_user,
             "user": UserSerializer(user).data,
         },
         status=status.HTTP_201_CREATED,

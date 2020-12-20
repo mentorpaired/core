@@ -7,6 +7,8 @@ from rest_framework import permissions
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from .views.github_oauth import github_authenticate
+from .views.gitlab_oauth import gitlab_authenticate
+
 from .views.language import (
     LanguageDetail,
     LanguageList,
@@ -70,6 +72,7 @@ urlpatterns = [
     path("users/", UserList.as_view(), name="user_list"),
     path("users/<uuid:pk>/", UserDetail.as_view(), name="user_detail"),
     path("github_auth/", github_authenticate),
+    path("gitlab_auth/", gitlab_authenticate),
     path("requests/", RequestList.as_view(), name="request_list"),
     path("requests/<int:id_>/", RequestDetail.as_view(), name="request_detail"),
     path("interests/", RequestInterestList.as_view(), name="request_interest_list"),
