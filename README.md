@@ -181,31 +181,23 @@ flake8 .
 
 ### OAuth setup instructions
 
-- Your local development environment needs to be set up correctly before you can use the oauth login flow through Postman or the React frontend.
+#### GitHub
 
-  - Log in to your Django admin with your superuser credentials.
-
-    ```
-    http://localhost:8000/admin
-    ```
-
-  - Select `Applications` in the Django Oauth Toolkit section.
-  - Click on `Add Application`.
-  - Do not modify the client id and client secret values, these values will be used to populate your .env file.
-  - For `User` field, select your superuser.
-  - For `Redirect uris`, input `http://localhost:3000/login` as its value.
-  - Select any client type.
-  - Select `Authorization code` as the authorization grant type.
-  - Type in any names of your choice as your app name.
-  - `Skip authorization` should be left unchecked.
-  - Save the app.
-
-- Navigate to your Github personal settings section to create a Github OAuth app.
+- Navigate to your GitHub personal settings section to create an OAuth application.
 
   - Click on `Developer settings`, select `OAuth Apps`.
   - Click `New OAuth App` and create a new app.
-  - For `Homepage URL` and `Authorization callback URL`, use the values `http://localhost:3000` and `http://localhost:3000/login` respectively.
+  - For `Homepage URL` and `Authorization callback URL`, use the values `http://localhost:3000` and `http://localhost:3000/login` or your preferred URL callback value respectively.
   - Click the `register application` button to save the app.
+
+#### GitLab
+
+- Navigate to your GitLab personal settings section to create an application.
+
+  - Click on `settings`, select `Application`.
+  - Use your preferred URL, as with GitHub setup, for the `Redirect URI` value.
+  - Select your preferred scopes from the list of options provided.
+  - Click the `save application` button to save the app.
 
 - Update your .env file with the values in the oauth apps you created.
 
@@ -223,12 +215,9 @@ flake8 .
 
 - Clone the repository from the `staging` branch and please read the [contributing guide](/CONTRIBUTING.md).
 
-- You may also need to have [Heroku](https://devcenter.heroku.com/articles/heroku-cli) and [Travis CI](https://github.com/travis-ci/travis.rb#installation) installed.
+- You may also need to have [Heroku](https://devcenter.heroku.com/articles/heroku-cli).
 
-- Run `Travis` and `Heroku` login commands in your terminal after installation
-  ```sh
-  travis login
-  ```
+- Run the `Heroku` login commands in your terminal after installation
   ```sh
   heroku login
   ```
@@ -241,4 +230,4 @@ This project is licensed under the MIT License - see the [LICENSE](/LICENSE) fil
 
 ### Acknowledgements
 
-Special thanks to [Kosy](https://github.com/kosyfrances), [Delores](https://github.com/Del-sama) and [Tunde](https://github.com/toystars) for guiding us through the entire app creation process, reviewing our code and unblocking us when we are stuck with an issue, and especially for taking the time out of their busy lives to provide free mentorship to us.
+Special thanks to [Kosy](https://github.com/kosyfrances), [Delores](https://github.com/Del-sama), [Tunde](https://github.com/toystars) and [Solomon](https://github.com/ayoola-solomon) for guiding us through the entire app creation process, reviewing our code and unblocking us when we are stuck with an issue, and most especially, for taking the time out of their busy lives to provide free mentorship to us.
