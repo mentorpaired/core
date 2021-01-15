@@ -50,12 +50,6 @@ class PronounSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    def validate(self, data):
-        email = data.get("email")
-        if email is None:
-            raise serializers.ValidationError("Email field is required.")
-        return data
-
     class Meta:
         model = User
         fields = [
