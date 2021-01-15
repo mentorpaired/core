@@ -28,13 +28,16 @@ def gitlab_authenticate(request):
 
     gitlab_user = retrieve_gitlab_user_info(access_token=gitlab_token)
 
-    user, created = User.objects.get_or_create(
-        username=gitlab_user.get("name"),
-        avatar=gitlab_user.get("avatar_url"),
-        email=gitlab_user.get("email"),
-    )
+    try:
+        user = User.objects.get(email=gitlab_user.get("email"))
+    except User.DoesNotExist:
+        user, created = User.objects.get_or_create(
+            username=gitlab_user.get("name"),
+            avatar=gitlab_user.get("avatar_url"),
+            email=gitlab_user.get("email"),
+        )
 
-    if user is None and created is False:
+    if user is None:
         raise exceptions.AuthenticationFailed("user not created")
 
     res = get_refresh_access_token(user)
