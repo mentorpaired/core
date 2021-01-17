@@ -16,4 +16,8 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 COPY . /mentorpaired_core/
 
-ENTRYPOINT ["/mentorpaired_core/entrypoint.sh"]
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", ":8000", "backend.wsgi:application"]
+
+# ENTRYPOINT ["/mentorpaired_core/entrypoint.sh"]

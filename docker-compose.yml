@@ -5,8 +5,10 @@ services:
     container_name: postgresdb
     image: postgres:latest
     restart: always
-    env_file:
-      - .env
+    environment:
+      POSTGRES_USER: coreuser
+      POSTGRES_DB: coredb
+      POSTGRES_PASSWORD: corepassword
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

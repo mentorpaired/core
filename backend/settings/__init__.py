@@ -10,5 +10,7 @@ if os.getenv("ENVIRONMENT") == "PRODUCTION":
     from .production import *
 elif os.getenv("GITHUB_WORKFLOW"):
     from .test import *
+elif os.getenv("DOCKER"):
+    from .docker import *
 else:
     from .local import *
