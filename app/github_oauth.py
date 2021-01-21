@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import re
 import requests
@@ -20,6 +21,7 @@ def generate_github_access_token(github_code):
 
     if not github_client_id or not github_client_secret:
         raise ValueError("Github application client id or client secret is missing.")
+        logging.critical("Github application client id or client secret is missing.")
 
     github_response = requests.post(
         "https://github.com/login/oauth/access_token/",
@@ -40,6 +42,7 @@ def generate_github_access_token(github_code):
     )
     if not token:
         raise PermissionError(github_response)
+        logging.warning("Wrong access token.")
     return token.group(1)
 
 

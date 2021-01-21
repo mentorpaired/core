@@ -1,4 +1,6 @@
 from django.http import Http404
+import logging
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -33,6 +35,7 @@ class RequestDetail(APIView):
             return Request.objects.get(id=id_)
         except Request.DoesNotExist:
             raise Http404
+            logging.warning("Request object doesn't exist.")
 
     def get(self, request, id_):
         request = self.get_object(id_)

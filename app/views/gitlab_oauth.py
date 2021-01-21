@@ -1,4 +1,5 @@
 import datetime
+import logging
 
 from rest_framework import status, exceptions
 from rest_framework.decorators import api_view
@@ -39,6 +40,7 @@ def gitlab_authenticate(request):
 
     if user is None:
         raise exceptions.AuthenticationFailed("user not created")
+        logging.error("user not created.")
 
     res = get_refresh_access_token(user)
 
