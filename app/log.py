@@ -13,7 +13,6 @@ from app.views import (
 
 def main():
     logging.basicConfig(
-        filename="core.log",
         stream=sys.stdout,
         format="%(asctime)s - %(message)s",
         datefmt="%d/%m/%Y %H:%M%S",

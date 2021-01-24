@@ -21,8 +21,8 @@ def generate_gitlab_access_token(code, grant_type, redirect_uri):
     client_secret = os.getenv("SOCIAL_AUTH_GITLAB_SECRET")
 
     if not client_id or not client_secret:
-        raise ValueError("Gitlab application client id or client secret is missing.")
         logging.critical("Gitlab application client id or client secret is missing.")
+        raise ValueError("Gitlab application client id or client secret is missing.")
 
     gitlab_response = requests.post(
         "https://gitlab.com/oauth/token",
@@ -43,8 +43,8 @@ def generate_gitlab_access_token(code, grant_type, redirect_uri):
     access_token = content.get("access_token")
 
     if not access_token:
-        raise PermissionError(gitlab_response)
         logging.warning("Wrong access token")
+        raise PermissionError(gitlab_response)
     return access_token
 
 

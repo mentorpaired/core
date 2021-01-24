@@ -33,8 +33,8 @@ class MentorRequestInterest(APIView):
         try:
             return RequestInterest.objects.filter(request_id__exact=id_)
         except RequestInterest.DoesNotExist:
-            raise Http404
             logging.warning("Interest for this request object doesn't exist.")
+            raise Http404
 
     def get(self, request, id_):
         interests = self.get_object(id_)
@@ -49,8 +49,8 @@ class RequestInterestDetail(APIView):
         try:
             return RequestInterest.objects.get(id=id_)
         except RequestInterest.DoesNotExist:
-            raise Http404
             logging.warning("Interest object doesn't exist.")
+            raise Http404
 
     def get(self, request, id_):
         interest = self.get_object(id_)

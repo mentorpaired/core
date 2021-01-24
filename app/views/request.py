@@ -34,8 +34,8 @@ class RequestDetail(APIView):
         try:
             return Request.objects.get(id=id_)
         except Request.DoesNotExist:
-            raise Http404
             logging.warning("Request object doesn't exist.")
+            raise Http404
 
     def get(self, request, id_):
         request = self.get_object(id_)

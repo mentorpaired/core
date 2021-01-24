@@ -39,8 +39,8 @@ def gitlab_authenticate(request):
         )
 
     if user is None:
-        raise exceptions.AuthenticationFailed("user not created")
         logging.error("user not created.")
+        raise exceptions.AuthenticationFailed("user not created")
 
     res = get_refresh_access_token(user)
 
