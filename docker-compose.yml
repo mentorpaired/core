@@ -4,7 +4,6 @@ services:
   db:
     container_name: postgresdb
     image: postgres:latest
-    restart: always
     env_file:
       - .env
     volumes:
@@ -13,13 +12,20 @@ services:
   web:
     container_name: core_app
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
     env_file:
       - .env
     ports:
       - 8000:8000
     depends_on:
       - db
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - web
 
 volumes:
   postgres_data:
