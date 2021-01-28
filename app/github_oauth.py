@@ -41,7 +41,7 @@ def generate_github_access_token(github_code):
         r"access_token=([a-zA-Z0-9]+)", github_response.content.decode("utf-8")
     )
     if not token:
-        logging.warning("Wrong access token.")
+        logging.error("Github access token is invalid.")
         raise PermissionError(github_response)
     return token.group(1)
 

@@ -43,7 +43,7 @@ def generate_gitlab_access_token(code, grant_type, redirect_uri):
     access_token = content.get("access_token")
 
     if not access_token:
-        logging.warning("Wrong access token")
+        logging.error("Gitlab access token is invalid.")
         raise PermissionError(gitlab_response)
     return access_token
 
