@@ -34,8 +34,8 @@ class UserDetail(APIView):
         try:
             return User.objects.get(user_id=pk)
         except User.DoesNotExist:
+            logging.warning(f"User object with id {pk} doesn't exist.")
             raise Http404
-            logging.warning("User object doesn't exist.")
 
     def get(self, request, pk):
         user = self.get_object(pk)

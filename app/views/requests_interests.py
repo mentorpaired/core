@@ -1,6 +1,6 @@
-from django.http import Http404
 import logging
 
+from django.http import Http404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -31,15 +31,15 @@ class MentorRequestInterest(APIView):
 
     def get_object(self, id_):
         try:
-            return RequestInterest.objects.filter(request_id__exact=id_)
+            return RequestInterest.objects.filter(request=id_)
         except RequestInterest.DoesNotExist:
-            logging.warning("Interest for this request object doesn't exist.")
+            logging.warning(f"Interest for request id {id_} doesn't exist.")
             raise Http404
 
     def get(self, request, id_):
         interests = self.get_object(id_)
         serializer = RequestInterestSerializer(interests, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data)
 
 
 class RequestInterestDetail(APIView):
@@ -49,7 +49,7 @@ class RequestInterestDetail(APIView):
         try:
             return RequestInterest.objects.get(id=id_)
         except RequestInterest.DoesNotExist:
-            logging.warning("Interest object doesn't exist.")
+            logging.warning(f"Interest object with id {id_} doesn't exist.")
             raise Http404
 
     def get(self, request, id_):

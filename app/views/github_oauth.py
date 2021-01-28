@@ -1,7 +1,7 @@
 import datetime
 import logging
 
-from rest_framework import status, exceptions
+from rest_framework import exceptions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -26,6 +26,8 @@ def github_authenticate(request):
 
     github_user = retrieve_github_user_info(token=github_token)
 
+    github_user_name = github_user.get("name")
+
     try:
         user = User.objects.get(email=github_user.get("email"))
     except User.DoesNotExist:
@@ -37,9 +39,7 @@ def github_authenticate(request):
         )
 
     if user is None:
-        logging.basicConfig(
-            filename="github_oauth.log", encoding="utf-8", level=logging.DEBUG
-        )
+        logging.error(f"{github_user_name}'s account not created.")
         raise exceptions.AuthenticationFailed("user not created")
 
     res = get_refresh_access_token(user)
