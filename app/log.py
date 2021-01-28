@@ -16,7 +16,7 @@ def main():
         stream=sys.stdout,
         format="%(asctime)s - %(message)s",
         datefmt="%d/%m/%Y %H:%M%S",
-        level=logging.DEBUG,
+        level=logging.INFO,
     )
 
     github_oauth.generate_github_access_token()
