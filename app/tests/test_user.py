@@ -51,22 +51,24 @@ class TestUserViews(BaseTestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(User.objects.count(), 5)
 
-    # def test_update_fields_in_single_user(self):
-    #     self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-    #     response = self.client.put(
-    #         f"/users/{self.profile.user_id}/",
-    #         {
-    #             "role": [self.role2.id],
-    #             "username": "testusertwo",
-    #             "skills": [self.skill2.id],
-    #             "timezone": "Africa/Cairo",
-    #         },
-    #     )
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(response.data["username"], "testusertwo")
-    #     self.assertEqual(response.data["role"], [self.role.id, self.role2.id])
-    #     self.assertEqual(response.data["skills"], [self.skill.id, self.skill2.id]),
-    #     self.assertEqual(response.data["timezone"], "Africa/Cairo")
+    def test_update_fields_in_single_user(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
+        response = self.client.put(
+            f"/users/{self.profile.user_id}/",
+            {
+                "role": [self.role2.id],
+                "email": "testemail@testemail.com",
+                "username": "testusertwo",
+                "skills": [self.skill2.id],
+                "timezone": "Africa/Cairo",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["username"], "testusertwo")
+        self.assertEqual(response.data["email"], "testemail@testemail.com")
+        self.assertEqual(response.data["role"], [self.role.id, self.role2.id])
+        self.assertEqual(response.data["skills"], [self.skill.id, self.skill2.id]),
+        self.assertEqual(response.data["timezone"], "Africa/Cairo")
 
     def test_delete_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)

@@ -85,7 +85,7 @@ class UserSerializer(serializers.ModelSerializer):
             instance.spoken_languages.add(*spoken_languages)
 
         instance.username = validated_data.get("username", instance.username)
-        # instance.email = validated_data.get("email", instance.email)
+        instance.email = email
         instance.about = validated_data.get("about", instance.about)
         instance.pronoun = validated_data.get("pronoun", instance.pronoun)
         instance.timezone = validated_data.get("timezone", instance.timezone)
