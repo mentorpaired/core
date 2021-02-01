@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import requests
 
@@ -20,6 +21,7 @@ def generate_gitlab_access_token(code, grant_type, redirect_uri):
     client_secret = os.getenv("SOCIAL_AUTH_GITLAB_SECRET")
 
     if not client_id or not client_secret:
+        logging.critical("Gitlab application client id or client secret is missing.")
         raise ValueError("Gitlab application client id or client secret is missing.")
 
     gitlab_response = requests.post(
@@ -41,6 +43,7 @@ def generate_gitlab_access_token(code, grant_type, redirect_uri):
     access_token = content.get("access_token")
 
     if not access_token:
+        logging.error("Gitlab access token is invalid.")
         raise PermissionError(gitlab_response)
     return access_token
 

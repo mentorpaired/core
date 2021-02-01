@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import re
 import requests
@@ -19,6 +20,7 @@ def generate_github_access_token(github_code):
     github_client_secret = os.getenv("SOCIAL_AUTH_GITHUB_SECRET")
 
     if not github_client_id or not github_client_secret:
+        logging.critical("Github application client id or client secret is missing.")
         raise ValueError("Github application client id or client secret is missing.")
 
     github_response = requests.post(
@@ -39,6 +41,7 @@ def generate_github_access_token(github_code):
         r"access_token=([a-zA-Z0-9]+)", github_response.content.decode("utf-8")
     )
     if not token:
+        logging.error("Github access token is invalid.")
         raise PermissionError(github_response)
     return token.group(1)
 
