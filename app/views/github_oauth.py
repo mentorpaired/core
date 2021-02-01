@@ -39,7 +39,7 @@ def github_authenticate(request):
         )
 
     if user is None:
-        logging.error(f"{github_user_name}'s account not created.")
+        logging.error(f"Github account for {github_user_name} was not created.")
         raise exceptions.AuthenticationFailed("user not created")
 
     res = get_refresh_access_token(user)
