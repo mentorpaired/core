@@ -24,7 +24,7 @@ def gitlab_authenticate(request):
     gitlab_token = generate_gitlab_access_token(
         code=request.data["code"],
         grant_type="authorization_code",
-        redirect_uri="http://localhost:3000/login",
+        redirect_uri="http://localhost:3000/signin",
     )
 
     gitlab_user = retrieve_gitlab_user_info(access_token=gitlab_token)
