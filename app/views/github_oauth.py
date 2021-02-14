@@ -6,7 +6,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from ..github_oauth import generate_github_access_token, retrieve_github_user_info
+from ..github_oauth import (
+    generate_github_access_token,
+    retrieve_github_user_email,
+    retrieve_github_user_info,
+)
 from ..models import User
 from ..serializers import UserSerializer
 
@@ -26,6 +30,20 @@ def github_authenticate(request):
 
     github_user = retrieve_github_user_info(token=github_token)
 
+    email = github_user.get("email")
+
+    if email is None:
+
+        """
+        github_private_email is a list containing two dictionaries,
+        each one with different emails. According to github's private email current setup,
+        the first dictionary values contains the primary and verified email value.
+        """
+
+        github_private_email = retrieve_github_user_email(token=github_token)
+        retrieved_private_email = github_private_email[0]
+        email = retrieved_private_email.get("email")
+
     github_user_name = github_user.get("name")
 
     try:
@@ -34,7 +52,7 @@ def github_authenticate(request):
         user, created = User.objects.get_or_create(
             username=github_user.get("name"),
             avatar=github_user.get("avatar_url"),
-            email=github_user.get("email"),
+            email=email,
             timezone=github_user.get("location"),
         )
 
