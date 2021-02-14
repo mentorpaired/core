@@ -9,6 +9,7 @@ class TestGithubOauth(unittest.TestCase):
     def setUp(self):
         self.client = APIClient()
 
+    @patch("app.views.github_oauth.retrieve_github_user_email")
     @patch("app.views.github_oauth.retrieve_github_user_info")
     @patch("app.views.github_oauth.generate_github_access_token")
     @patch("app.views.github_oauth.get_refresh_access_token")
@@ -16,7 +17,8 @@ class TestGithubOauth(unittest.TestCase):
         self,
         get_refresh_access_token,
         generate_access_token,
-        retrieve_github_user,
+        retrieve_github_user_info,
+        retrieve_github_user_email,
     ):
 
         get_refresh_access_token.return_value = {
@@ -30,11 +32,14 @@ class TestGithubOauth(unittest.TestCase):
             "user_id": "id1",
             "name": "test",
             "avatar_url": "https://dummyavatar.com/v0",
-            "email": "test@test.com",
             "location": "CEST",
         }
 
-        retrieve_github_user.return_value = github_user
+        github_user_email = {"email": "test@test.com", "verified": True}
+
+        retrieve_github_user_info.return_value = github_user
+
+        retrieve_github_user_email.return_value = github_user_email.get("email")
 
         mock_data = {
             "client_id": "somerandomstring",
@@ -56,7 +61,6 @@ class TestGithubOauth(unittest.TestCase):
                 "user_id": "id1",
                 "name": "test",
                 "avatar_url": "https://dummyavatar.com/v0",
-                "email": "test@test.com",
                 "location": "CEST",
             },
             "user": {
@@ -77,4 +81,5 @@ class TestGithubOauth(unittest.TestCase):
 
         get_refresh_access_token.assert_called()
         generate_access_token.assert_called()
-        retrieve_github_user.assert_called()
+        retrieve_github_user_info.assert_called()
+        retrieve_github_user_email.assert_called()
