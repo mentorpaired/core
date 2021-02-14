@@ -74,7 +74,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         email = validated_data.get("email")
         if not email:
-            raise serializers.ValidationError("Email is required for signup.")
+            raise serializers.ValidationError("Email is required.")
 
         skills = validated_data.get("skills")
         if skills:
