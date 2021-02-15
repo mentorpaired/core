@@ -35,11 +35,18 @@ class TestGithubOauth(unittest.TestCase):
             "location": "CEST",
         }
 
-        github_user_email = {"email": "test@test.com", "verified": True}
-
         retrieve_github_user_info.return_value = github_user
 
-        retrieve_github_user_email.return_value = github_user_email.get("email")
+        github_user_email = [
+            {
+                "email": "test@test.com",
+                "verified": True,
+                "primary": True,
+            }
+        ]
+        primary_email_dict = github_user_email[0]
+
+        retrieve_github_user_email.return_value = primary_email_dict.get("email")
 
         mock_data = {
             "client_id": "somerandomstring",
