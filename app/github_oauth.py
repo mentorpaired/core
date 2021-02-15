@@ -67,6 +67,9 @@ def retrieve_github_user_email(token):
     response = requests.get(
         "https://api.github.com/user/emails",
         data={"token": token},
-        headers={"Authorization": f"token {token}", "content-type": "application/json"},
+        headers={
+            "Authorization": f"token {token}",
+            "Accept": "application/vnd.github.v3+json",
+        },
     )
     return response.json()
