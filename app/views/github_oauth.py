@@ -31,17 +31,16 @@ def github_authenticate(request):
     github_user = retrieve_github_user_info(token=github_token)
 
     email = github_user.get("email")
-
     if email is None:
 
         """
         github_private_email is a list containing two dictionaries,
-        each one with different emails. According to github's private email current setup,
+        each one with different emails. According to Github's private email current setup,
         the first dictionary values contains the primary and verified email value.
         """
 
-        github_private_email = retrieve_github_user_email(token=github_token)
-        retrieved_private_email = github_private_email[0]
+        github_private_emails = retrieve_github_user_email(token=github_token)
+        retrieved_private_email = github_private_emails[0]
         email = retrieved_private_email.get("email")
 
     github_user_name = github_user.get("name")
