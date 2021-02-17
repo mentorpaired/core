@@ -44,9 +44,8 @@ class TestGithubOauth(unittest.TestCase):
                 "primary": True,
             }
         ]
-        primary_email_dict = github_user_email[0]
 
-        retrieve_github_user_email.return_value = primary_email_dict.get("email")
+        retrieve_github_user_email.return_value = github_user_email
 
         mock_data = {
             "client_id": "somerandomstring",
