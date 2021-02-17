@@ -43,20 +43,20 @@ def github_authenticate(request):
         retrieved_private_email = github_private_emails[0]
         email = retrieved_private_email.get("email")
 
-    github_user_name = github_user.get("name")
+    github_username = github_user.get("name")
 
     try:
         user = User.objects.get(email=github_user.get("email"))
     except User.DoesNotExist:
         user, created = User.objects.get_or_create(
-            username=github_user.get("name"),
+            username=github_username,
             avatar=github_user.get("avatar_url"),
             email=email,
             timezone=github_user.get("location"),
         )
 
     if user is None:
-        logging.error(f"Github account for {github_user_name} was not created.")
+        logging.error(f"Github account for {github_username} was not created.")
         raise exceptions.AuthenticationFailed("user not created")
 
     res = get_refresh_access_token(user)
