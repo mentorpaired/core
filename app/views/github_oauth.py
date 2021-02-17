@@ -46,7 +46,7 @@ def github_authenticate(request):
     github_username = github_user.get("name")
 
     try:
-        user = User.objects.get(email=github_user.get("email"))
+        user = User.objects.get(email=email)
     except User.DoesNotExist:
         user, created = User.objects.get_or_create(
             username=github_username,
