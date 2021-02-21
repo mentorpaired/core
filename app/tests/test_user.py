@@ -26,6 +26,29 @@ class TestUserViews(BaseTestCase):
         response = self.client.get("/users/10/")
         self.assertEqual(response.status_code, 404)
 
+    def test_cannot_create_new_user_without_email_field(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
+        response = self.client.post(
+            "/users/",
+            {
+                "role": [
+                    self.role.id,
+                ],
+                "username": "testuserx",
+                "about": "bio",
+                "avatar": "https://dummyavatars.githubcontent.com/u/3",
+                "pronoun": self.pronoun.id,
+                "skills": [
+                    self.skill.id,
+                ],
+                "spoken_languages": [
+                    self.spoken_language.id,
+                ],
+                "timezone": "Africa/Lagos",
+            },
+        )
+        self.assertEqual(response.status_code, 400)
+
     def test_create_new_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.post(
