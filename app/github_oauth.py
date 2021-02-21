@@ -61,7 +61,8 @@ def retrieve_github_user_info(token):
 
 def retrieve_github_user_email(token):
     """
-    using the access token returned by github, retrieve the user's info from the github api
+    using the access token returned by github, retrieve the user's private emails from
+    the github api.
     :token: access token generated from github
     """
     response = requests.get(
