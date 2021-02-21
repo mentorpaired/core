@@ -2,6 +2,7 @@ import pytz
 import uuid
 
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -39,6 +40,14 @@ class User(AbstractUser):
     availability = models.BooleanField(
         default=True, help_text="switch to false if you are not open to being matched"
     )
+
+    def clean(self):
+        if self.email == "" or self.email is None:
+            raise ValidationError(_("Email is required."))
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.username
