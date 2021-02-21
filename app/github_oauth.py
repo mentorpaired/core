@@ -57,3 +57,20 @@ def retrieve_github_user_info(token):
         headers={"Authorization": f"token {token}", "content-type": "application/json"},
     )
     return response.json()
+
+
+def retrieve_github_user_email(token):
+    """
+    using the access token returned by github, retrieve the user's private emails from
+    the github api.
+    :token: access token generated from github
+    """
+    response = requests.get(
+        "https://api.github.com/user/emails",
+        data={"token": token},
+        headers={
+            "Authorization": f"token {token}",
+            "Accept": "application/vnd.github.v3+json",
+        },
+    )
+    return response.json()

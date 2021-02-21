@@ -26,6 +26,29 @@ class TestUserViews(BaseTestCase):
         response = self.client.get("/users/10/")
         self.assertEqual(response.status_code, 404)
 
+    def test_cannot_create_new_user_without_email_field(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
+        response = self.client.post(
+            "/users/",
+            {
+                "role": [
+                    self.role.id,
+                ],
+                "username": "testuserx",
+                "about": "bio",
+                "avatar": "https://dummyavatars.githubcontent.com/u/3",
+                "pronoun": self.pronoun.id,
+                "skills": [
+                    self.skill.id,
+                ],
+                "spoken_languages": [
+                    self.spoken_language.id,
+                ],
+                "timezone": "Africa/Lagos",
+            },
+        )
+        self.assertEqual(response.status_code, 400)
+
     def test_create_new_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.post(
@@ -57,6 +80,7 @@ class TestUserViews(BaseTestCase):
             f"/users/{self.profile.user_id}/",
             {
                 "role": [self.role2.id],
+                "email": "testemail@testemail.com",
                 "username": "testusertwo",
                 "skills": [self.skill2.id],
                 "timezone": "Africa/Cairo",
@@ -64,6 +88,7 @@ class TestUserViews(BaseTestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["username"], "testusertwo")
+        self.assertEqual(response.data["email"], "testemail@testemail.com")
         self.assertEqual(response.data["role"], [self.role.id, self.role2.id])
         self.assertEqual(response.data["skills"], [self.skill.id, self.skill2.id]),
         self.assertEqual(response.data["timezone"], "Africa/Cairo")
