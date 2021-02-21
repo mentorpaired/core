@@ -88,6 +88,7 @@ class BaseTestCase(APITestCase):
 
         self.request_mentor = User.objects.create(
             username="Third user",
+            email="requestmentor@email.com",
             about="Random bio of third user",
             avatar="https://dummyavatars.githubcontent.com/u/0",
             pronoun=self.pronoun,
