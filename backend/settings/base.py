@@ -136,7 +136,12 @@ SIMPLE_JWT = {
 
 # Django CORS headers configuration
 # https://pypi.org/project/django-cors-headers/
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "http://127.0.0.1:3000"]
+CORS_ORIGIN_WHITELIST = [
+    "http://mentorpaired-staging.herokuapp.com",
+    "http://mentorpaired-staging-backend.herokuapp.com",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 CORS_ALLOW_CREDENTIALS = True
 
 # Django social auth configuration
