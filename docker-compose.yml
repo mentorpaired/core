@@ -1,34 +1,31 @@
-version: '3'
-services:
-  core_postgres:
-    image: postgres:12.2-alpine
-    container_name: core_postgres
-    restart: unless-stopped
-    ports:
-      - 5432
-    environment:
-      POSTGRES_DB: 'mentorpaired_core'
-      POSTGRES_PASSWORD: '@p@ssword'
-    volumes:
-      - postgres_db:/var/lib/postgresql
+version: "3"
 
-  core_app:
-    depends_on:
-      - core_postgres
-    image: python:3.7
+services:
+  db:
+    container_name: postgresdb
+    image: postgres:latest
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
     container_name: core_app
-    command: ./docker/scripts/start.sh
+    build: .
+    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
+    env_file:
+      - .env
     ports:
       - 8000:8000
-    env_file:
-      - ./docker/app.local.env
-    working_dir: /src
-    volumes:
-      - .:/src
-      - core_deps:/root/.local
+    depends_on:
+      - db
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - web
 
 volumes:
-  postgres_db:
-  core_deps:
-
-
+  postgres_data:

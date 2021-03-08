@@ -12,10 +12,9 @@ Core is written in Python3 and Django 3.0.3.
 
 #### Using docker-compose
 
-Run `docker-compose up` within the project directory to get the app started with Postgres included
-Additionally, you can also run `docker-compose run --rm core_app bash` to get a shell with the app configured. There you can run install or test commands as shown below
+- Run `$ docker-compose up -d --build` to build the container the first time. Run `$ docker-compose up -d` for subsequent start-ups. To stop the server, run `$ docker-compose down`.
 
-The .env file can be found in the docker directory as app.local.env
+- To create a super user within the docker container, run `$ docker-compose exec web python manage.py createsuperuser`.
 
 #### Ubuntu 18.04 Users
 
