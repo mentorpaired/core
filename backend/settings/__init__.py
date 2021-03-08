@@ -2,7 +2,8 @@
 
 import os
 from dotenv import load_dotenv
-import sys
+
+from backend.settings.env_validator import validate_env_vars
 
 load_dotenv()
 
@@ -14,7 +15,9 @@ elif os.getenv("GITHUB_WORKFLOW"):
 else:
     from .local import *
 
-if not os.getenv("SOCIAL_AUTH_GITLAB_KEY") and not os.getenv(
-    "SOCIAL_AUTH_GITLAB_SECRET"
-):
-    sys.exit("Exiting!")
+validate_env_vars(
+    "SOCIAL_AUTH_GITLAB_KEY",
+    "SOCIAL_AUTH_GITLAB_SECRET",
+    "SOCIAL_AUTH_GITHUB_KEY",
+    "SOCIAL_AUTH_GITHUB_SECRET",
+)
