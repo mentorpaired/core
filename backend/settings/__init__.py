@@ -14,10 +14,9 @@ elif os.getenv("GITHUB_WORKFLOW"):
     from .test import *
 else:
     from .local import *
-
-validate_env_vars(
-    "SOCIAL_AUTH_GITLAB_KEY",
-    "SOCIAL_AUTH_GITLAB_SECRET",
-    "SOCIAL_AUTH_GITHUB_KEY",
-    "SOCIAL_AUTH_GITHUB_SECRET",
-)
+    validate_env_vars(
+        "SOCIAL_AUTH_GITLAB_KEY",
+        "SOCIAL_AUTH_GITLAB_SECRET",
+        "SOCIAL_AUTH_GITHUB_KEY",
+        "SOCIAL_AUTH_GITHUB_SECRET",
+    )
