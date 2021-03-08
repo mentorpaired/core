@@ -2,6 +2,7 @@
 
 import os
 from dotenv import load_dotenv
+import sys
 
 load_dotenv()
 
@@ -12,3 +13,6 @@ elif os.getenv("GITHUB_WORKFLOW"):
     from .test import *
 else:
     from .local import *
+
+if not os.getenv("SOCIAL_AUTH_GITLAB_KEY"):
+    sys.exit("Exiting!")
