@@ -14,5 +14,7 @@ elif os.getenv("GITHUB_WORKFLOW"):
 else:
     from .local import *
 
-if not os.getenv("SOCIAL_AUTH_GITLAB_KEY"):
+if not os.getenv("SOCIAL_AUTH_GITLAB_KEY") and not os.getenv(
+    "SOCIAL_AUTH_GITLAB_SECRET"
+):
     sys.exit("Exiting!")
