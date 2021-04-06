@@ -71,9 +71,13 @@ class SkillProficiency(models.Model):
 
 
 class Skill(models.Model):
-    name = models.CharField(max_length=100, null=False, unique=True)
-
+    name = models.CharField(max_length=100, null=False)
     proficiency = models.ForeignKey(SkillProficiency, on_delete=models.CASCADE)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["name", "proficiency"], name="unique skill")
+        ]
 
     def __str__(self):
         return self.name
