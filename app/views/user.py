@@ -54,3 +54,12 @@ class UserDetail(APIView):
         user = self.get_object(pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class MentorUserList(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        mentors = User.objects.filter(role=2)
+        serializer = UserSerializer(mentors, many=True)
+        return Response(serializer.data)
