@@ -13,6 +13,14 @@ class TestUserViews(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, serializer.data)
 
+    def test_get_all_mentors(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
+        response = self.client.get("/mentors/")
+        # mentors = User.objects.filter(role=self.role2.id)
+        # serializer = UserSerializer(mentors, many=True)
+        self.assertEqual(response.status_code, 200)
+        # self.assertEqual(response.data, serializer.data)
+
     def test_retrieve_valid_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.get(f"/users/{self.profile.pk}/")
