@@ -1,3 +1,4 @@
+import logging
 from rest_framework.test import APIClient, APITestCase
 
 from ..models import (
@@ -15,6 +16,7 @@ from ..models import (
 
 class BaseTestCase(APITestCase):
     def setUp(self):
+        logging.disable(logging.CRITICAL)
 
         self.client = APIClient()
 
@@ -37,19 +39,25 @@ class BaseTestCase(APITestCase):
 
         self.token = self.admin_login.data["access"]
 
-        self.role = Role.objects.create(role="Test")
-        self.role2 = Role.objects.create(role="Test2")
-        self.pronoun = Pronoun.objects.create(pronoun="Test")
-        self.skillproficiency = SkillProficiency.objects.create(level="X")
-        self.skill = Skill.objects.create(
-            name="Test Programming Language", proficiency=self.skillproficiency
+        self.admin_role = Role.objects.create(role="ADMIN")
+        self.mentor_role = Role.objects.create(role="MENTOR")
+        self.mentee_role = Role.objects.create(role="MENTEE")
+        self.pronoun = Pronoun.objects.create(pronoun="She/Her")
+        self.beginner_skill_proficiency = SkillProficiency.objects.create(level="B")
+        self.intermediate_skill_proficiency = SkillProficiency.objects.create(level="I")
+        self.beginner_python = Skill.objects.create(
+            name="Python Beginner",
+            proficiency=self.beginner_skill_proficiency,
         )
-        self.skill2 = Skill.objects.create(
-            name="Another test programming language", proficiency=self.skillproficiency
+        self.intermediate_python = Skill.objects.create(
+            name="Intermediate Python",
+            proficiency=self.intermediate_skill_proficiency,
         )
-        self.languageproficiency = LanguageProficiency.objects.create(level="X")
+        self.native_language_proficiency = LanguageProficiency.objects.create(
+            level="NBP"
+        )
         self.spoken_language = SpokenLanguage.objects.create(
-            name="Test Spoken Language", proficiency=self.languageproficiency
+            name="English", proficiency=self.native_language_proficiency
         )
         self.profile = User.objects.create(
             username="testuser",
@@ -60,8 +68,8 @@ class BaseTestCase(APITestCase):
             website="www.test.com",
             timezone="Testcontinent/testcountry",
         )
-        self.profile.role.add(self.role.id)
-        self.profile.skills.add(self.skill.id)
+        self.profile.role.add(self.admin_role.id)
+        self.profile.skills.add(self.intermediate_python.id)
         self.profile.spoken_languages.add(self.spoken_language.id)
         self.profile.save()
 
@@ -74,13 +82,13 @@ class BaseTestCase(APITestCase):
             website="www.secondtestsite.com",
             timezone="Secondcontinent/secondcountry",
         )
-        self.request_mentee.role.add(self.role.id)
-        self.request_mentee.skills.add(self.skill2.id)
+        self.request_mentee.role.add(self.mentee_role.id)
+        self.request_mentee.skills.add(self.beginner_python.id)
         self.request_mentee.spoken_languages.add(self.spoken_language.id)
         self.request_mentee.save()
 
         self.request = Request.objects.create(
-            skill=self.skill2,
+            skill=self.intermediate_python,
             description="Short text about a request for mentorship",
             mentee=self.request_mentee,
             status="OPEN",
@@ -95,8 +103,9 @@ class BaseTestCase(APITestCase):
             website="www.thirdtestsite.com",
             timezone="Thirdcontinent/thirdcountry",
         )
-        self.request_mentor.role.add(self.role2.id)
-        self.request_mentor.skills.add(self.skill2.id)
+        self.request_mentor.role.add(self.mentor_role.id)
+        self.request_mentor.role.add(self.admin_role.id)
+        self.request_mentor.skills.add(self.intermediate_python.id)
         self.request_mentor.spoken_languages.add(self.spoken_language.id)
         self.request_mentor.save()
 
@@ -115,3 +124,5 @@ class BaseTestCase(APITestCase):
         User.objects.all().delete()
         Request.objects.all().delete()
         RequestInterest.objects.all().delete()
+
+        logging.disable(logging.NOTSET)
