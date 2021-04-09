@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
-from ..models import User
+from ..models import User, Role
 from ..serializers import UserSerializer
 
 
@@ -60,6 +60,7 @@ class MentorUserList(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        mentors = User.objects.filter(role=2)
+        mentor_role = Role.objects.get(role="MENTOR")
+        mentors = User.objects.filter(role=mentor_role.id)
         serializer = UserSerializer(mentors, many=True)
         return Response(serializer.data)
