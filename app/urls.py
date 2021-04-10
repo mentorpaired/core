@@ -27,7 +27,7 @@ from .views.skill import (
     SkillProficiencyDetail,
     SkillProficiencyList,
 )
-from .views.user import UserDetail, UserList
+from .views.user import UserDetail, UserList, MentorUserList
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -71,6 +71,7 @@ urlpatterns = [
     path("languages/<int:pk>/", LanguageDetail.as_view(), name="language_detail"),
     path("users/", UserList.as_view(), name="user_list"),
     path("users/<uuid:pk>/", UserDetail.as_view(), name="user_detail"),
+    path("mentors/", MentorUserList.as_view(), name="mentor_user"),
     path("github_auth/", github_authenticate),
     path("gitlab_auth/", gitlab_authenticate),
     path("requests/", RequestList.as_view(), name="request_list"),

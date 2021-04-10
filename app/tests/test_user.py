@@ -13,6 +13,14 @@ class TestUserViews(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, serializer.data)
 
+    def test_get_all_mentors(self):
+        self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
+        response = self.client.get("/mentors/")
+        mentors = User.objects.filter(role=self.mentor_role.id)
+        serializer = UserSerializer(mentors, many=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, serializer.data)
+
     def test_retrieve_valid_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.get(f"/users/{self.profile.pk}/")
@@ -32,14 +40,14 @@ class TestUserViews(BaseTestCase):
             "/users/",
             {
                 "role": [
-                    self.role.id,
+                    self.mentee_role.id,
                 ],
                 "username": "testuserx",
                 "about": "bio",
                 "avatar": "https://dummyavatars.githubcontent.com/u/3",
                 "pronoun": self.pronoun.id,
                 "skills": [
-                    self.skill.id,
+                    self.beginner_python.id,
                 ],
                 "spoken_languages": [
                     self.spoken_language.id,
@@ -55,7 +63,7 @@ class TestUserViews(BaseTestCase):
             "/users/",
             {
                 "role": [
-                    self.role.id,
+                    self.mentor_role.id,
                 ],
                 "username": "testuserone",
                 "email": "email@email.com",
@@ -63,7 +71,7 @@ class TestUserViews(BaseTestCase):
                 "avatar": "https://dummyavatars.githubcontent.com/u/2",
                 "pronoun": self.pronoun.id,
                 "skills": [
-                    self.skill.id,
+                    self.intermediate_python.id,
                 ],
                 "spoken_languages": [
                     self.spoken_language.id,
@@ -79,18 +87,23 @@ class TestUserViews(BaseTestCase):
         response = self.client.put(
             f"/users/{self.profile.user_id}/",
             {
-                "role": [self.role2.id],
+                "role": [self.mentee_role.id],
                 "email": "testemail@testemail.com",
                 "username": "testusertwo",
-                "skills": [self.skill2.id],
+                "skills": [self.beginner_python.id],
                 "timezone": "Africa/Cairo",
             },
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["username"], "testusertwo")
         self.assertEqual(response.data["email"], "testemail@testemail.com")
-        self.assertEqual(response.data["role"], [self.role.id, self.role2.id])
-        self.assertEqual(response.data["skills"], [self.skill.id, self.skill2.id]),
+        self.assertEqual(
+            response.data["role"], [self.admin_role.id, self.mentee_role.id]
+        )
+        self.assertEqual(
+            response.data["skills"],
+            [self.beginner_python.id, self.intermediate_python.id],
+        ),
         self.assertEqual(response.data["timezone"], "Africa/Cairo")
 
     def test_delete_single_user(self):

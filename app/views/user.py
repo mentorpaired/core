@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
-from ..models import User
+from ..models import User, Role
 from ..serializers import UserSerializer
 
 
@@ -54,3 +54,13 @@ class UserDetail(APIView):
         user = self.get_object(pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class MentorUserList(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        mentor_role = Role.objects.get(role="MENTOR")
+        mentors = User.objects.filter(role=mentor_role.id)
+        serializer = UserSerializer(mentors, many=True)
+        return Response(serializer.data)

@@ -31,7 +31,7 @@ class TestRequestViews(BaseTestCase):
             "/requests/",
             {
                 "skill": [
-                    self.skill.id,
+                    self.beginner_python.id,
                 ],
                 "description": "Random description",
                 "mentee": [
@@ -61,12 +61,12 @@ class TestRequestViews(BaseTestCase):
         response = self.client.put(
             f"/requests/{self.request.id}/",
             {
-                "skill": self.skill.id,
+                "skill": self.intermediate_python.id,
             },
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["mentee"], self.request_mentee.pk)
-        self.assertEqual(response.data["skill"], self.skill.id)
+        self.assertEqual(response.data["skill"], self.intermediate_python.id)
 
     def test_can_delete_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
