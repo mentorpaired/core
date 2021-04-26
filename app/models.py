@@ -24,6 +24,7 @@ class Pronoun(models.Model):
 class User(AbstractUser):
     user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(_("email address"), unique=True, blank=False, null=False)
+    title = models.CharField(max_length=200, blank=True, null=True)
     role = models.ManyToManyField("Role", related_name="roles")
     about = models.TextField(max_length=1000, help_text="a brief description of you")
     avatar = models.URLField(null=True, blank=True)
@@ -37,6 +38,7 @@ class User(AbstractUser):
     website = models.URLField(max_length=200, blank=True)
 
     timezone = models.CharField(max_length=300, choices=timezone())
+    location = models.CharField(max_length=200, blank=True, null=True)
     availability = models.BooleanField(
         default=True, help_text="switch to false if you are not open to being matched"
     )
