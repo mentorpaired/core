@@ -32,7 +32,7 @@ class TestGithubOauth(unittest.TestCase):
             "user_id": "id1",
             "name": "test",
             "avatar_url": "https://dummyavatar.com/v0",
-            "location": "CEST",
+            "location": "Lagos, Nigeria",
         }
 
         retrieve_github_user_info.return_value = github_user
@@ -67,19 +67,21 @@ class TestGithubOauth(unittest.TestCase):
                 "user_id": "id1",
                 "name": "test",
                 "avatar_url": "https://dummyavatar.com/v0",
-                "location": "CEST",
+                "location": "Lagos, Nigeria",
             },
             "user": {
                 "user_id": user.get("user_id"),
                 "username": "test",
                 "email": "test@test.com",
+                "title": None,
                 "role": [],
                 "about": "",
                 "avatar": "https://dummyavatar.com/v0",
                 "skills": [],
                 "pronoun": None,
                 "spoken_languages": [],
-                "timezone": "CEST",
+                "timezone": "",
+                "location": "Lagos, Nigeria",
                 "availability": True,
             },
         }
