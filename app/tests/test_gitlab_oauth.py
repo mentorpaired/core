@@ -31,6 +31,7 @@ class TestGitlabOauth(unittest.TestCase):
             "name": "gitlab_test",
             "avatar_url": "https://secure.gravatar.com/avatar/v0",
             "email": "gitlabtest@test.com",
+            "location": "Lagos, Nigeria",
         }
 
         retrieve_gitlab_user_info.return_value = gitlab_user
@@ -58,11 +59,13 @@ class TestGitlabOauth(unittest.TestCase):
                 "name": "gitlab_test",
                 "avatar_url": "https://secure.gravatar.com/avatar/v0",
                 "email": "gitlabtest@test.com",
+                "location": "Lagos, Nigeria",
             },
             "user": {
                 "user_id": user.get("user_id"),
                 "username": "gitlab_test",
                 "email": "gitlabtest@test.com",
+                "title": None,
                 "role": [],
                 "about": "",
                 "avatar": "https://secure.gravatar.com/avatar/v0",
@@ -70,6 +73,7 @@ class TestGitlabOauth(unittest.TestCase):
                 "pronoun": None,
                 "spoken_languages": [],
                 "timezone": "",
+                "location": "Lagos, Nigeria",
                 "availability": True,
             },
         }

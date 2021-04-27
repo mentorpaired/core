@@ -38,6 +38,7 @@ def gitlab_authenticate(request):
             username=gitlab_username,
             avatar=gitlab_user.get("avatar_url"),
             email=gitlab_user.get("email"),
+            location=gitlab_user.get("location"),
         )
 
     if user is None:

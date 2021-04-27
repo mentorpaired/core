@@ -52,7 +52,7 @@ def github_authenticate(request):
             username=github_username,
             avatar=github_user.get("avatar_url"),
             email=email,
-            timezone=github_user.get("location"),
+            location=github_user.get("location"),
         )
 
     if user is None:

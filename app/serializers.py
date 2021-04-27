@@ -56,6 +56,7 @@ class UserSerializer(serializers.ModelSerializer):
             "user_id",
             "username",
             "email",
+            "title",
             "role",
             "about",
             "avatar",
@@ -63,6 +64,7 @@ class UserSerializer(serializers.ModelSerializer):
             "pronoun",
             "spoken_languages",
             "timezone",
+            "location",
             "availability",
         ]
 
@@ -86,9 +88,11 @@ class UserSerializer(serializers.ModelSerializer):
 
         instance.username = validated_data.get("username", instance.username)
         instance.email = email
+        instance.title = validated_data.get("title", instance.title)
         instance.about = validated_data.get("about", instance.about)
         instance.pronoun = validated_data.get("pronoun", instance.pronoun)
         instance.timezone = validated_data.get("timezone", instance.timezone)
+        instance.location = validated_data.get("location", instance.location)
         instance.availability = validated_data.get(
             "availability", instance.availability
         )
