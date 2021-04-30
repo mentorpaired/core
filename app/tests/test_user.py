@@ -80,7 +80,7 @@ class TestUserViews(BaseTestCase):
             },
         )
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(User.objects.count(), 5)
+        self.assertEqual(User.objects.count(), 6)
 
     def test_update_fields_in_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
