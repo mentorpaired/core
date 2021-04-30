@@ -7,6 +7,7 @@ from app.models import (
     RequestInterest,
     Role,
     Skill,
+    Goal,
     SkillProficiency,
     SpokenLanguage,
     User,
@@ -29,6 +30,21 @@ class SkillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Skill
         fields = ["id", "name", "proficiency"]
+
+
+class GoalSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source="user.username")
+
+    class Meta:
+        model = Goal
+        fields = ["user", "goal", "description"]
+
+    def update(self, instance, validated_data):
+        instance.goal = validated_data.get("goal", instance.goal)
+        instance.description = validated_data.get("description", instance.description)
+
+        instance.save()
+        return instance
 
 
 class LanguageProficiencySerializer(serializers.ModelSerializer):
