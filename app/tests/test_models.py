@@ -4,6 +4,7 @@ from ..models import (
     RequestInterest,
     Role,
     Skill,
+    Goal,
     SpokenLanguage,
     User,
 )
@@ -28,7 +29,7 @@ class TestCreateModels(BaseTestCase):
         self.assertEqual(self.pronoun.pronoun, "She/Her")
 
     def test_user_is_created(self):
-        self.assertEqual(User.objects.count(), 4)
+        self.assertEqual(User.objects.count(), 5)
         self.assertTrue(hasattr(self.profile, "skills"), True)
         self.assertTrue(self.profile.skills, self.beginner_python.id)
 
@@ -41,3 +42,8 @@ class TestCreateModels(BaseTestCase):
         self.assertEqual(RequestInterest.objects.count(), 1)
         self.assertTrue(hasattr(self.request_interest, "mentor"), True)
         self.assertTrue(self.request_interest.status, "OPEN")
+
+    def test_goal_is_created(self):
+        self.assertEqual(Goal.objects.count(), 1)
+        self.assertTrue(hasattr(self.goal, "goal"), True)
+        self.assertTrue(self.goal.goal, "Learn TypeScript")
