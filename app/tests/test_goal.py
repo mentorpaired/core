@@ -72,7 +72,7 @@ class TestGoalsView(BaseTestCase):
         response = self.client.delete(f"/goals/{self.goal.id}/")
         self.assertEqual(response.status_code, 403)
 
-    def test_admin_can_delete_gial(self):
+    def test_admin_can_delete_goal(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.delete(f"/goals/{self.goal.id}/")
         self.assertEqual(response.status_code, 204)
