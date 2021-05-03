@@ -18,7 +18,11 @@ from .views.language import (
     LanguageProficiencyDetail,
     LanguageProficiencyList,
 )
+
+from .views.role import RoleList, RoleDetail
+
 from .views.request import RequestDetail, RequestList
+
 from .views.requests_interests import (
     MentorRequestInterest,
     RequestInterestDetail,
@@ -95,4 +99,6 @@ urlpatterns = [
         name="mentor_interest_detail",
     ),
     path("users/<uuid:pk>/goals/", RetrieveUserGoal.as_view(), name="users_goals"),
+    path("role/", RoleList.as_view(), name="role_list"),
+    path("role/<int:pk>/", RoleDetail.as_view(), name="role_detail"),
 ]

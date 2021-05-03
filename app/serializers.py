@@ -17,7 +17,7 @@ from app.models import (
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
-        fields = ["role"]
+        fields = ["id", "role"]
 
 
 class SkillProficiencySerializer(serializers.ModelSerializer):
