@@ -99,6 +99,6 @@ urlpatterns = [
         name="mentor_interest_detail",
     ),
     path("users/<uuid:pk>/goals/", RetrieveUserGoal.as_view(), name="users_goals"),
-    path("role/", RoleList.as_view(), name="role_list"),
-    path("role/<int:pk>/", RoleDetail.as_view(), name="role_detail"),
+    path("roles/", RoleList.as_view(), name="role_list"),
+    path("roles/<int:pk>/", RoleDetail.as_view(), name="role_detail"),
 ]
