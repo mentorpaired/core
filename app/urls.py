@@ -1,13 +1,16 @@
-from django.urls import path
+from django.urls import path, include
 
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
 from rest_framework import permissions
+from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from .views.github_oauth import github_authenticate
 from .views.gitlab_oauth import gitlab_authenticate
+
+from .views.goal import GoalViewSet, RetrieveUserGoal
 
 from .views.language import (
     LanguageDetail,
@@ -41,7 +44,11 @@ schema_view = get_schema_view(
     permission_classes=[permissions.AllowAny],
 )
 
+router = DefaultRouter()
+router.register(r"goals", GoalViewSet, basename="goals")
+
 urlpatterns = [
+    path("", include(router.urls)),
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path(
@@ -87,4 +94,5 @@ urlpatterns = [
         MentorRequestInterest.as_view(),
         name="mentor_interest_detail",
     ),
+    path("users/<uuid:pk>/goals/", RetrieveUserGoal.as_view(), name="users_goals"),
 ]

@@ -85,6 +85,15 @@ class Skill(models.Model):
         return self.name
 
 
+class Goal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    goal = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000, null=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s goal."
+
+
 class LanguageProficiency(models.Model):
     PROFICIENCY = [
         ("NP", "No Proficiency"),

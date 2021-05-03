@@ -8,6 +8,7 @@ from ..models import (
     RequestInterest,
     Role,
     Skill,
+    Goal,
     SkillProficiency,
     SpokenLanguage,
     User,
@@ -23,6 +24,9 @@ class BaseTestCase(APITestCase):
         self.admin = User.objects.create_superuser(
             username="test", email="test@test.com", password="testpassword"
         )
+        self.second_admin = User.objects.create_superuser(
+            username="second admin", email="test2@test2.com", password="test2password"
+        )
 
         self.assertEqual(self.admin.is_active, 1, "Active User")
 
@@ -35,9 +39,15 @@ class BaseTestCase(APITestCase):
             format="json",
         )
 
+        self.second_admin_login = self.client.post(
+            "/api/token/", {"username": "second admin", "password": "test2password"}
+        )
+
         self.assertEqual(self.admin_login.status_code, 200)
+        self.assertEqual(self.second_admin_login.status_code, 200)
 
         self.token = self.admin_login.data["access"]
+        self.second_token = self.second_admin_login.data["access"]
 
         self.admin_role = Role.objects.create(role="ADMIN")
         self.mentor_role = Role.objects.create(role="MENTOR")
@@ -114,6 +124,12 @@ class BaseTestCase(APITestCase):
             mentor=self.profile,
             description="Short description about mentor's interest",
             status="OPEN",
+        )
+
+        self.goal = Goal.objects.create(
+            user=self.admin,
+            goal="Learn TypeScript",
+            description="Need a mentor, I'm trying to learn the advanced topics of TypeScript.",
         )
 
     def tearDown(self):

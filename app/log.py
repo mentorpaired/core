@@ -5,6 +5,7 @@ from app import github_oauth, gitlab_oauth
 from app.views import (
     github_oauth as gh_auth,
     gitlab_oauth as gl_auth,
+    goal,
     request,
     requests_interests,
     user,
@@ -42,6 +43,7 @@ def main():
     gitlab_oauth.generate_gitlab_access_token()
     gh_auth.github_authenticate()
     gl_auth.gitlab_authenticate()
+    goal.RetrieveUserGoal()
     request.RequestDetail()
     requests_interests.MentorRequestInterest()
     requests_interests.RequestInterestDetail()
