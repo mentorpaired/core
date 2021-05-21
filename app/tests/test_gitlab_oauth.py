@@ -44,7 +44,7 @@ class TestGitlabOauth(unittest.TestCase):
             "redirect_uri": "http://test:3000/testing",
         }
 
-        response = self.client.post("/gitlab_auth/", data=mock_data)
+        response = self.client.post("/gitlab_auth", data=mock_data)
         assert response.status_code == 201
 
         content = json.loads(response.content)

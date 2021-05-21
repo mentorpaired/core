@@ -31,7 +31,7 @@ class BaseTestCase(APITestCase):
         self.assertEqual(self.admin.is_active, 1, "Active User")
 
         self.admin_login = self.client.post(
-            "/api/token/",
+            "/api/token",
             {
                 "username": "test",
                 "password": "testpassword",
@@ -40,7 +40,7 @@ class BaseTestCase(APITestCase):
         )
 
         self.second_admin_login = self.client.post(
-            "/api/token/", {"username": "second admin", "password": "test2password"}
+            "/api/token", {"username": "second admin", "password": "test2password"}
         )
 
         self.assertEqual(self.admin_login.status_code, 200)

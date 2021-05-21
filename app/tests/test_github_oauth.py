@@ -53,7 +53,7 @@ class TestGithubOauth(unittest.TestCase):
             "code": "arandomstring01",
         }
 
-        byte_response = self.client.post("/github_auth/", data=mock_data)
+        byte_response = self.client.post("/github_auth", data=mock_data)
         assert byte_response.status_code == 201
 
         content = json.loads(byte_response.content)

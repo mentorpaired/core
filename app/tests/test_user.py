@@ -7,7 +7,7 @@ from .base import BaseTestCase
 class TestUserViews(BaseTestCase):
     def test_get_all_users(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.get("/users/")
+        response = self.client.get("/users")
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         self.assertEqual(response.status_code, 200)
@@ -15,7 +15,7 @@ class TestUserViews(BaseTestCase):
 
     def test_get_all_mentors(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.get("/mentors/")
+        response = self.client.get("/mentors")
         mentors = User.objects.filter(role=self.mentor_role.id)
         serializer = UserSerializer(mentors, many=True)
         self.assertEqual(response.status_code, 200)
@@ -23,7 +23,7 @@ class TestUserViews(BaseTestCase):
 
     def test_retrieve_valid_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.get(f"/users/{self.profile.pk}/")
+        response = self.client.get(f"/users/{self.profile.pk}")
         user = User.objects.get(pk=self.profile.user_id)
         serializer = UserSerializer(user)
         self.assertEqual(response.data, serializer.data)
@@ -31,13 +31,13 @@ class TestUserViews(BaseTestCase):
 
     def test_retrieve_invalid_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.get("/users/10/")
+        response = self.client.get("/users/10")
         self.assertEqual(response.status_code, 404)
 
     def test_cannot_create_new_user_without_email_field(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.post(
-            "/users/",
+            "/users",
             {
                 "role": [
                     self.mentee_role.id,
@@ -60,7 +60,7 @@ class TestUserViews(BaseTestCase):
     def test_create_new_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.post(
-            "/users/",
+            "/users",
             {
                 "role": [
                     self.mentor_role.id,
@@ -85,7 +85,7 @@ class TestUserViews(BaseTestCase):
     def test_update_fields_in_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.put(
-            f"/users/{self.profile.user_id}/",
+            f"/users/{self.profile.user_id}",
             {
                 "role": [self.mentee_role.id],
                 "email": "testemail@testemail.com",
@@ -108,5 +108,5 @@ class TestUserViews(BaseTestCase):
 
     def test_delete_single_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.delete(f"/users/{self.profile.user_id}/")
+        response = self.client.delete(f"/users/{self.profile.user_id}")
         self.assertEqual(response.status_code, 204)
