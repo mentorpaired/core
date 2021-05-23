@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     "corsheaders",
     # DRF-YASG required app
     "drf_yasg",
+    # JWT blacklist required app
+    "rest_framework_simplejwt.token_blacklist",
 ]
 
 MIDDLEWARE = [
@@ -128,7 +130,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=480),
-    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=262800),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,
     "USER_ID_FIELD": "user_id",
