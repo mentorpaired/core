@@ -6,7 +6,7 @@ from .base import BaseTestCase
 class TestRequestViews(BaseTestCase):
     def test_get_all_requests(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.get("/requests/")
+        response = self.client.get("/requests")
         requests = Request.objects.all()
         serializer = RequestSerializer(requests, many=True)
         self.assertEqual(response.status_code, 200)
@@ -14,7 +14,7 @@ class TestRequestViews(BaseTestCase):
 
     def test_retrieve_valid_single_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.get(f"/requests/{self.request.id}/")
+        response = self.client.get(f"/requests/{self.request.id}")
         request = Request.objects.get(id=self.request.id)
         serializer = RequestSerializer(request)
         self.assertEqual(response.status_code, 200)
@@ -22,13 +22,13 @@ class TestRequestViews(BaseTestCase):
 
     def test_retrieve_invalid_single_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.get("/requests/random_id/")
+        response = self.client.get("/requests/random_id")
         self.assertEqual(response.status_code, 404)
 
     def test_can_create_new_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.post(
-            "/requests/",
+            "/requests",
             {
                 "skill": [
                     self.beginner_python.id,
@@ -46,7 +46,7 @@ class TestRequestViews(BaseTestCase):
     def test_cannot_create_invalid_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.post(
-            "/requests/",
+            "/requests",
             {
                 "skill": "",
                 "description": "Another random description",
@@ -59,7 +59,7 @@ class TestRequestViews(BaseTestCase):
     def test_can_update_field_in_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
         response = self.client.put(
-            f"/requests/{self.request.id}/",
+            f"/requests/{self.request.id}",
             {
                 "skill": self.intermediate_python.id,
             },
@@ -70,5 +70,5 @@ class TestRequestViews(BaseTestCase):
 
     def test_can_delete_request(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.token)
-        response = self.client.delete(f"/requests/{self.request.id}/")
+        response = self.client.delete(f"/requests/{self.request.id}")
         self.assertEqual(response.status_code, 204)
