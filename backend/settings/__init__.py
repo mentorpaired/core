@@ -14,8 +14,6 @@ env_vars = [
     "SOCIAL_AUTH_GITHUB_SECRET",
     "ACCESS_TOKEN_LIFETIME",
     "REFRESH_TOKEN_LIFETIME",
-    "ROTATE_REFRESH_TOKENS",
-    "BLACKLIST_AFTER_ROTATION",
 ]
 
 # Ensure development settings are not used in testing and production:
