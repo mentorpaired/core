@@ -43,6 +43,8 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
+          ACCESS_TOKEN_LIFETIME: ${{ secrets.ACCESS_TOKEN_LIFETIME }}
+          REFRESH_TOKEN_LIFETIME: ${{ secrets.REFRESH_TOKEN_LIFETIME }}
         run: |
           python manage.py migrate
 
@@ -53,6 +55,8 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ACCESS_TOKEN_LIFETIME: ${{ secrets.ACCESS_TOKEN_LIFETIME }}
+          REFRESH_TOKEN_LIFETIME: ${{ secrets.REFRESH_TOKEN_LIFETIME }}
         run: |
           coverage run manage.py test
           coveralls

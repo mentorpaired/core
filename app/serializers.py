@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 
 from app.models import (
     LanguageProficiency,
@@ -149,3 +150,10 @@ class RequestInterestSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get("status", instance.status)
         instance.save()
         return instance
+
+
+class CustomTokenRefreshSerializer(TokenRefreshSerializer):
+    def validate(self, attrs):
+        data = super(CustomTokenRefreshSerializer, self).validate(attrs)
+        data.update({"refresh": attrs["refresh"]})
+        return data

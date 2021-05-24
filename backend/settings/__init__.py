@@ -12,6 +12,8 @@ env_vars = [
     "SOCIAL_AUTH_GITLAB_SECRET",
     "SOCIAL_AUTH_GITHUB_KEY",
     "SOCIAL_AUTH_GITHUB_SECRET",
+    "ACCESS_TOKEN_LIFETIME",
+    "REFRESH_TOKEN_LIFETIME",
 ]
 
 # Ensure development settings are not used in testing and production:

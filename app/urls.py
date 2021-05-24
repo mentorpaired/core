@@ -5,12 +5,14 @@ from drf_yasg.views import get_schema_view
 
 from rest_framework import permissions
 from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .views.github_oauth import github_authenticate
 from .views.gitlab_oauth import gitlab_authenticate
 
 from .views.goal import GoalViewSet, RetrieveUserGoal
+
+from .views.custom_jwt import CustomTokenRefreshView
 
 from .views.language import (
     LanguageDetail,
@@ -54,7 +56,7 @@ router.register(r"goals", GoalViewSet, basename="goals")
 urlpatterns = [
     path("", include(router.urls)),
     path("api/token", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/token/refresh", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/token/refresh", CustomTokenRefreshView.as_view(), name="token_refresh"),
     path(
         "api/mentorpaired/docs",
         schema_view.with_ui("swagger", cache_timeout=0),
